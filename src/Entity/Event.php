@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,6 +68,38 @@ class Event
      * @ORM\Column(type="string", length=128)
      */
     private $region;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
+     */
+    private $artist;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Organizer::class, inversedBy="events")
+     */
+    private $organizer;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $updatedAt;
+
+    public function __construct()
+    {
+        $this->artist = new ArrayCollection();
+        $this->organizer = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -188,6 +222,90 @@ class Event
     public function setRegion(string $region): self
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artist>
+     */
+    public function getArtist(): Collection
+    {
+        return $this->artist;
+    }
+
+    public function addArtist(Artist $artist): self
+    {
+        if (!$this->artist->contains($artist)) {
+            $this->artist[] = $artist;
+        }
+
+        return $this;
+    }
+
+    public function removeArtist(Artist $artist): self
+    {
+        $this->artist->removeElement($artist);
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Organizer>
+     */
+    public function getOrganizer(): Collection
+    {
+        return $this->organizer;
+    }
+
+    public function addOrganizer(Organizer $organizer): self
+    {
+        if (!$this->organizer->contains($organizer)) {
+            $this->organizer[] = $organizer;
+        }
+
+        return $this;
+    }
+
+    public function removeOrganizer(Organizer $organizer): self
+    {
+        $this->organizer->removeElement($organizer);
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

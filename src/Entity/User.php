@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Organizer::class, inversedBy="user", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organizer;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Artist::class, inversedBy="user", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $artist;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Stockage::class, mappedBy="user")
+     */
+    private $stockages;
+
+    public function __construct()
+    {
+        $this->stockages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,5 +146,59 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getOrganizer(): ?Organizer
+    {
+        return $this->organizer;
+    }
+
+    public function setOrganizer(Organizer $organizer): self
+    {
+        $this->organizer = $organizer;
+
+        return $this;
+    }
+
+    public function getArtist(): ?Artist
+    {
+        return $this->artist;
+    }
+
+    public function setArtist(Artist $artist): self
+    {
+        $this->artist = $artist;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stockage>
+     */
+    public function getStockages(): Collection
+    {
+        return $this->stockages;
+    }
+
+    public function addStockage(Stockage $stockage): self
+    {
+        if (!$this->stockages->contains($stockage)) {
+            $this->stockages[] = $stockage;
+            $stockage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStockage(Stockage $stockage): self
+    {
+        if ($this->stockages->removeElement($stockage)) {
+            // set the owning side to null (unless already changed)
+            if ($stockage->getUser() === $this) {
+                $stockage->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -32,6 +32,12 @@ class Stockage
      */
     private $document;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stockages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +75,18 @@ class Stockage
     public function setDocument(?string $document): self
     {
         $this->document = $document;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
