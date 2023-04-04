@@ -19,3 +19,5 @@ class ArtistController extends AbstractController
         ]);
     }
 }
+
+// test
