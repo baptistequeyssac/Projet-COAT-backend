@@ -62,6 +62,11 @@ class Event
      */
     private $frequency;
 
+    /**
+     * @ORM\Column(type="string", length=128)
+     */
+    private $region;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +176,18 @@ class Event
     public function setFrequency(?string $frequency): self
     {
         $this->frequency = $frequency;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(string $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
