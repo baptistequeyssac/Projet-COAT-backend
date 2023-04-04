@@ -1,6 +1,6 @@
 {
   "width": 696,
-  "height": 652,
+  "height": 661,
   "cx": [
     [ "has1", 349 ],
     [ "Category", 454 ],
@@ -21,19 +21,19 @@
   "cy": [
     [ "has1", 43 ],
     [ "Category", 43 ],
-    [ "has2", 212 ],
-    [ "Artist", 212 ],
-    [ "is1", 212 ],
-    [ "Type", 381 ],
-    [ "has4", 381 ],
-    [ "Event", 381 ],
-    [ "add_by", 381 ],
-    [ "User", 381 ],
-    [ "has3", 381 ],
-    [ "Stockage", 381 ],
-    [ "create_by", 550 ],
-    [ "Organizer", 550 ],
-    [ "is2", 550 ]
+    [ "has2", 221 ],
+    [ "Artist", 221 ],
+    [ "is1", 221 ],
+    [ "Type", 390 ],
+    [ "has4", 390 ],
+    [ "Event", 390 ],
+    [ "add_by", 390 ],
+    [ "User", 390 ],
+    [ "has3", 390 ],
+    [ "Stockage", 390 ],
+    [ "create_by", 559 ],
+    [ "Organizer", 559 ],
+    [ "is2", 559 ]
   ],
   "shift": [
     [ "has1,Artist,0", 0 ],
