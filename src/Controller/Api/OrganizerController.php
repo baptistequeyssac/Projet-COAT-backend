@@ -2,13 +2,18 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Organizer;
 use App\Repository\OrganizerRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class OrganizerController extends AbstractController
 {
@@ -129,9 +134,67 @@ class OrganizerController extends AbstractController
     );
 }
 
+    /**
+     * @Route("/api/organizer/{id}", name="app_api_organizer_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
+     */
+    public function edit(
+        Organizer $organizer = null, 
+        Request $request, 
+        SerializerInterface $serializer, 
+        EntityManagerInterface $entityManager,
+        ValidatorInterface $validator
+        )
+    {
+        // We modify an entity
+        // Route parameter
+        if ($organizer === null){
+        // paramConverter didn't find entity: 404
+        return $this->json("Organizer non trouvé", Response::HTTP_NOT_FOUND);
+    }
+    // Request information
+    $jsonContent = $request->getContent();
 
+    // deserialize
+    try {
+        $serializer->deserialize(
+            $jsonContent,
+            Organizer::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $organizer]
+        );
+    } catch (\Throwable $e){
+        // Warn the utilisator
+        return $this->json(
+            $e->getMessage(),
+            // code http : 422
+            Response::HTTP_UNPROCESSABLE_ENTITY
 
+        );
+    }
+    // We use a serializer option to update our entity
 
+    // We validate data before persist/flush
+    $listError = $validator->validate($organizer);
+
+    if (count($listError) >0) {
+        return $this ->json(
+            $listError,
+            //code http : 422
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    // Here, $organizer has been modified
+    $entityManager->flush();
+
+    // Return json
+    return $this->json(
+        // No data to return, it's an update
+        null,
+        //code http: 204
+        Response::HTTP_NO_CONTENT
+    );
+}
 
 
 
