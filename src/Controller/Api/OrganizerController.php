@@ -229,7 +229,7 @@ public function read(Organizer $organizer = null)
 }
 
 /**
- * @Route("/api/genres/{id}", name="app_api_organizer_delete", requirements={"id"="\d+"}, methods={"DELETE"})
+ * @Route("/api/organizers/{id}", name="app_api_organizer_delete", requirements={"id"="\d+"}, methods={"DELETE"})
  */
 public function delete(Organizer $organizer = null, OrganizerRepository $organizerRepository)
 {

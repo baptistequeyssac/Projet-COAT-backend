@@ -10,6 +10,6 @@ Content-Type: application/json
     "bio": "trucbidulechose lorem blablabalbalb",
     "email": "testtest.com",
     "phone": 0664846445,
-    "region": "BFC",
+    "region": "Nouvelle-Aquitaine",
     "adress": "5 rue machin du truc"
 }

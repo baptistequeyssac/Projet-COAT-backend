@@ -8,18 +8,18 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
 
 class EventController extends AbstractController
 {
     /**
-     * @Route("/api/events", name="app_api_event", methods={"GET"})
+     * @Route("/api/event", name="app_api_event", methods={"GET"})
      * 
      *  @OA\Response(
      *     response=200,
@@ -51,7 +51,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/api/event", name="app_api_event_add", methods={"POST"})
+     * @Route("/api/events", name="app_api_event_add", methods={"POST"})
      * 
      * @OA\RequestBody(
      *     @Model(type=EventType::class)
@@ -71,14 +71,13 @@ class EventController extends AbstractController
      * )
      */
 
-     //* Add an ev
+     //* Add an event
     public function add(
         Request $request,
         SerializerInterface $serializer, 
         EventRepository $eventRepository,
         ValidatorInterface $validator
         )
-
     {
 
     //* Collect information from the front
@@ -136,7 +135,7 @@ class EventController extends AbstractController
 }
 
     /**
-     * @Route("/api/event/{id}", name="app_api_event_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
+     * @Route("/api/events/{id}", name="app_api_event_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
      */
     public function edit(
         Event $event = null, 
@@ -229,7 +228,7 @@ public function read(Event $event = null)
 }
 
 /**
- * @Route("/api/genres/{id}", name="app_api_event_delete", requirements={"id"="\d+"}, methods={"DELETE"})
+ * @Route("/api/events/{id}", name="app_api_event_delete", requirements={"id"="\d+"}, methods={"DELETE"})
  */
 public function delete(Event $event = null, EventRepository $eventRepository)
 {
