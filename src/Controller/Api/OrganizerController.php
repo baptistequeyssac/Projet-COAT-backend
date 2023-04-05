@@ -196,31 +196,77 @@ class OrganizerController extends AbstractController
     );
 }
 
+/**
+ *  @Route("/api/organizers/{id}", name="app_api_organizer_read, requirements={"id"="\d+"}, methods="GET"})
+ */
+public function read(Organizer $organizer = null)
+{
+    //if the user provided a wrong ID, I give a 404 error http
+    if ($organizer === null) {
+        return $this->json(
+            [
+                "message" => "cet organisateur n'existe pas"
+            ],
+            // error http 404
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    return $this->json(
+        $organizer,
+        Response::HTTP_FOUND,
+        [],
+        [
+            "groups" =>
+            [
+                "organizer_read",
+                "event_read"
+                "artist_read"
+            ]
+        ]
+    )
+}
+
+/**
+ * @Route("/api/genres/{id}", name="app_api_organizer_delete", requirements={"id"="\d+"}, methods={"DELETE"})
+ */
+public function delete(Organizer $organizer = null, OrganizerRepository $organizerRepository)
+{
+    // entity to delete: route parameter
+    if ($organizer === null){
+        // paramConverter didn't find entity : error http 404
+        return $this->json("Organizer non trouvé" , Response::HTTP_NOT_FOUND); 
+    }
+
+    // No JSON, no validation of data
+    // Delet
+    $organizerRepository->remove($organizer, true);
+
+    // Will still return a code
+    return $this->json(
+        null,
+        Response::HTTP_NO_CONTENT
+    );
+
+}
 
 
+/**
+ * @Route("/api/organizers/{id}/events", name="app_api_events_by_organizer", requirements={"id"="\d+"}, methods={"GET})
+ */
+public function eventsByOrganizer()
+{
+
+}
 
 
+/**
+ * @Route("/api/organizerq/{id}/artists", name="app_api_artists_by_organizer", requirements={"id"="\d+"},methods={"GET})
+ */
+public function artistsByOrganizer()
+{
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 }
 
