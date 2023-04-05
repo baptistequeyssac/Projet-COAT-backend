@@ -94,4 +94,7 @@ student@teleporter:/var/www/html/Apotheose/projet-01-comedy-among-other-things-b
  // Clearing the cache for the dev environment with debug true                                                          
 
                                                                                                                         
- [OK] Cache for the "dev" environment (debug=true) was successfully cleared.                                            
+ [OK] Cache for the "dev" environment (debug=true) was successfully cleared.     
+ 
+ //* php bin/console cache:clear --no-optional-warmers
+ // la commande "php bin/console cache:clear --no-optional-warmers" efface le cache de l'application Symfony tout en désactivant l'exécution des "warmers" optionnels pour accélérer le processus de nettoyage du cache.
