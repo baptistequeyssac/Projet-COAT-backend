@@ -8,8 +8,10 @@ Content-Type: application/json
     "birthdate": "1999-01-01",
     "image": "zezetzetzt",
     "bio": "trucbidulechose lorem blablabalbalb",
-    "email": "testtest.com",
+    "email": "test@test.com",
     "phone": 0664846445,
-    "region": "Nouvelle-Aquitaine",
-    "adress": "5 rue machin du truc"
+    "adress": "5 rue machin du truc",
+    "createdAt": "2023-04-05",
+    "region_id": 2
+    
 }

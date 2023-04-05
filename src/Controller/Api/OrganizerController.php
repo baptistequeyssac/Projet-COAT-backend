@@ -21,22 +21,22 @@ use OpenApi\Annotations as OA;
 class OrganizerController extends AbstractController
 {
     /**
-     * @Route("/api/Organizer", name="app_api_Organizer", methods={"GET"})
+     * @Route("/api/organizers", name="app_api_organizer", methods={"GET"})
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns all Organizers",
+     *      description="Returns all organizers",
      *      @OA\JsonContent(
      *          type="array",
-     *          @OA\Items(ref=@Model(type=Organizer::class, groups={"Organizer_browse"}))
+     *          @OA\Items(ref=@Model(type=Organizer::class, groups={"organizer_browse"}))
      *      )    
      * )
      */
 
-    //* Return all Organizers
-    public function browse(OrganizerRepository $OrganizerRepository): JsonResponse
+    //* Return all organizers
+    public function browse(OrganizerRepository $organizerRepository): JsonResponse
     {
-        $allOrganizer = $OrganizerRepository->findAll();
+        $allOrganizer = $organizerRepository->findAll();
 
         return $this->json(
             $allOrganizer,
@@ -46,7 +46,7 @@ class OrganizerController extends AbstractController
             [
                 "groups" =>
                 [
-                    "Organizer_browse"
+                    "organizer_browse"
                 ]
             ]
         );
@@ -54,7 +54,7 @@ class OrganizerController extends AbstractController
     }
 
     /**
-     * @Route("/api/Organizers", name="app_api_Organizer_add", methods={"POST"})
+     * @Route("/api/organizers", name="app_api_organizer_add", methods={"POST"})
      * 
      * @OA\RequestBody(
      *     @Model(type=OrganizerType::class)
@@ -62,9 +62,9 @@ class OrganizerController extends AbstractController
      * 
      * @OA\Response(
      *     response=201,
-     *     description="new created Organizer",
+     *     description="new created organizer",
      *     @OA\JsonContent(
-     *          ref=@Model(type=Organizer::class, groups={"Organizer_read", "event_read", "category_read", "organizer_read"})
+     *          ref=@Model(type=Organizer::class, groups={"organizer_read", "event_read", "category_read", "artist_read"}) //! Attention à revoir, également pour EventController.
      *      )
      * )
      * 
@@ -74,18 +74,18 @@ class OrganizerController extends AbstractController
      * )
      */
 
-     //* Add an Organizer
+     //* Add an organizer
      public function add(
         Request $request,
         SerializerInterface $serializer,
-        OrganizerRepository $OrganizerRepository,
+        OrganizerRepository $organizerRepository,
         ValidatorInterface $validator
         )
      {
         $contentJson = $request->getContent();
 
         try {
-            $OrganizerFromJson = $serializer->deserialize(
+            $organizerFromJson = $serializer->deserialize(
                 $contentJson,
                 Organizer::class,
                 'json'
@@ -98,7 +98,7 @@ class OrganizerController extends AbstractController
             );
         }
 
-        $listError = $validator->validate($OrganizerFromJson);
+        $listError = $validator->validate($organizerFromJson);
 
         if (count($listError) > 0){
             // we have errors
@@ -110,42 +110,42 @@ class OrganizerController extends AbstractController
         }
 
         // persist + flush
-        $OrganizerRepository->add($OrganizerFromJson, true);
+        $organizerRepository->add($organizerFromJson, true);
 
         // inform user
         return $this->json(
-            $OrganizerFromJson,
+            $organizerFromJson,
             // code 201
             Response::HTTP_CREATED,
             [],
             [
                 "groups" =>
                 [
-                    "Organizer_read",
+                    "organizer_read",
                     "event_read",
                     "category_read",
-                    "organizer_read"
+                    "artist_read"
                 ]
             ]
                 );
      }
 
      /**
-      * @Route("/api/Organizers/{id}", name="app_api_Organizer_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
+      * @Route("/api/organizers/{id}", name="app_api_organizer_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
       */
 
-      //* Edit/update an Organizer
+      //* Edit/update an organizer
      public function edit(
-        Organizer $Organizer = null,
+        Organizer $organizer = null,
         Request $request,
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         ValidatorInterface $validator
      )
      {
-        if ($Organizer === null) {
+        if ($organizer === null) {
             // paramConverter dont found the entity : code 404
-            return $this->json("Organizere non trouvé", Response::HTTP_NOT_FOUND);
+            return $this->json("Organisateur non trouvé", Response::HTTP_NOT_FOUND);
         }
 
         $jsonContent = $request->getContent();
@@ -155,7 +155,7 @@ class OrganizerController extends AbstractController
                 $jsonContent,
                 Organizer::class,
                 'json',
-                [AbstractNormalizer::OBJECT_TO_POPULATE => $Organizer]
+                [AbstractNormalizer::OBJECT_TO_POPULATE => $organizer]
             );
         } catch (\Throwable $e){
             return $this->json(
@@ -165,7 +165,7 @@ class OrganizerController extends AbstractController
             );
         }
 
-        $listError = $validator->validate($Organizer);
+        $listError = $validator->validate($organizer);
 
         if (count($listError) > 0) {
             return $this->json(
@@ -186,17 +186,17 @@ class OrganizerController extends AbstractController
      }
 
      /**
-      * @Route("/api/Organizers/{id}", name="app_api_Organizer_read", methods={"GET"}, requirements={"id"="\d+"})
+      * @Route("/api/organizers/{id}", name="app_api_organizer_read", methods={"GET"}, requirements={"id"="\d+"})
       */
 
-      //* Read an Organizer
-      public function read(Organizer $Organizer = null)
+      //* Read an organizer
+      public function read(Organizer $organizer = null)
       {
         // our user give a bad ID, We give a 404
-        if ($Organizer === null){
+        if ($organizer === null){
             return $this->json(
                 [
-                    "message" => "Oups, il semblerait que cet Organizere n'existe pas"
+                    "message" => "Oups, il semblerait que cet organisateur n'existe pas"
                 ],
                 // code 404
                 Response::HTTP_NOT_FOUND
@@ -204,36 +204,36 @@ class OrganizerController extends AbstractController
         }
 
          return $this->json(
-            $Organizer,
+            $organizer,
             // code 302
             Response::HTTP_FOUND,
             [],
             [
                 "groups" =>
                 [
-                    "Organizer_read",
+                    "organizer_read",
                     "event_read",
                     "category_read",
-                    "organizer_read"
+                    "artist_read"
                 ]
             ]
         );
       }
 
       /**
-       * @Route("/api/Organizers/{id}", name="app_api_Organizer_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+       * @Route("/api/organizers/{id}", name="app_api_organizer_delete", methods={"DELETE"}, requirements={"id"="\d+"})
        */
 
-       //* Delete an Organizer
-       public function delete (Organizer $Organizer = null, OrganizerRepository $OrganizerRepository)
+       //* Delete an organizer
+       public function delete (Organizer $organizer = null, OrganizerRepository $organizerRepository)
        {
-        if ($Organizer === null){
+        if ($organizer === null){
             // paramConverter not found : code 404
-            return $this->json("Organizere non trouvé", Response::HTTP_NOT_FOUND);
+            return $this->json("Organisateur non trouvé", Response::HTTP_NOT_FOUND);
         }
 
         // delete
-        $OrganizerRepository->remove($Organizer, true);
+        $organizerRepository->remove($organizer, true);
 
         return $this->json(
             null,

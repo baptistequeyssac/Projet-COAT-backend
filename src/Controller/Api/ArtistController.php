@@ -21,7 +21,7 @@ use OpenApi\Annotations as OA;
 class ArtistController extends AbstractController
 {
     /**
-     * @Route("/api/artist", name="app_api_artist", methods={"GET"})
+     * @Route("/api/artists", name="app_api_artist", methods={"GET"})
      * 
      * @OA\Response(
      *      response=200,

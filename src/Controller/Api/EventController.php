@@ -21,22 +21,22 @@ use OpenApi\Annotations as OA;
 class EventController extends AbstractController
 {
     /**
-     * @Route("/api/Event", name="app_api_Event", methods={"GET"})
+     * @Route("/api/events", name="app_api_event", methods={"GET"})
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns all Events",
+     *      description="Returns all events",
      *      @OA\JsonContent(
      *          type="array",
-     *          @OA\Items(ref=@Model(type=Event::class, groups={"Event_browse"}))
+     *          @OA\Items(ref=@Model(type=Event::class, groups={"event_browse"}))
      *      )    
      * )
      */
 
-    //* Return all Events
-    public function browse(EventRepository $EventRepository): JsonResponse
+    //* Return all events
+    public function browse(EventRepository $eventRepository): JsonResponse
     {
-        $allEvent = $EventRepository->findAll();
+        $allEvent = $eventRepository->findAll();
 
         return $this->json(
             $allEvent,
@@ -46,7 +46,7 @@ class EventController extends AbstractController
             [
                 "groups" =>
                 [
-                    "Event_browse"
+                    "event_browse"
                 ]
             ]
         );
@@ -54,7 +54,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/api/Events", name="app_api_Event_add", methods={"POST"})
+     * @Route("/api/events", name="app_api_event_add", methods={"POST"})
      * 
      * @OA\RequestBody(
      *     @Model(type=EventType::class)
@@ -62,9 +62,9 @@ class EventController extends AbstractController
      * 
      * @OA\Response(
      *     response=201,
-     *     description="new created Event",
+     *     description="new created event",
      *     @OA\JsonContent(
-     *          ref=@Model(type=Event::class, groups={"Event_read", "event_read", "category_read", "organizer_read"})
+     *          ref=@Model(type=Event::class, groups={"event_read", "artist_read", "category_read", "organizer_read"})
      *      )
      * )
      * 
@@ -74,18 +74,18 @@ class EventController extends AbstractController
      * )
      */
 
-     //* Add an Event
+     //* Add an event
      public function add(
         Request $request,
         SerializerInterface $serializer,
-        EventRepository $EventRepository,
+        EventRepository $eventRepository,
         ValidatorInterface $validator
         )
      {
         $contentJson = $request->getContent();
 
         try {
-            $EventFromJson = $serializer->deserialize(
+            $eventFromJson = $serializer->deserialize(
                 $contentJson,
                 Event::class,
                 'json'
@@ -98,7 +98,7 @@ class EventController extends AbstractController
             );
         }
 
-        $listError = $validator->validate($EventFromJson);
+        $listError = $validator->validate($eventFromJson);
 
         if (count($listError) > 0){
             // we have errors
@@ -110,19 +110,19 @@ class EventController extends AbstractController
         }
 
         // persist + flush
-        $EventRepository->add($EventFromJson, true);
+        $eventRepository->add($eventFromJson, true);
 
         // inform user
         return $this->json(
-            $EventFromJson,
+            $eventFromJson,
             // code 201
             Response::HTTP_CREATED,
             [],
             [
                 "groups" =>
                 [
-                    "Event_read",
                     "event_read",
+                    "artist_read",
                     "category_read",
                     "organizer_read"
                 ]
@@ -131,21 +131,21 @@ class EventController extends AbstractController
      }
 
      /**
-      * @Route("/api/Events/{id}", name="app_api_Event_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
+      * @Route("/api/events/{id}", name="app_api_event_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
       */
 
-      //* Edit/update an Event
+      //* Edit/update an event
      public function edit(
-        Event $Event = null,
+        Event $event = null,
         Request $request,
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         ValidatorInterface $validator
      )
      {
-        if ($Event === null) {
+        if ($event === null) {
             // paramConverter dont found the entity : code 404
-            return $this->json("Evente non trouvé", Response::HTTP_NOT_FOUND);
+            return $this->json("Evénement non trouvé", Response::HTTP_NOT_FOUND);
         }
 
         $jsonContent = $request->getContent();
@@ -155,7 +155,7 @@ class EventController extends AbstractController
                 $jsonContent,
                 Event::class,
                 'json',
-                [AbstractNormalizer::OBJECT_TO_POPULATE => $Event]
+                [AbstractNormalizer::OBJECT_TO_POPULATE => $event]
             );
         } catch (\Throwable $e){
             return $this->json(
@@ -165,7 +165,7 @@ class EventController extends AbstractController
             );
         }
 
-        $listError = $validator->validate($Event);
+        $listError = $validator->validate($event);
 
         if (count($listError) > 0) {
             return $this->json(
@@ -186,17 +186,17 @@ class EventController extends AbstractController
      }
 
      /**
-      * @Route("/api/Events/{id}", name="app_api_Event_read", methods={"GET"}, requirements={"id"="\d+"})
+      * @Route("/api/events/{id}", name="app_api_event_read", methods={"GET"}, requirements={"id"="\d+"})
       */
 
-      //* Read an Event
-      public function read(Event $Event = null)
+      //* Read an event
+      public function read(Event $event = null)
       {
         // our user give a bad ID, We give a 404
-        if ($Event === null){
+        if ($event === null){
             return $this->json(
                 [
-                    "message" => "Oups, il semblerait que cet Evente n'existe pas"
+                    "message" => "Oups, il semblerait que cet événement n'existe pas"
                 ],
                 // code 404
                 Response::HTTP_NOT_FOUND
@@ -204,15 +204,15 @@ class EventController extends AbstractController
         }
 
          return $this->json(
-            $Event,
+            $event,
             // code 302
             Response::HTTP_FOUND,
             [],
             [
                 "groups" =>
                 [
-                    "Event_read",
                     "event_read",
+                    "artist_read",
                     "category_read",
                     "organizer_read"
                 ]
@@ -221,19 +221,19 @@ class EventController extends AbstractController
       }
 
       /**
-       * @Route("/api/Events/{id}", name="app_api_Event_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+       * @Route("/api/events/{id}", name="app_api_event_delete", methods={"DELETE"}, requirements={"id"="\d+"})
        */
 
-       //* Delete an Event
-       public function delete (Event $Event = null, EventRepository $EventRepository)
+       //* Delete an event
+       public function delete (Event $event = null, EventRepository $eventRepository)
        {
-        if ($Event === null){
+        if ($event === null){
             // paramConverter not found : code 404
             return $this->json("Evente non trouvé", Response::HTTP_NOT_FOUND);
         }
 
         // delete
-        $EventRepository->remove($Event, true);
+        $eventRepository->remove($event, true);
 
         return $this->json(
             null,
