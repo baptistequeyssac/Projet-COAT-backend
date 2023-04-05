@@ -72,68 +72,68 @@ class OrganizerController extends AbstractController
      */
 
      //* Add an organizer
-    public function add(
-        Request $request,
-        SerializerInterface $serializer, 
-        OrganizerRepository $organizerRepository,
-        ValidatorInterface $validator
-        )
+//     public function add(
+//         Request $request,
+//         SerializerInterface $serializer, 
+//         OrganizerRepository $organizerRepository,
+//         ValidatorInterface $validator
+//         )
 
-    {
+//     {
 
-    //* Collect information from the front
-    $contentJson = $request->getContent();
+//     //* Collect information from the front
+//     $contentJson = $request->getContent();
 
-    try {
-        $organizerFromJson = $serializer->deserialize(
-            $contentJson,
-            Organizer::class,
-            'json'
-        );
+//     try {
+//         $organizerFromJson = $serializer->deserialize(
+//             $contentJson,
+//             Organizer::class,
+//             'json'
+//         );
 
-     // We will only have NotEncodableValueExeption
-    } catch (\Throwable $e){ 
-        // Error message 
-        return $this->json(
-            $e->getMessage(),
-            // code http : 422
-            Response::HTTP_UNPROCESSABLE_ENTITY
-        );
-    }
+//      // We will only have NotEncodableValueExeption
+//     } catch (\Throwable $e){ 
+//         // Error message 
+//         return $this->json(
+//             $e->getMessage(),
+//             // code http : 422
+//             Response::HTTP_UNPROCESSABLE_ENTITY
+//         );
+//     }
 
-    // We validate the data before persit/flush
-    $listError = $validator->validate($organizerFromJson);
+//     // We validate the data before persit/flush
+//     $listError = $validator->validate($organizerFromJson);
 
-    if (count($listError) > 0){
-        // Error message 
-        return $this->json(
-            $listError,
-            // code http : 422
-            Response::HTTP_UNPROCESSABLE_ENTITY
-        );
-    }
+//     if (count($listError) > 0){
+//         // Error message 
+//         return $this->json(
+//             $listError,
+//             // code http : 422
+//             Response::HTTP_UNPROCESSABLE_ENTITY
+//         );
+//     }
 
-    // persist + flush
-    $organizerRepository->add($organizerFromJson, true);
+//     // persist + flush
+//     $organizerRepository->add($organizerFromJson, true);
 
-    // Appropriate http code: 201 => Response ::HTTP_CREATED
-    return $this->json(
-        $organizerFromJson,
-        // Change code http for 201
-        Response::HTTP_CREATED,
-        // No headers
-        [],
-        // For serialize, we use groups
-        [
-            "groups" => 
-            [
-                "organizer_read",
-                "event_read",
-                "artist_read"
-            ]
-        ]
-    );
-}
+//     // Appropriate http code: 201 => Response ::HTTP_CREATED
+//     return $this->json(
+//         $organizerFromJson,
+//         // Change code http for 201
+//         Response::HTTP_CREATED,
+//         // No headers
+//         [],
+//         // For serialize, we use groups
+//         [
+//             "groups" => 
+//             [
+//                 "organizer_read",
+//                 "event_read",
+//                 "artist_read"
+//             ]
+//         ]
+//     );
+// }
 
     /**
      * @Route("/api/organizer/{id}", name="app_api_organizer_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
@@ -200,33 +200,33 @@ class OrganizerController extends AbstractController
 /**
  *  @Route("/api/organizers/{id}", name="app_api_organizer_read, requirements={"id"="\d+"}, methods="GET"})
  */
-public function read(Organizer $organizer = null)
-{
-    //if the user provided a wrong ID, I give a 404 error http
-    if ($organizer === null) {
-        return $this->json(
-            [
-                "message" => "cet organisateur n'existe pas"
-            ],
-            // error http 404
-            Response::HTTP_NOT_FOUND
-        );
-    }
+// public function read(Organizer $organizer = null)
+// {
+// //     //if the user provided a wrong ID, I give a 404 error http
+//     if ($organizer === null) {
+//         return $this->json(
+//             [
+//                 "message" => "cet organisateur n'existe pas"
+//             ],
+//             // error http 404
+//             Response::HTTP_NOT_FOUND
+//         );
+//     }
 
-    return $this->json(
-        $organizer,
-        Response::HTTP_FOUND,
-        [],
-        [
-            "groups" =>
-            [
-                "organizer_read",
-                "event_read",
-                "artist_read"
-            ]
-        ]
-            );
-}
+//     return $this->json(
+//         $organizer,
+//         Response::HTTP_FOUND,
+//         [],
+//         [
+//             "groups" =>
+//             [
+//                 "organizer_read",
+//                 "event_read",
+//                 "artist_read"
+//             ]
+//         ]
+//             );
+// }
 
 /**
  * @Route("/api/organizers/{id}", name="app_api_organizer_delete", requirements={"id"="\d+"}, methods={"DELETE"})
