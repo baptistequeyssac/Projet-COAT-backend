@@ -72,67 +72,67 @@ class EventController extends AbstractController
      */
 
      //* Add an event
-    public function add(
-        Request $request,
-        SerializerInterface $serializer, 
-        EventRepository $eventRepository,
-        ValidatorInterface $validator
-        )
-    {
+//     public function add(
+//         Request $request,
+//         SerializerInterface $serializer, 
+//         EventRepository $eventRepository,
+//         ValidatorInterface $validator
+//         )
+//     {
 
-    //* Collect information from the front
-    $contentJson = $request->getContent();
+//     //* Collect information from the front
+//     $contentJson = $request->getContent();
 
-    try {
-        $eventFromJson = $serializer->deserialize(
-            $contentJson,
-            Event::class,
-            'json'
-        );
+//     try {
+//         $eventFromJson = $serializer->deserialize(
+//             $contentJson,
+//             Event::class,
+//             'json'
+//         );
 
-     // We will only have NotEncodableValueExeption
-    } catch (\Throwable $e){ 
-        // Error message 
-        return $this->json(
-            $e->getMessage(),
-            // code http : 422
-            Response::HTTP_UNPROCESSABLE_ENTITY
-        );
-    }
+//      // We will only have NotEncodableValueExeption
+//     } catch (\Throwable $e){ 
+//         // Error message 
+//         return $this->json(
+//             $e->getMessage(),
+//             // code http : 422
+//             Response::HTTP_UNPROCESSABLE_ENTITY
+//         );
+//     }
 
-    // We validate the data before persit/flush
-    $listError = $validator->validate($eventFromJson);
+//     // We validate the data before persit/flush
+//     $listError = $validator->validate($eventFromJson);
 
-    if (count($listError) > 0){
-        // Error message 
-        return $this->json(
-            $listError,
-            // code http : 422
-            Response::HTTP_UNPROCESSABLE_ENTITY
-        );
-    }
+//     if (count($listError) > 0){
+//         // Error message 
+//         return $this->json(
+//             $listError,
+//             // code http : 422
+//             Response::HTTP_UNPROCESSABLE_ENTITY
+//         );
+//     }
 
-    // persist + flush
-    $eventRepository->add($eventFromJson, true);
+//     // persist + flush
+//     $eventRepository->add($eventFromJson, true);
 
-    // Appropriate http code: 201 => Response ::HTTP_CREATED
-    return $this->json(
-        $eventFromJson,
-        // Change code http for 201
-        Response::HTTP_CREATED,
-        // No headers
-        [],
-        // For serialize, we use groups
-        [
-            "groups" => 
-            [
-                "organizer_read",
-                "event_read",
-                "artist_read"
-            ]
-        ]
-    );
-}
+//     // Appropriate http code: 201 => Response ::HTTP_CREATED
+//     return $this->json(
+//         $eventFromJson,
+//         // Change code http for 201
+//         Response::HTTP_CREATED,
+//         // No headers
+//         [],
+//         // For serialize, we use groups
+//         [
+//             "groups" => 
+//             [
+//                 "organizer_read",
+//                 "event_read",
+//                 "artist_read"
+//             ]
+//         ]
+//     );
+// }
 
     /**
      * @Route("/api/events/{id}", name="app_api_event_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
@@ -199,33 +199,33 @@ class EventController extends AbstractController
 /**
  *  @Route("/api/events/{id}", name="app_api_event_read, requirements={"id"="\d+"}, methods="GET"})
  */
-public function read(Event $event = null)
-{
-    //if the user provided a wrong ID, I give a 404 error http
-    if ($event === null) {
-        return $this->json(
-            [
-                "message" => "cet événement n'existe pas"
-            ],
-            // error http 404
-            Response::HTTP_NOT_FOUND
-        );
-    }
+// public function read(Event $event = null)
+// {
+//     //if the user provided a wrong ID, I give a 404 error http
+//     if ($event === null) {
+//         return $this->json(
+//             [
+//                 "message" => "cet événement n'existe pas"
+//             ],
+//             // error http 404
+//             Response::HTTP_NOT_FOUND
+//         );
+//     }
 
-    return $this->json(
-        $event,
-        Response::HTTP_FOUND,
-        [],
-        [
-            "groups" =>
-            [
-                "organizer_read",
-                "event_read",
-                "artist_read"
-            ]
-        ]
-            );
-}
+//     return $this->json(
+//         $event,
+//         Response::HTTP_FOUND,
+//         [],
+//         [
+//             "groups" =>
+//             [
+//                 "organizer_read",
+//                 "event_read",
+//                 "artist_read"
+//             ]
+//         ]
+//             );
+// }
 
 /**
  * @Route("/api/events/{id}", name="app_api_event_delete", requirements={"id"="\d+"}, methods={"DELETE"})
