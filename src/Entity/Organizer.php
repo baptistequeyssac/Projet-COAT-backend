@@ -40,11 +40,6 @@ class Organizer
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=128)
-     */
-    private $region;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $logo;
@@ -83,6 +78,18 @@ class Organizer
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="organizers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $region;
 
     public function __construct()
     {
@@ -142,19 +149,7 @@ class Organizer
 
         return $this;
     }
-
-    public function getRegion(): ?string
-    {
-        return $this->region;
-    }
-
-    public function setRegion(string $region): self
-    {
-        $this->region = $region;
-
-        return $this;
-    }
-
+    
     public function getLogo(): ?string
     {
         return $this->logo;
@@ -279,6 +274,30 @@ class Organizer
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
