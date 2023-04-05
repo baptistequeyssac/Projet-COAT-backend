@@ -12,6 +12,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -106,7 +107,7 @@ class OrganizerController extends AbstractController
     if (count($listError) > 0){
         // Error message 
         return $this->json(
-            $e->getMessage(),
+            $listError,
             // code http : 422
             Response::HTTP_UNPROCESSABLE_ENTITY
         );
@@ -127,7 +128,7 @@ class OrganizerController extends AbstractController
             "groups" => 
             [
                 "organizer_read",
-                "event_read"
+                "event_read",
                 "artist_read"
             ]
         ]
@@ -220,11 +221,11 @@ public function read(Organizer $organizer = null)
             "groups" =>
             [
                 "organizer_read",
-                "event_read"
+                "event_read",
                 "artist_read"
             ]
         ]
-    )
+            );
 }
 
 /**
