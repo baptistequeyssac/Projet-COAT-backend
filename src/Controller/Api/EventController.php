@@ -2,8 +2,8 @@
 
 namespace App\Controller\Api;
 
-use App\Entity\Organizer;
-use App\Repository\OrganizerRepository;
+use App\Entity\Event;
+use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,55 +12,56 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class OrganizerController extends AbstractController
+class EventController extends AbstractController
 {
     /**
-     * @Route("/api/organizers", name="app_api_organizer", methods={"GET"})
+     * @Route("/api/events", name="app_api_event", methods={"GET"})
      * 
      *  @OA\Response(
      *     response=200,
-     *     description="Returns all the organizers",
+     *     description="Returns all the events",
      *     @OA\JsonContent(
      *        type="array",
-     *        @OA\Items(ref=@Model(type=Organizer::class, groups={"organizer_browse"}))
+     *        @OA\Items(ref=@Model(type=Event::class, groups={"event_browse"}))
      *     )
      * )
      */
 
-    //* Return all organizers
-    public function browse(OrganizerRepository $organizerRepository): JsonResponse
+    //* Return all events
+    public function browse(EventRepository $eventRepository): JsonResponse
     { 
-        $allOrganizer = $organizerRepository->findAll();
+        $allEvent = $eventRepository->findAll();
         
         return $this->json(
             // object to be transmitted
-            $allOrganizer,
+            $allEvent,
             Response::HTTP_OK,
             [],
             [
                 "groups" => 
               [
-                 "organizer_browse"
+                 "event_browse"
               ] 
             ]
         );
     }
 
     /**
-     * @Route("/api/organizers", name="app_api_organizer_add", methods={"POST"})
+     * @Route("/api/event", name="app_api_event_add", methods={"POST"})
      * 
      * @OA\RequestBody(
-     *     @Model(type=OrganizerType::class)
+     *     @Model(type=EventType::class)
      * )
      * 
      * @OA\Response(
      *     response=201,
-     *     description="new created organizer",
+     *     description="new created event",
      *     @OA\JsonContent(
-     *          ref=@Model(type=Organizer::class, groups={"organizer_read", "event_read , "artist_read"})
+     *          ref=@Model(type=Event::class, groups={"even_read", "event_read , "artist_read"})
      *      )
      * )
      * 
@@ -70,11 +71,11 @@ class OrganizerController extends AbstractController
      * )
      */
 
-     //* Add an organizer
+     //* Add an ev
     public function add(
         Request $request,
         SerializerInterface $serializer, 
-        OrganizerRepository $organizerRepository,
+        EventRepository $eventRepository,
         ValidatorInterface $validator
         )
 
@@ -84,9 +85,9 @@ class OrganizerController extends AbstractController
     $contentJson = $request->getContent();
 
     try {
-        $organizerFromJson = $serializer->deserialize(
+        $eventFromJson = $serializer->deserialize(
             $contentJson,
-            Organizer::class,
+            Event::class,
             'json'
         );
 
@@ -101,7 +102,7 @@ class OrganizerController extends AbstractController
     }
 
     // We validate the data before persit/flush
-    $listError = $validator->validate($organizerFromJson);
+    $listError = $validator->validate($eventFromJson);
 
     if (count($listError) > 0){
         // Error message 
@@ -113,11 +114,11 @@ class OrganizerController extends AbstractController
     }
 
     // persist + flush
-    $organizerRepository->add($organizerFromJson, true);
+    $eventRepository->add($eventFromJson, true);
 
     // Appropriate http code: 201 => Response ::HTTP_CREATED
     return $this->json(
-        $organizerFromJson,
+        $eventFromJson,
         // Change code http for 201
         Response::HTTP_CREATED,
         // No headers
@@ -135,10 +136,10 @@ class OrganizerController extends AbstractController
 }
 
     /**
-     * @Route("/api/organizer/{id}", name="app_api_organizer_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
+     * @Route("/api/event/{id}", name="app_api_event_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
      */
     public function edit(
-        Organizer $organizer = null, 
+        Event $event = null, 
         Request $request, 
         SerializerInterface $serializer, 
         EntityManagerInterface $entityManager,
@@ -147,9 +148,9 @@ class OrganizerController extends AbstractController
     {
         // We modify an entity
         // Route parameter
-        if ($organizer === null){
+        if ($event === null){
         // paramConverter didn't find entity: 404
-        return $this->json("Organizer non trouvé", Response::HTTP_NOT_FOUND);
+        return $this->json("Event non trouvé", Response::HTTP_NOT_FOUND);
     }
     // Request information
     $jsonContent = $request->getContent();
@@ -158,9 +159,9 @@ class OrganizerController extends AbstractController
     try {
         $serializer->deserialize(
             $jsonContent,
-            Organizer::class,
+            Event::class,
             'json',
-            [AbstractNormalizer::OBJECT_TO_POPULATE => $organizer]
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $event]
         );
     } catch (\Throwable $e){
         // Warn the utilisator
@@ -174,7 +175,7 @@ class OrganizerController extends AbstractController
     // We use a serializer option to update our entity
 
     // We validate data before persist/flush
-    $listError = $validator->validate($organizer);
+    $listError = $validator->validate($event);
 
     if (count($listError) >0) {
         return $this ->json(
@@ -184,7 +185,7 @@ class OrganizerController extends AbstractController
         );
     }
 
-    // Here, $organizer has been modified
+    // Here, $event has been modified
     $entityManager->flush();
 
     // Return json
@@ -197,15 +198,15 @@ class OrganizerController extends AbstractController
 }
 
 /**
- *  @Route("/api/organizers/{id}", name="app_api_organizer_read, requirements={"id"="\d+"}, methods="GET"})
+ *  @Route("/api/events/{id}", name="app_api_event_read, requirements={"id"="\d+"}, methods="GET"})
  */
-public function read(Organizer $organizer = null)
+public function read(Event $event = null)
 {
     //if the user provided a wrong ID, I give a 404 error http
-    if ($organizer === null) {
+    if ($event === null) {
         return $this->json(
             [
-                "message" => "cet organisateur n'existe pas"
+                "message" => "cet événement n'existe pas"
             ],
             // error http 404
             Response::HTTP_NOT_FOUND
@@ -213,7 +214,7 @@ public function read(Organizer $organizer = null)
     }
 
     return $this->json(
-        $organizer,
+        $event,
         Response::HTTP_FOUND,
         [],
         [
@@ -228,19 +229,19 @@ public function read(Organizer $organizer = null)
 }
 
 /**
- * @Route("/api/genres/{id}", name="app_api_organizer_delete", requirements={"id"="\d+"}, methods={"DELETE"})
+ * @Route("/api/genres/{id}", name="app_api_event_delete", requirements={"id"="\d+"}, methods={"DELETE"})
  */
-public function delete(Organizer $organizer = null, OrganizerRepository $organizerRepository)
+public function delete(Event $event = null, EventRepository $eventRepository)
 {
     // entity to delete: route parameter
-    if ($organizer === null){
+    if ($event === null){
         // paramConverter didn't find entity : error http 404
-        return $this->json("Organizer non trouvé" , Response::HTTP_NOT_FOUND); 
+        return $this->json("Event non trouvé" , Response::HTTP_NOT_FOUND); 
     }
 
     // No JSON, no validation of data
     // Delet
-    $organizerRepository->remove($organizer, true);
+    $eventRepository->remove($event, true);
 
     // Will still return a code
     return $this->json(
@@ -249,6 +250,7 @@ public function delete(Organizer $organizer = null, OrganizerRepository $organiz
     );
 
 }
+
 
 }
 
