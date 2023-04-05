@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 
 use App\Entity\Artist;
 use App\Repository\ArtistRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -125,5 +127,65 @@ class ArtistController extends AbstractController
             ]
                 );
      }
+
+     /**
+      * @Route("/api/artists/{id}", name="app_api_artist_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
+      */
+
+      //* Edit/update an artist
+     public function edit(
+        Artist $artist = null,
+        Request $request,
+        SerializerInterface $serializer,
+        EntityManagerInterface $entityManager,
+        ValidatorInterface $validator
+     )
+     {
+        if ($artist === null) {
+            // paramConverter dont found the entity : code 404
+            return $this->json("Artiste non trouvé", Response::HTTP_NOT_FOUND);
+        }
+
+        $jsonContent = $request->getContent();
+
+        try {
+            $serializer->deserialize(
+                $jsonContent,
+                Artist::class,
+                'json',
+                [AbstractNormalizer::OBJECT_TO_POPULATE => $artist]
+            );
+        } catch (\Throwable $e){
+            return $this->json(
+                $e->getMessage(),
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        $listError = $validator->validate($artist);
+
+        if (count($listError) > 0) {
+            return $this->json(
+                $listError,
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        // flush 
+        $entityManager->flush();
+
+        return $this->json(
+            null,
+            // code 204
+            Response::HTTP_NO_CONTENT
+        );
+     }
+
+
+
+
+
 }
 
