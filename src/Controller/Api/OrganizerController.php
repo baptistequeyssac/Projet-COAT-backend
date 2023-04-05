@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class OrganizerController extends AbstractController
 {
     /**
-     * @Route("/api/organizers", name="app_api_organizer", methods={"GET"})
+     * @Route("/api/organizer", name="app_api_organizer", methods={"GET"})
      * 
      *  @OA\Response(
      *     response=200,
