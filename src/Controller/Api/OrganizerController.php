@@ -136,8 +136,10 @@ class OrganizerController extends AbstractController
 // }
 
     /**
-     * @Route("/api/organizer/{id}", name="app_api_organizer_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
+     * @Route("/api/organizers/{id}", name="app_api_organizer_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
      */
+
+      //*Edit/update an organizer
     public function edit(
         Organizer $organizer = null, 
         Request $request, 
@@ -200,6 +202,8 @@ class OrganizerController extends AbstractController
 /**
  *  @Route("/api/organizers/{id}", name="app_api_organizer_read, requirements={"id"="\d+"}, methods="GET"})
  */
+
+   //* Read an organizer
 // public function read(Organizer $organizer = null)
 // {
 // //     //if the user provided a wrong ID, I give a 404 error http
@@ -231,6 +235,8 @@ class OrganizerController extends AbstractController
 /**
  * @Route("/api/organizers/{id}", name="app_api_organizer_delete", requirements={"id"="\d+"}, methods={"DELETE"})
  */
+
+ //* Delete an organizer
 public function delete(Organizer $organizer = null, OrganizerRepository $organizerRepository)
 {
     // entity to delete: route parameter
@@ -240,7 +246,7 @@ public function delete(Organizer $organizer = null, OrganizerRepository $organiz
     }
 
     // No JSON, no validation of data
-    // Delet
+    // Delete
     $organizerRepository->remove($organizer, true);
 
     // Will still return a code

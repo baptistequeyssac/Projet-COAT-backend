@@ -61,7 +61,7 @@ class EventController extends AbstractController
      *     response=201,
      *     description="new created event",
      *     @OA\JsonContent(
-     *          ref=@Model(type=Event::class, groups={"even_read", "event_read , "artist_read"})
+     *          ref=@Model(type=Event::class, groups={"organizer_read", "event_read , "artist_read"})
      *      )
      * )
      * 
@@ -137,6 +137,9 @@ class EventController extends AbstractController
     /**
      * @Route("/api/events/{id}", name="app_api_event_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
      */
+
+
+     //*Edit/update an event
     public function edit(
         Event $event = null, 
         Request $request, 
@@ -199,6 +202,8 @@ class EventController extends AbstractController
 /**
  *  @Route("/api/events/{id}", name="app_api_event_read, requirements={"id"="\d+"}, methods="GET"})
  */
+
+  //* Read an event
 // public function read(Event $event = null)
 // {
 //     //if the user provided a wrong ID, I give a 404 error http
@@ -230,6 +235,8 @@ class EventController extends AbstractController
 /**
  * @Route("/api/events/{id}", name="app_api_event_delete", requirements={"id"="\d+"}, methods={"DELETE"})
  */
+
+  //* Delete an event
 public function delete(Event $event = null, EventRepository $eventRepository)
 {
     // entity to delete: route parameter
@@ -239,7 +246,7 @@ public function delete(Event $event = null, EventRepository $eventRepository)
     }
 
     // No JSON, no validation of data
-    // Delet
+    // Delete
     $eventRepository->remove($event, true);
 
     // Will still return a code
