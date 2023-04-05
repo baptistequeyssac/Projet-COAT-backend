@@ -127,7 +127,7 @@ class OrganizerController extends AbstractController
             "groups" => 
             [
                 "organizer_read",
-                "event_read"
+                "event_read",
                 "artist_read"
             ]
         ]
@@ -220,11 +220,11 @@ public function read(Organizer $organizer = null)
             "groups" =>
             [
                 "organizer_read",
-                "event_read"
+                "event_read",
                 "artist_read"
             ]
         ]
-    )
+            );
 }
 
 /**

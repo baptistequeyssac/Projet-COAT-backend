@@ -1,0 +1,15 @@
+POST http://localhost:8080/api/artists
+Content-Type: application/json
+
+{
+    "pseudo": "pseudotest",
+    "name": "nametest",
+    "firstName" :"firstnametest",
+    "birthdate": "1999-01-01",
+    "image": "zezetzetzt",
+    "bio": "trucbidulechose lorem blablabalbalb",
+    "email": "testtest.com",
+    "phone": 0664846445,
+    "region": "BFC",
+    "adress": "5 rue machin du truc"
+}
