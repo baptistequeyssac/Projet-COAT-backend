@@ -183,6 +183,40 @@ class ArtistController extends AbstractController
         );
      }
 
+     /**
+      * @Route("/api/artists/{id}", name="app_api_artist_read", methods={"GET"}, requirements={"id"="\d+"})
+      */
+
+      // Read an artist
+      public function read(Artist $artist = null)
+      {
+        // our user give a bad ID, We give a 404
+        if ($artist === null){
+            return $this->json(
+                [
+                    "message" => "Oups, il semblerait que cet artiste n'existe pas"
+                ],
+                // code 404
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+         return $this->json(
+            $artist,
+            // code 302
+            Response::HTTP_FOUND,
+            [],
+            [
+                "groups" =>
+                [
+                    "artist_read",
+                    "event_read",
+                    "category_read",
+                    "organizer_read"
+                ]
+            ]
+        );
+      }
 
 
 
