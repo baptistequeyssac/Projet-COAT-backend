@@ -7,51 +7,54 @@ use App\Repository\OrganizerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
+
+
 
 class OrganizerController extends AbstractController
 {
     /**
-     * @Route("/api/organizer", name="app_api_organizer", methods={"GET"})
+     * @Route("/api/Organizer", name="app_api_Organizer", methods={"GET"})
      * 
-     *  @OA\Response(
-     *     response=200,
-     *     description="Returns all the organizers",
-     *     @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=Organizer::class, groups={"organizer_browse"}))
-     *     )
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns all Organizers",
+     *      @OA\JsonContent(
+     *          type="array",
+     *          @OA\Items(ref=@Model(type=Organizer::class, groups={"Organizer_browse"}))
+     *      )    
      * )
      */
 
-    //* Return all organizers
-    public function browse(OrganizerRepository $organizerRepository): JsonResponse
-    { 
-        $allOrganizer = $organizerRepository->findAll();
-        
+    //* Return all Organizers
+    public function browse(OrganizerRepository $OrganizerRepository): JsonResponse
+    {
+        $allOrganizer = $OrganizerRepository->findAll();
+
         return $this->json(
-            // object to be transmitted
             $allOrganizer,
             Response::HTTP_OK,
+            // Third's parameter is empty because we need to access fourth parameter
             [],
             [
-                "groups" => 
-              [
-                 "organizer_browse"
-              ] 
+                "groups" =>
+                [
+                    "Organizer_browse"
+                ]
             ]
         );
+
     }
 
     /**
-     * @Route("/api/organizers", name="app_api_organizer_add", methods={"POST"})
+     * @Route("/api/Organizers", name="app_api_Organizer_add", methods={"POST"})
      * 
      * @OA\RequestBody(
      *     @Model(type=OrganizerType::class)
@@ -59,9 +62,9 @@ class OrganizerController extends AbstractController
      * 
      * @OA\Response(
      *     response=201,
-     *     description="new created organizer",
+     *     description="new created Organizer",
      *     @OA\JsonContent(
-     *          ref=@Model(type=Organizer::class, groups={"organizer_read", "event_read , "artist_read"})
+     *          ref=@Model(type=Organizer::class, groups={"Organizer_read", "event_read", "category_read", "organizer_read"})
      *      )
      * )
      * 
@@ -71,191 +74,176 @@ class OrganizerController extends AbstractController
      * )
      */
 
-     //* Add an organizer
-//     public function add(
-//         Request $request,
-//         SerializerInterface $serializer, 
-//         OrganizerRepository $organizerRepository,
-//         ValidatorInterface $validator
-//         )
-
-//     {
-
-//     //* Collect information from the front
-//     $contentJson = $request->getContent();
-
-//     try {
-//         $organizerFromJson = $serializer->deserialize(
-//             $contentJson,
-//             Organizer::class,
-//             'json'
-//         );
-
-//      // We will only have NotEncodableValueExeption
-//     } catch (\Throwable $e){ 
-//         // Error message 
-//         return $this->json(
-//             $e->getMessage(),
-//             // code http : 422
-//             Response::HTTP_UNPROCESSABLE_ENTITY
-//         );
-//     }
-
-//     // We validate the data before persit/flush
-//     $listError = $validator->validate($organizerFromJson);
-
-//     if (count($listError) > 0){
-//         // Error message 
-//         return $this->json(
-//             $listError,
-//             // code http : 422
-//             Response::HTTP_UNPROCESSABLE_ENTITY
-//         );
-//     }
-
-//     // persist + flush
-//     $organizerRepository->add($organizerFromJson, true);
-
-//     // Appropriate http code: 201 => Response ::HTTP_CREATED
-//     return $this->json(
-//         $organizerFromJson,
-//         // Change code http for 201
-//         Response::HTTP_CREATED,
-//         // No headers
-//         [],
-//         // For serialize, we use groups
-//         [
-//             "groups" => 
-//             [
-//                 "organizer_read",
-//                 "event_read",
-//                 "artist_read"
-//             ]
-//         ]
-//     );
-// }
-
-    /**
-     * @Route("/api/organizers/{id}", name="app_api_organizer_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
-     */
-
-      //*Edit/update an organizer
-    public function edit(
-        Organizer $organizer = null, 
-        Request $request, 
-        SerializerInterface $serializer, 
-        EntityManagerInterface $entityManager,
+     //* Add an Organizer
+     public function add(
+        Request $request,
+        SerializerInterface $serializer,
+        OrganizerRepository $OrganizerRepository,
         ValidatorInterface $validator
         )
-    {
-        // We modify an entity
-        // Route parameter
-        if ($organizer === null){
-        // paramConverter didn't find entity: 404
-        return $this->json("Organizer non trouvé", Response::HTTP_NOT_FOUND);
-    }
-    // Request information
-    $jsonContent = $request->getContent();
+     {
+        $contentJson = $request->getContent();
 
-    // deserialize
-    try {
-        $serializer->deserialize(
-            $jsonContent,
-            Organizer::class,
-            'json',
-            [AbstractNormalizer::OBJECT_TO_POPULATE => $organizer]
-        );
-    } catch (\Throwable $e){
-        // Warn the utilisator
+        try {
+            $OrganizerFromJson = $serializer->deserialize(
+                $contentJson,
+                Organizer::class,
+                'json'
+            );
+        } catch (\Throwable $e){
+            return $this->json(
+                $e->getMessage(),
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        $listError = $validator->validate($OrganizerFromJson);
+
+        if (count($listError) > 0){
+            // we have errors
+            return $this->json(
+                $listError,
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        // persist + flush
+        $OrganizerRepository->add($OrganizerFromJson, true);
+
+        // inform user
         return $this->json(
-            $e->getMessage(),
-            // code http : 422
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            $OrganizerFromJson,
+            // code 201
+            Response::HTTP_CREATED,
+            [],
+            [
+                "groups" =>
+                [
+                    "Organizer_read",
+                    "event_read",
+                    "category_read",
+                    "organizer_read"
+                ]
+            ]
+                );
+     }
 
+     /**
+      * @Route("/api/Organizers/{id}", name="app_api_Organizer_edit", methods={"PUT", "PATCH"}, requirements={"id"="\d+"})
+      */
+
+      //* Edit/update an Organizer
+     public function edit(
+        Organizer $Organizer = null,
+        Request $request,
+        SerializerInterface $serializer,
+        EntityManagerInterface $entityManager,
+        ValidatorInterface $validator
+     )
+     {
+        if ($Organizer === null) {
+            // paramConverter dont found the entity : code 404
+            return $this->json("Organizere non trouvé", Response::HTTP_NOT_FOUND);
+        }
+
+        $jsonContent = $request->getContent();
+
+        try {
+            $serializer->deserialize(
+                $jsonContent,
+                Organizer::class,
+                'json',
+                [AbstractNormalizer::OBJECT_TO_POPULATE => $Organizer]
+            );
+        } catch (\Throwable $e){
+            return $this->json(
+                $e->getMessage(),
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        $listError = $validator->validate($Organizer);
+
+        if (count($listError) > 0) {
+            return $this->json(
+                $listError,
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        // flush 
+        $entityManager->flush();
+
+        return $this->json(
+            null,
+            // code 204
+            Response::HTTP_NO_CONTENT
         );
-    }
-    // We use a serializer option to update our entity
+     }
 
-    // We validate data before persist/flush
-    $listError = $validator->validate($organizer);
+     /**
+      * @Route("/api/Organizers/{id}", name="app_api_Organizer_read", methods={"GET"}, requirements={"id"="\d+"})
+      */
 
-    if (count($listError) >0) {
-        return $this ->json(
-            $listError,
-            //code http : 422
-            Response::HTTP_UNPROCESSABLE_ENTITY
+      //* Read an Organizer
+      public function read(Organizer $Organizer = null)
+      {
+        // our user give a bad ID, We give a 404
+        if ($Organizer === null){
+            return $this->json(
+                [
+                    "message" => "Oups, il semblerait que cet Organizere n'existe pas"
+                ],
+                // code 404
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+         return $this->json(
+            $Organizer,
+            // code 302
+            Response::HTTP_FOUND,
+            [],
+            [
+                "groups" =>
+                [
+                    "Organizer_read",
+                    "event_read",
+                    "category_read",
+                    "organizer_read"
+                ]
+            ]
         );
-    }
+      }
 
-    // Here, $organizer has been modified
-    $entityManager->flush();
+      /**
+       * @Route("/api/Organizers/{id}", name="app_api_Organizer_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+       */
 
-    // Return json
-    return $this->json(
-        // No data to return, it's an update
-        null,
-        //code http: 204
-        Response::HTTP_NO_CONTENT
-    );
-}
+       //* Delete an Organizer
+       public function delete (Organizer $Organizer = null, OrganizerRepository $OrganizerRepository)
+       {
+        if ($Organizer === null){
+            // paramConverter not found : code 404
+            return $this->json("Organizere non trouvé", Response::HTTP_NOT_FOUND);
+        }
 
-/**
- *  @Route("/api/organizers/{id}", name="app_api_organizer_read, requirements={"id"="\d+"}, methods="GET"})
- */
+        // delete
+        $OrganizerRepository->remove($Organizer, true);
 
-   //* Read an organizer
-// public function read(Organizer $organizer = null)
-// {
-// //     //if the user provided a wrong ID, I give a 404 error http
-//     if ($organizer === null) {
-//         return $this->json(
-//             [
-//                 "message" => "cet organisateur n'existe pas"
-//             ],
-//             // error http 404
-//             Response::HTTP_NOT_FOUND
-//         );
-//     }
+        return $this->json(
+            null,
+            // code 204
+            Response::HTTP_NO_CONTENT
+        );
+       }
 
-//     return $this->json(
-//         $organizer,
-//         Response::HTTP_FOUND,
-//         [],
-//         [
-//             "groups" =>
-//             [
-//                 "organizer_read",
-//                 "event_read",
-//                 "artist_read"
-//             ]
-//         ]
-//             );
-// }
 
-/**
- * @Route("/api/organizers/{id}", name="app_api_organizer_delete", requirements={"id"="\d+"}, methods={"DELETE"})
- */
 
- //* Delete an organizer
-public function delete(Organizer $organizer = null, OrganizerRepository $organizerRepository)
-{
-    // entity to delete: route parameter
-    if ($organizer === null){
-        // paramConverter didn't find entity : error http 404
-        return $this->json("Organizer non trouvé" , Response::HTTP_NOT_FOUND); 
-    }
-
-    // No JSON, no validation of data
-    // Delete
-    $organizerRepository->remove($organizer, true);
-
-    // Will still return a code
-    return $this->json(
-        null,
-        Response::HTTP_NO_CONTENT
-    );
-
-}
 
 }
 
