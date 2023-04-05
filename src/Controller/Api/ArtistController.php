@@ -187,7 +187,7 @@ class ArtistController extends AbstractController
       * @Route("/api/artists/{id}", name="app_api_artist_read", methods={"GET"}, requirements={"id"="\d+"})
       */
 
-      // Read an artist
+      //* Read an artist
       public function read(Artist $artist = null)
       {
         // our user give a bad ID, We give a 404
@@ -217,6 +217,28 @@ class ArtistController extends AbstractController
             ]
         );
       }
+
+      /**
+       * @Route("/api/artists/{id}", name="app_api_artist_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+       */
+
+       //* Delete an artist
+       public function delete (Artist $artist = null, ArtistRepository $artistRepository)
+       {
+        if ($artist === null){
+            // paramConverter not found : code 404
+            return $this->json("Artiste non trouvé", Response::HTTP_NOT_FOUND);
+        }
+
+        // delete
+        $artistRepository->remove($artist, true);
+
+        return $this->json(
+            null,
+            // code 204
+            Response::HTTP_NO_CONTENT
+        );
+       }
 
 
 
