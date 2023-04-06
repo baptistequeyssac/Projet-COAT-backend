@@ -17,83 +17,135 @@ class Event
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $title;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $duration;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $address;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $price;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $summary;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $poster;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $date;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $info;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $frequency;
     
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("artist_read")
      */
     private $artist;
 
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("type_read")
      */
     private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity=Organizer::class, inversedBy="events")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("organizer_read")
      */
     private $organizer;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("region_read")
      */
     private $region;
 

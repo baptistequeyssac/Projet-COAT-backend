@@ -64,7 +64,7 @@ class EventController extends AbstractController
      *     response=201,
      *     description="new created event",
      *     @OA\JsonContent(
-     *          ref=@Model(type=Event::class, groups={"event_read", "artist_read", "category_read", "organizer_read"})
+     *          ref=@Model(type=Event::class, groups={"event_read", "artist_read", "category_read", "organizer_read", "type_read", "region_read"})
      *      )
      * )
      * 
@@ -121,10 +121,13 @@ class EventController extends AbstractController
             [
                 "groups" =>
                 [
+                    "event_browse",
                     "event_read",
                     "artist_read",
                     "category_read",
-                    "organizer_read"
+                    "organizer_read",
+                    "type_read",
+                    "region_read"
                 ]
             ]
                 );
@@ -211,10 +214,13 @@ class EventController extends AbstractController
             [
                 "groups" =>
                 [
+                    "event_browse",
                     "event_read",
                     "artist_read",
                     "category_read",
-                    "organizer_read"
+                    "organizer_read",
+                    "type_read",
+                    "region_read"
                 ]
             ]
         );
@@ -229,7 +235,7 @@ class EventController extends AbstractController
        {
         if ($event === null){
             // paramConverter not found : code 404
-            return $this->json("Evente non trouvé", Response::HTTP_NOT_FOUND);
+            return $this->json("Evénement non trouvé", Response::HTTP_NOT_FOUND);
         }
 
         // delete
