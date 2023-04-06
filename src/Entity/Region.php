@@ -18,6 +18,7 @@ class Region
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
+     * @Groups({"artist_browse"})
      * @Groups({"artist_read"})
      */
     private $id;
@@ -25,6 +26,7 @@ class Region
     /**
      * @ORM\Column(type="string", length=32)
      * 
+     * @Groups({"artist_browse"})
      * @Groups({"artist_read"})
      */
     private $name;

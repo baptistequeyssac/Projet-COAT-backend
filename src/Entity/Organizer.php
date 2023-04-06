@@ -17,78 +17,127 @@ class Organizer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $type;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $logo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $phone;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="organizer")
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("event_read")
      */
     private $events;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="organizer", cascade={"persist", "remove"})
+     * 
+     * @Groups("organizer_browse")
+     * 
      */
     private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="organizers")
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("artist_read")
      */
     private $artist;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="organizers")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("status_read")
      */
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class)
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("region_read")
      */
     private $region;
 

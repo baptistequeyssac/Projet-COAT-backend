@@ -121,8 +121,8 @@ class ArtistController extends AbstractController
             [
                 "groups" =>
                 [
-                    "artist_read",
                     "artist_browse",
+                    "artist_read",
                     "event_read",
                     "category_read",
                     "organizer_read",

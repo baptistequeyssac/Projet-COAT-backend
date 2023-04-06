@@ -214,7 +214,6 @@ class EventController extends AbstractController
             [
                 "groups" =>
                 [
-                    "event_browse",
                     "event_read",
                     "artist_read",
                     "category_read",
