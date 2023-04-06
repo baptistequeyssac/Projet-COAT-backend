@@ -102,6 +102,24 @@ class Artist
         $this->organizers = new ArrayCollection();
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtDefaultValue(): void
+    {
+        // automation of CreatedAt's date
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate(): void
+    {
+        // automation of updateAt's date
+        $this->updatedAt = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
