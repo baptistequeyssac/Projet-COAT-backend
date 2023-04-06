@@ -63,7 +63,7 @@ class Event
      * @ORM\Column(type="string", length=16, nullable=true)
      */
     private $frequency;
-
+    
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
      */
@@ -90,10 +90,34 @@ class Event
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $region;
+
     public function __construct()
     {
         $this->artist = new ArrayCollection();
         $this->organizer = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtDefaultValue(): void
+    {
+        // automation of createdAt's date
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate(): void
+    {
+        // automation of updateAt's date
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -289,6 +313,18 @@ class Event
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
