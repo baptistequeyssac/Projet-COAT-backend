@@ -1,16 +1,4 @@
-POST http://localhost:8080/api/organizers
+DELETE http://localhost:8080/api/artists
 Content-Type: application/json
 Authorization: Bearer MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyAdL/376JzKUgvzmcPMCxvVP88c6a81i9mxtdEAnhN1catesPt19ZoGxykOn+mD5rMI2T50+eQxhB8CeMy2oBI2xixm7/lCsoRJHDhgteo9OfkVsEC8QFg1LGWurqevv7V9LYQEcB6bymF++jTe2jaFaGn3pNxPNs1wlNj0MY25f19V8e+srQdZXpOIjOSc4Y3eGFzDMvQBxFiXMUnXpqkoxYUfR6OrTlD+cz/4uhLwSEAcflk6kDet9jBgA4X6JahjtPPBpcwynI/FLOTdi49awv+41Zf2Vp4smJYZmoLUYk9gIhkyvwlUJCnfLaEHTxW1zNHUB1exoP1qLvLqNzwIDAQAB
 
-{
-  "name" : "testnameOrganizer",
-  "address": "6 rue de la belle avenue",
-  "type": "fixe",
-  "description": "Organize des évenements de styles stand-up au Club À Gogo",
-  "region": "Normandie",
-  "logo": "blablabla",
-  "email":"truc@bidule.com",
-  "phone": 0684532170,
-  "createdAt": "2023-04-06",
-  "updated_at":""
-}
