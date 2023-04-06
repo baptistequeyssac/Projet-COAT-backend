@@ -40,11 +40,6 @@ class Organizer
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=128)
-     */
-    private $region;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $logo;
@@ -143,17 +138,6 @@ class Organizer
         return $this;
     }
 
-    public function getRegion(): ?string
-    {
-        return $this->region;
-    }
-
-    public function setRegion(string $region): self
-    {
-        $this->region = $region;
-
-        return $this;
-    }
 
     public function getLogo(): ?string
     {
