@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\RegionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RegionRepository::class)
+ * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Region
 {
@@ -14,11 +17,15 @@ class Region
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"artist_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
+     * 
+     * @Groups({"artist_read"})
      */
     private $name;
 

@@ -3,12 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\ArtistRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ArtistRepository::class)
+ * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Artist
 {
@@ -16,11 +20,15 @@ class Artist
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("artist_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("artist_browse")
      */
     private $pseudo;
 
@@ -31,6 +39,8 @@ class Artist
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("artist_browse")
      */
     private $firstName;
 
@@ -85,18 +95,21 @@ class Artist
     private $organizers;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\ManyToOne(targetEntity=Region::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("region_read")
      */
     private $region;
 
@@ -125,6 +138,7 @@ class Artist
         $this->updatedAt = new \DateTime();
     }
 
+    
     public function getId(): ?int
     {
         return $this->id;

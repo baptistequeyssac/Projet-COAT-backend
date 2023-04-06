@@ -6,15 +6,15 @@ Authorization: Bearer MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyAdL/376JzKUgv
     "title": "Club À Gogo",
     "duration": 10,
     "address" :"4 rue du biniou",
-    "price": 5.50,
+    "price": 5,
     "summary": "Venez nombreux blablabla",
     "poster": "zzzzzzzzz",
     "date": "10-04-2023",
     "info": "blabla",
     "frequency": "régulière",
-    "region": "Normandie",
-    "type_id": ,
-    "createdAt": "2023-04-06",
-    "updated_at": 2
+    "region_id": 3,
+    "type_id": 2,
+    "createdAt": "2023-04-06"
+   
     
 }

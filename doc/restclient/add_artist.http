@@ -3,16 +3,17 @@ Content-Type: application/json
 Authorization: Bearer MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyAdL/376JzKUgvzmcPMCxvVP88c6a81i9mxtdEAnhN1catesPt19ZoGxykOn+mD5rMI2T50+eQxhB8CeMy2oBI2xixm7/lCsoRJHDhgteo9OfkVsEC8QFg1LGWurqevv7V9LYQEcB6bymF++jTe2jaFaGn3pNxPNs1wlNj0MY25f19V8e+srQdZXpOIjOSc4Y3eGFzDMvQBxFiXMUnXpqkoxYUfR6OrTlD+cz/4uhLwSEAcflk6kDet9jBgA4X6JahjtPPBpcwynI/FLOTdi49awv+41Zf2Vp4smJYZmoLUYk9gIhkyvwlUJCnfLaEHTxW1zNHUB1exoP1qLvLqNzwIDAQAB
 
 {
-    "pseudo": "pseudotest",
-    "name": "nametest",
+    "pseudo": "pseudotestee",
+    "name": "nametestee",
     "firstName" :"firstnametest",
     "birthdate": "1999-01-01",
     "image": "zezetzetzt",
     "bio": "trucbidulechose lorem blablabalbalb",
     "email": "test@test.com",
-    "phone": 0664846445,
-    "adress": "5 rue machin du truc",
-    "createdAt": "2023-04-05",
-    "region_id": 2
-    
+    "phone": 664646421,
+    "address": "5 rue machin du truc",
+    "region": {
+        "id": 12,
+        "name": "Pays de la Loire"
+    } 
 }
