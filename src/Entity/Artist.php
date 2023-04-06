@@ -22,6 +22,7 @@ class Artist
      * @ORM\Column(type="integer")
      * 
      * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $id;
 
@@ -29,11 +30,15 @@ class Artist
      * @ORM\Column(type="string", length=64)
      * 
      * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $name;
 
@@ -41,66 +46,105 @@ class Artist
      * @ORM\Column(type="string", length=64)
      * 
      * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="date")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $birthdate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $image;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $bio;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $phone;
    
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $address;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artists")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("category_read")
      */
     private $category;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="artist")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("event_read")
      */
     private $events;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="artist", cascade={"persist", "remove"})
+     * 
+     * @Groups("artist_browse")
      */
     private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Organizer::class, mappedBy="artist")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("organizer_read")
      */
     private $organizers;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
      */
     private $updatedAt;
 
@@ -109,7 +153,9 @@ class Artist
      * @ORM\JoinColumn(nullable=false)
      * 
      * @Groups("artist_browse")
+     * @Groups("artist_read")
      * @Groups("region_read")
+     * 
      */
     private $region;
 

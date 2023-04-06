@@ -216,7 +216,9 @@ class ArtistController extends AbstractController
                     "artist_read",
                     "event_read",
                     "category_read",
-                    "organizer_read"
+                    "organizer_read",
+                    "region_read"
+
                 ]
             ]
         );
