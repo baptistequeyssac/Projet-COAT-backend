@@ -58,10 +58,9 @@ class Artist
      * @ORM\Column(type="integer", nullable=true)
      */
     private $phone;
-
-    
+   
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $address;
 
@@ -94,6 +93,12 @@ class Artist
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $region;
 
     public function __construct()
     {
@@ -220,8 +225,7 @@ class Artist
 
         return $this;
     }
-
-    
+   
     public function getAddress(): ?string
     {
         return $this->address;
@@ -349,6 +353,18 @@ class Artist
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }

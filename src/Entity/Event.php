@@ -63,7 +63,7 @@ class Event
      * @ORM\Column(type="string", length=16, nullable=true)
      */
     private $frequency;
-
+    
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
      */
@@ -89,6 +89,12 @@ class Event
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $region;
 
     public function __construct()
     {
@@ -307,6 +313,18 @@ class Event
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
