@@ -101,7 +101,7 @@ class Event
      */
     public function setCreatedAtDefaultValue(): void
     {
-        // automation of CreatedAt's date
+        // automation of createdAt's date
         $this->createdAt = new \DateTime();
     }
 
