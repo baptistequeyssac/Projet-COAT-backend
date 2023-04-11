@@ -1,7 +1,7 @@
 nelmio_cors:
     defaults:
         origin_regex: true
-        allow_origin: ['http://baptistequeyssac-server.eddi.cloud/projet-01-comedy-among-other-things-back/public/']
+        allow_origin: ['http://localhost:5173']
         allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
         allow_headers: ['Content-Type', 'Authorization']
         expose_headers: ['Link']
