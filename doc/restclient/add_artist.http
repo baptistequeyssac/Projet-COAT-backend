@@ -3,13 +3,13 @@ Content-Type: application/json
 
 
 {
-    "pseudo": "pseudotestee",
-    "name": "nametestee",
-    "firstName" :"firstnametest",
+    "pseudo": "pseudotestRegion",
+    "name": "nametesteeRegion",
+    "firstName" :"firstnametestRegion",
     "birthdate": "1999-01-01",
     "image": "zezetzetzt",
-    "bio": "trucbidulechose lorem blablabalbalb",
-    "email": "test@test.com",
+    "bio": "trucbidulechose lorem blablabalbalb voir si la région se crée",
+    "email": "test@testregion.com",
     "phone": 664646421,
     "address": "5 rue machin du truc",
     "region": {

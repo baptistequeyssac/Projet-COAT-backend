@@ -18,21 +18,23 @@ class Type
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups("Type_browse")
+     * @Groups("type_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
      *       
-     * @Groups("Type_browse")
+     * @Groups("type_browse")
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="type")
      * 
-     * @Groups("Type_browse")
+     * @Groups("type_browse")
+     * @Groups("type_browse")
+     * @Groups("type_read")
      */
     private $events;
 
