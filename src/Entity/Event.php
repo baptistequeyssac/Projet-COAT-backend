@@ -10,6 +10,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
+ * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Event
 {

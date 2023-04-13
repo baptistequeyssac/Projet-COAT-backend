@@ -5,6 +5,7 @@ Content-Type: application/json
 {
     "name": "tututeut",
     "address": "5 rue machinchose",
+    "phone": 678543624,
     "status": 5,
     "region": 12
     

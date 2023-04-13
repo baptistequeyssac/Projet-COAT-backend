@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=StatusRepository::class)
+ * 
+ * 
  */
 class Status
 {
@@ -17,6 +19,8 @@ class Status
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
+     * @Groups({"organizer_browse"})
+     * @Groups({"organizer_read"})
      * @Groups("status_browse")
      * 
      */
@@ -25,10 +29,10 @@ class Status
     /**
      * @ORM\Column(type="string", length=32)
      * 
+     * @Groups({"organizer_browse"})
+     * @Groups({"organizer_read"})
      * @Groups("status_browse")
-     * 
-     * 
-     * 
+     *  
      */
     private $name;
 
