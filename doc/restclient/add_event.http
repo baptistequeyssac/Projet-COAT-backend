@@ -1,9 +1,5 @@
 POST http://baptistequeyssac-server.eddi.cloud/projet-01-comedy-among-other-things-back/public/api/events
 Content-Type: application/json
-<<<<<<< HEAD
-=======
-
->>>>>>> 788d4e8fd353f0f68cfcb48cd7ee8111ce27da91
 
 {
     "title": "Club À Gogo",
