@@ -38,6 +38,9 @@ class Organizer
     /**
      * @ORM\Column(type="string", length=255)
      * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * 
 
      */
     private $address;
