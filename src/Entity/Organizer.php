@@ -34,8 +34,7 @@ class Organizer
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups("organizer_browse")
-     * @Groups("organizer_read")
+
      */
     private $address;
 
@@ -132,7 +131,7 @@ class Organizer
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\ManyToOne(targetEntity=Region::class , cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * 
      * @Groups("organizer_browse")
