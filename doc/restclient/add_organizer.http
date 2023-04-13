@@ -1,16 +1,19 @@
-POST http://localhost:8080/api/organizers
+POST http://baptistequeyssac-server.eddi.cloud/projet-01-comedy-among-other-things-back/public/api/events
 Content-Type: application/json
 
-
 {
-  "name" : "testnameOrganizer",
-  "address": "6 rue de la belle avenue",
-  
-  "description": "Organize des évenements de styles stand-up au Club À Gogo",
-  "region": "Normandie",
-  "logo": "blablabla",
-  "email":"truc@bidule.com",
-  "phone": 684532170
-  
-  
+    "title": "Club À Gogo",
+    "duration": 10,
+    "address" :"4 rue du biniou",
+    "price": "5",
+    "summary": "Venez nombreux blablabla",
+    "poster": "zzzzzzzzz",
+    "date": "10-04-2023",
+    "info": "blabla",
+    "frequency": "régulière",
+    "region": 3,
+    "type": 2,
+    "createdAt": "2023-04-06"
+   
+    
 }

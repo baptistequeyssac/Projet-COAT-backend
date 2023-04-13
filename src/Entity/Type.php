@@ -33,14 +33,8 @@ class Type
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="type")
      * 
      * @Groups("type_browse")
-     * @Groups("type_browse")
-     * @Groups("type_read")
-
      * 
->>>>>>> 788d4e8fd353f0f68cfcb48cd7ee8111ce27da91
-=======
      * 
->>>>>>> 788d4e8fd353f0f68cfcb48cd7ee8111ce27da91
      */
     private $events;
 

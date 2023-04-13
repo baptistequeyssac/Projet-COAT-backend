@@ -1,8 +1,8 @@
-POST http://baptistequeyssac-server.eddi.cloud/projet-01-comedy-among-other-things-back/public/api/events
+POST http://localhost:8080/api/events
 Content-Type: application/json
 
 {
-    "title": "Club À Gogo",
+    "title": "Club À Gogo22222",
     "duration": 10,
     "address" :"4 rue du biniou",
     "price": "5",

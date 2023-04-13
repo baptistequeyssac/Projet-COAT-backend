@@ -80,7 +80,6 @@ class ArtistController extends AbstractController
         Request $request,
         SerializerInterface $serializer,
         ArtistRepository $artistRepository,
-        RegionRepository $regionRepository,
         ValidatorInterface $validator
         )
      {
