@@ -18,13 +18,17 @@ class Type
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
+     * @Groups({"event_browse"})
+     * @Groups({"event_read"})
      * @Groups("type_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
-     *       
+     *
+     * @Groups({"event_browse"})
+     * @Groups({"event_read"})       
      * @Groups("type_browse")
      */
     private $name;
