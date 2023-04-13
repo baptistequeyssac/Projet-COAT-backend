@@ -114,7 +114,7 @@ class ArtistController extends AbstractController
         }
 
         // assign region to artist
-        $artistFromJson->serRegion($region);
+        $artistFromJson->setRegion($region);
 
         $listError = $validator->validate($artistFromJson);
 
