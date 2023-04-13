@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\StockageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=StockageRepository::class)
@@ -14,6 +15,8 @@ class Stockage
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("user_read")
      */
     private $id;
 

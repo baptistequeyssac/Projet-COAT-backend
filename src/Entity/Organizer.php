@@ -20,6 +20,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("user_read")
      */
     private $id;
 
