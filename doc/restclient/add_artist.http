@@ -12,8 +12,5 @@ Content-Type: application/json
     "email": "test@testregion.com",
     "phone": 664646421,
     "address": "5 rue machin du truc",
-    "region": {
-        "id": 12,
-        "name": "Pays de la Loire"
-    } 
+    "region": 3
 }
