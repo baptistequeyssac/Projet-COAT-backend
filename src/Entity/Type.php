@@ -19,6 +19,10 @@ class Type
      * @ORM\Column(type="integer")
      * 
      * @Groups("type_browse")
+<<<<<<< HEAD
+=======
+     * 
+>>>>>>> 788d4e8fd353f0f68cfcb48cd7ee8111ce27da91
      */
     private $id;
 
@@ -26,6 +30,10 @@ class Type
      * @ORM\Column(type="string", length=32)
      *       
      * @Groups("type_browse")
+<<<<<<< HEAD
+=======
+     * 
+>>>>>>> 788d4e8fd353f0f68cfcb48cd7ee8111ce27da91
      */
     private $name;
 
@@ -33,8 +41,12 @@ class Type
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="type")
      * 
      * @Groups("type_browse")
+<<<<<<< HEAD
      * @Groups("type_browse")
      * @Groups("type_read")
+=======
+     * 
+>>>>>>> 788d4e8fd353f0f68cfcb48cd7ee8111ce27da91
      */
     private $events;
 

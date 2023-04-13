@@ -3,7 +3,7 @@ Content-Type: application/json
 
 
 {
-    "pseudo": "pseudotestRegion",
+    "pseudo": "pseudotestRegion3",
     "name": "nametesteeRegion",
     "firstName" :"firstnametestRegion",
     "birthdate": "1999-01-01",
@@ -12,5 +12,5 @@ Content-Type: application/json
     "email": "test@testregion.com",
     "phone": 664646421,
     "address": "5 rue machin du truc",
-    "region": 3
+    "region": 6
 }
