@@ -18,8 +18,7 @@ class Status
      * @ORM\Column(type="integer")
      * 
      * @Groups("status_browse")
-     * @Groups("organizer_browse")
-     * @Groups("organizer_read")
+     * 
      */
     private $id;
 
@@ -27,8 +26,7 @@ class Status
      * @ORM\Column(type="string", length=32)
      * 
      * @Groups("status_browse")
-     * @Groups("organizer_browse")
-     * @Groups("organizer_read")
+     * 
      */
     private $name;
 
@@ -36,8 +34,7 @@ class Status
      * @ORM\OneToMany(targetEntity=Organizer::class, mappedBy="status")
      * 
      * @Groups("status_browse")
-     * @Groups("organizer_browse")
-     * @Groups("organizer_read")
+     * 
      */
     private $organizers;
 
