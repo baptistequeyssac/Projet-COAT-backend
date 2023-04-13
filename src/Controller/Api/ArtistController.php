@@ -99,23 +99,7 @@ class ArtistController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-
-        // load region from database to stop adding a region to the database when adding an artist
-        $regionId = $artistFromJson->getRegion()->getId();
-        $region = $regionRepository->find($regionId);
-
-        // if the region does not exist
-        if (!$region){
-            return $this->json(
-                'Cette région n\'existe pas',
-                // code 404
-                Response::HTTP_NOT_FOUND
-            );
-        }
-
-        // assign region to artist
-        $artistFromJson->serRegion($region);
-
+        
         $listError = $validator->validate($artistFromJson);
 
         if (count($listError) > 0){

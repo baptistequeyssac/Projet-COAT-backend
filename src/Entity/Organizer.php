@@ -40,7 +40,7 @@ class Organizer
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true)
+     * @ORM\Column(type="boolean", length=1, nullable=true)
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
