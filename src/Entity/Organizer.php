@@ -11,6 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OrganizerRepository::class)
+ * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Organizer
 {
@@ -129,6 +131,7 @@ class Organizer
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
      * @Groups("status_read")
+     * 
      */
     private $status;
 

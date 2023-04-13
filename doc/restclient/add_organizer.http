@@ -1,13 +1,12 @@
 POST http://localhost:8080/api/organizers
+//POST http://baptistequeyssac-server.eddi.cloud/projet-01-comedy-among-other-things-back/public/api/organizers
 Content-Type: application/json
 
 {
-    "name": "tutute",
+    "name": "tututeut",
     "address": "5 rue machinchose",
-    "status": 2,
-    "region": 3,
-    "createdAt": "2023-04-06"
-
-   
+    "status": 5,
+    "region": 12
+    
     
 }

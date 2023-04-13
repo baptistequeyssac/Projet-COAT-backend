@@ -22,6 +22,8 @@ class Region
      * 
      * @Groups({"artist_browse"})
      * @Groups({"artist_read"})
+     * @Groups({"organizer_browse"})
+     * @Groups({"organizer_read"})
      * @Groups("region_browse")
      */
     private $id;
@@ -31,6 +33,8 @@ class Region
      * 
      * @Groups({"artist_browse"})
      * @Groups({"artist_read"})
+     * @Groups({"organizer_browse"})
+     * @Groups({"organizer_read"})
      * @Groups("region_browse")
      */
     private $name;

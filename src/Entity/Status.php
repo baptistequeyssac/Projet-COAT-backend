@@ -27,6 +27,8 @@ class Status
      * 
      * @Groups("status_browse")
      * 
+     * 
+     * 
      */
     private $name;
 
@@ -34,6 +36,8 @@ class Status
      * @ORM\OneToMany(targetEntity=Organizer::class, mappedBy="status")
      * 
      * @Groups("status_browse")
+     * 
+     * 
      * 
      */
     private $organizers;
