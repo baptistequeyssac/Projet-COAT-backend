@@ -19,7 +19,7 @@ class Type
      * @ORM\Column(type="integer")
      * 
      * @Groups("type_browse")
-     * @Groups("type_read")
+     * 
      */
     private $id;
 
@@ -27,7 +27,7 @@ class Type
      * @ORM\Column(type="string", length=32)
      *       
      * @Groups("type_browse")
-     * @Groups("type_read")
+     * 
      */
     private $name;
 
@@ -35,7 +35,7 @@ class Type
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="type")
      * 
      * @Groups("type_browse")
-     * @Groups("type_read")
+     * 
      */
     private $events;
 
