@@ -12,8 +12,8 @@ Content-Type: application/json
     "date": "10-04-2023",
     "info": "blabla",
     "frequency": "régulière",
-    "region_id": 3,
-    "type_id": 2,
+    "region": 3,
+    "type": 2,
     "createdAt": "2023-04-06"
    
     

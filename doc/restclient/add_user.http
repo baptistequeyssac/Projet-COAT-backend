@@ -3,9 +3,9 @@ Content-Type: application/json
 
 
 {
-    "email": "testapi@api.com",
+    "email": "testartist@api.com",
     "password": "123456tete",
-    "roles": ["ROLE_ADMIN"]
+    "roles": ["ROLE_ARTIST"]
     
     
 }
