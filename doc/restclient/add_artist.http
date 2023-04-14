@@ -12,5 +12,6 @@ Content-Type: application/json
     "email": "test@testregion.com",
     "phone": 664646421,
     "address": "5 rue machin du truc",
+    "category": [3],
     "region": 6
 }

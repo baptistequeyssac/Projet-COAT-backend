@@ -17,17 +17,21 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *      
+     * 
+     * @Groups({"artist_browse"})
+     * @Groups({"artist_read"})     
      * @Groups("category_browse")
-     * @Groups("category_read")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * 
+     * @Groups({"artist_browse"})
+     * @Groups({"artist_read"}) 
      * @Groups("category_browse")
-     * @Groups("category_read")
+     * 
      */
     private $name;
 
@@ -35,7 +39,7 @@ class Category
      * @ORM\ManyToMany(targetEntity=Artist::class, mappedBy="category")
      * 
      * @Groups("category_browse")
-     * @Groups("category_read")
+     * 
      */
     private $artists;
 
