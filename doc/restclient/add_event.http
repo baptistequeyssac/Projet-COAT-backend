@@ -12,7 +12,7 @@ Content-Type: application/json
     "info": "blabla",
     "frequency": "régulière",
     // use array for artist and organizer because we use a ManyToMany relation
-    "artist": [1],
+    "artist": [7],
     //"organizer": [4],
     "region": 3,
     "type": 2    

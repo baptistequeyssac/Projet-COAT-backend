@@ -111,10 +111,11 @@ class Artist
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="artist")
-     * 
-     * @Groups("artist_browse")
-     * @Groups("artist_read")
-     * @MaxDepth(1)
+    //! * Ici, l'ajout des groups artists entraine une circular reference, ce qui empêche de lire un artiste avec son id, ou de créer un event
+    //! En supprimant ces groups, l'erreur est résolu, mais on ne peut donc pas afficher un event sur la page d'un artiste.
+    //  * @Groups("artist_browse")
+    //  * @Groups("artist_read")
+    //  * @MaxDepth(1)
      * 
      */
     private $events;
