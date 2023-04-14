@@ -25,6 +25,7 @@ class Artist
      * @Groups("artist_browse")
      * @Groups("artist_read")
      * @Groups("user_read")
+     * @Groups("artist_add")
      */
     private $id;
 
@@ -33,6 +34,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $pseudo;
 
@@ -41,6 +43,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $name;
 
@@ -49,6 +52,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $firstName;
 
@@ -57,6 +61,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $birthdate;
 
@@ -65,6 +70,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $image;
 
@@ -73,6 +79,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $bio;
 
@@ -81,6 +88,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $email;
 
@@ -89,6 +97,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $phone;
    
@@ -97,6 +106,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $address;
 
@@ -106,16 +116,15 @@ class Artist
      * @Groups("artist_browse")
      * @Groups("artist_read")
      * @Groups("category_read")
+     * @Groups("artist_add")
      */
     private $category;
-
+// TODO ajouter un group artist_add ou event_add pour éviter circular ref
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="artist")
-    //! * Ici, l'ajout des groups artists entraine une circular reference, ce qui empêche de lire un artiste avec son id, ou de créer un event
-    //! En supprimant ces groups, l'erreur est résolu, mais on ne peut donc pas afficher un event sur la page d'un artiste.
-    //  * @Groups("artist_browse")
-    //  * @Groups("artist_read")
-    //  * @MaxDepth(1)
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * 
      * 
      */
     private $events;
@@ -133,6 +142,7 @@ class Artist
      * @Groups("artist_browse")
      * @Groups("artist_read")
      * @Groups("organizer_read")
+     * @Groups("artist_add")
      */
     private $organizers;
 
@@ -141,6 +151,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $createdAt;
 
@@ -149,6 +160,7 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $updatedAt;
 
@@ -159,6 +171,7 @@ class Artist
      * @Groups("artist_browse")
      * @Groups("artist_read")
      * @Groups("region_read")
+     * @Groups("artist_add")
      * 
      */
     private $region;

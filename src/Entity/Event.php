@@ -97,14 +97,14 @@ class Event
      * @Groups("event_read")
      */
     private $frequency;
-    
+    // TODO ajouter un group artist_add ou event_add pour éviter circular ref
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
-     * @Groups("artist_read")
-     * @MaxDepth(1)
+     * @Groups("artist_add")
+     * 
      * 
      */
     private $artist;
@@ -124,7 +124,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
-     * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $organizer;
 

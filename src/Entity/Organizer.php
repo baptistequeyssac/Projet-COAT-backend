@@ -24,6 +24,7 @@ class Organizer
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
      * @Groups("user_read")
+     * @Groups("organizer_add")
      */
     private $id;
 
@@ -32,6 +33,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $name;
 
@@ -40,6 +42,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("organizer_add")
      * 
 
      */
@@ -50,6 +53,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $type;
 
@@ -58,6 +62,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $description;
 
@@ -66,6 +71,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $logo;
 
@@ -74,6 +80,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $email;
 
@@ -82,6 +89,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $phone;
 
@@ -90,7 +98,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
-     * @Groups("event_read")
+     * 
      */
     private $events;
 
@@ -108,6 +116,7 @@ class Organizer
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
      * @Groups("artist_read")
+     * @Groups("organizer_add")
      */
     private $artist;
 
@@ -116,6 +125,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $createdAt;
 
@@ -124,6 +134,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $updatedAt;
 
@@ -134,6 +145,7 @@ class Organizer
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
      * @Groups("status_read")
+     * @Groups("organizer_add")
      * 
      */
     private $status;
@@ -145,6 +157,7 @@ class Organizer
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
      * @Groups("region_read")
+     * @Groups("organizer_add")
      */
     private $region;
 

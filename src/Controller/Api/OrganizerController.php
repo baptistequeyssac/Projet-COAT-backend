@@ -66,7 +66,7 @@ class OrganizerController extends AbstractController
      *     response=201,
      *     description="new created organizer",
      *     @OA\JsonContent(
-     *          ref=@Model(type=Organizer::class, groups={"organizer_browse", "organizer_read", "event_read", "category_read", "artist_read", "status_read", "region_read", "type_read"})
+     *          ref=@Model(type=Organizer::class, groups={"organizer_browse", "organizer_read", "organizer_add", "event_read", "category_read", "artist_read", "status_read", "region_read", "type_read"})
      *      )
      * )
      * 
@@ -125,6 +125,7 @@ class OrganizerController extends AbstractController
                 [
                     "organizer_browse",
                     "organizer_read",
+                    "organizer_add",
                     "event_read",
                     "category_read",
                     "artist_read",

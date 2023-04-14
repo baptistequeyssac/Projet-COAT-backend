@@ -64,7 +64,7 @@ class EventController extends AbstractController
      *     response=201,
      *     description="new created event",
      *     @OA\JsonContent(
-     *          ref=@Model(type=Event::class, groups={"event_read", "artist_read", "category_read", "organizer_read", "type_read", "region_read"})
+     *          ref=@Model(type=Event::class, groups={"event_read", "artist_add", "category_read", "organizer_add", "type_read", "region_read"})
      *      )
      * )
      * 
@@ -123,9 +123,9 @@ class EventController extends AbstractController
                 [
                     "event_browse",
                     "event_read",
-                    "artist_read",
+                    "artist_add",
                     "category_read",
-                    "organizer_read",
+                    "organizer_add",
                     "type_read",
                     "region_read"
                 ]
