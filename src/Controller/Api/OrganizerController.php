@@ -212,8 +212,8 @@ class OrganizerController extends AbstractController
 
          return $this->json(
             $organizer,
-            // code 302
-            Response::HTTP_FOUND,
+            // code 200
+            Response::HTTP_OK,
             [],
             [
                 "groups" =>

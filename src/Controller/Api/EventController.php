@@ -208,8 +208,8 @@ class EventController extends AbstractController
 
          return $this->json(
             $event,
-            // code 302
-            Response::HTTP_FOUND,
+            // code 200
+            Response::HTTP_OK,
             [],
             [
                 "groups" =>

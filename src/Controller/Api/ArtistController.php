@@ -209,8 +209,8 @@ class ArtistController extends AbstractController
 
          return $this->json(
             $artist,
-            // code 302
-            Response::HTTP_FOUND,
+            // code 200
+            Response::HTTP_OK,
             [],
             [
                 "groups" =>
