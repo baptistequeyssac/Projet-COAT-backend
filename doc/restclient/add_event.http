@@ -13,7 +13,7 @@ Content-Type: application/json
     "frequency": "régulière",
     // use array for artist and organizer because we use a ManyToMany relation
     "artist": [1],
-    "organizer": [4],
+    //"organizer": [4],
     "region": 3,
     "type": 2
     

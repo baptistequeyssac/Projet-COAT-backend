@@ -102,7 +102,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
-     * @Groups("artist_read")
+     * 
      */
     private $artist;
 
