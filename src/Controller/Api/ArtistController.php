@@ -65,7 +65,7 @@ class ArtistController extends AbstractController
      *     response=201,
      *     description="new created artist",
      *     @OA\JsonContent(
-     *          ref=@Model(type=Artist::class, groups={"artist_browse", "artist_read", "artist_add", "event_read", "category_read", "organizer_read", "region_read"})
+     *          ref=@Model(type=Artist::class, groups={"artist_add"})
      *      )
      * )
      * 
@@ -122,13 +122,7 @@ class ArtistController extends AbstractController
             [
                 "groups" =>
                 [
-                    "artist_browse",
-                    "artist_read",
                     "artist_add",
-                    "event_read",
-                    "category_read",
-                    "organizer_read",
-                    "region_read"
                 ]
             ]
                 );
@@ -216,11 +210,6 @@ class ArtistController extends AbstractController
                 "groups" =>
                 [
                     "artist_read",
-                    "event_read",
-                    "category_read",
-                    "organizer_read",
-                    "region_read"
-
                 ]
             ]
         );

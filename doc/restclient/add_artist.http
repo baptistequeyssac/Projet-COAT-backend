@@ -3,15 +3,15 @@ Content-Type: application/json
 
 
 {
-    "pseudo": "pseudotestRegion3",
-    "name": "nametesteeRegion",
-    "firstName" :"firstnametestRegion",
+    "pseudo": "pseudotestRen3",
+    "name": "nametestegion",
+    "firstName" :"firstmetestRegion",
     "birthdate": "1999-01-01",
-    "image": "zezetzetzt",
-    "bio": "trucbidulechose lorem blablabalbalb voir si la région se crée",
+    "image": "zezetetzt",
+    "bio": "trucbidublablabalbalb voir si la région se crée",
     "email": "test@testregion.com",
     "phone": 664646421,
     "address": "5 rue machin du truc",
-    "category": [3,1,2],
-    "region": 6
+    "category": [3,1],
+    "region": 4
 }

@@ -115,7 +115,6 @@ class Artist
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
-     * @Groups("category_read")
      * @Groups("artist_add")
      */
     private $category;

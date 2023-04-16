@@ -21,7 +21,7 @@ class Category
      * @Groups({"artist_browse"})
      * @Groups({"artist_read"})     
      * @Groups("category_browse")
-     * @Groups("artist_add")
+     * 
      * 
      */
     private $id;
@@ -32,7 +32,7 @@ class Category
      * @Groups({"artist_browse"})
      * @Groups({"artist_read"}) 
      * @Groups("category_browse")
-     * @Groups("artist_add")
+     * 
      * 
      */
     private $name;
