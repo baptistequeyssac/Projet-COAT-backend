@@ -1,4 +1,4 @@
-GET http://localhost:8080/api/artists/7
+GET http://localhost:8080/api/artists/9
 
 Accept: application/json
 

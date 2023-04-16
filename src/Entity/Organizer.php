@@ -34,6 +34,7 @@ class Organizer
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
      * @Groups("organizer_add")
+     * @Groups("event_read")
      */
     private $name;
 
@@ -72,6 +73,7 @@ class Organizer
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
      * @Groups("organizer_add")
+     * @Groups("event_read")
      */
     private $logo;
 

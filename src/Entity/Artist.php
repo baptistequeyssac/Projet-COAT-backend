@@ -35,6 +35,7 @@ class Artist
      * @Groups("artist_browse")
      * @Groups("artist_read")
      * @Groups("artist_add")
+     * @Groups("event_read")
      */
     private $pseudo;
 

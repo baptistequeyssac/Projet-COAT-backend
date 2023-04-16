@@ -23,6 +23,9 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
+     * @Groups("artist_read")
+     * 
      */
     private $id;
 
@@ -31,6 +34,9 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
+     * @Groups("artist_read")
+     * 
      */
     private $title;
 
@@ -39,6 +45,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $duration;
 
@@ -47,6 +54,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $address;
 
@@ -55,6 +63,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $price;
 
@@ -63,6 +72,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $summary;
 
@@ -71,6 +81,8 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("artist_read")
+     * @Groups("event_add")
      */
     private $poster;
 
@@ -79,6 +91,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $date;
 
@@ -87,6 +100,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $info;
 
@@ -95,6 +109,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $frequency;
     // TODO ajouter un group artist_add ou event_add pour éviter circular ref
@@ -103,7 +118,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
-     * @Groups("artist_add")
+     * @Groups("event_add")
      * 
      * 
      */
@@ -116,6 +131,7 @@ class Event
      * @Groups("event_browse")
      * @Groups("event_read")
      * @Groups("type_read")
+     * @Groups("event_add")
      */
     private $type;
 
@@ -125,6 +141,7 @@ class Event
      * @Groups("event_browse")
      * @Groups("event_read")
      * @Groups("organizer_add")
+     * @Groups("event_add")
      */
     private $organizer;
 
@@ -133,6 +150,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $createdAt;
 
@@ -141,6 +159,7 @@ class Event
      * 
      * @Groups("event_browse")
      * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $updatedAt;
 
@@ -151,6 +170,7 @@ class Event
      * @Groups("event_browse")
      * @Groups("event_read")
      * @Groups("region_read")
+     * @Groups("event_add")
      */
     private $region;
 

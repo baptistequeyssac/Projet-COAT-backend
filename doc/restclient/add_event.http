@@ -2,7 +2,7 @@ POST http://localhost:8080/api/events
 Content-Type: application/json
 
 {
-    "title": "Club À Gogo22222",
+    "title": "Club À test1213212",
     "duration": 10,
     "address" :"4 rue du biniou",
     "price": "5",
