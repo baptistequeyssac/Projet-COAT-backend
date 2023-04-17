@@ -145,16 +145,7 @@ class UserController extends AbstractController
      */
 
     //* Log an user
-    public function login(
-        Request $request,
-        UserRepository $userRepository,
-        UserPasswordHasherInterface $userPasswordHasherInterface
-        )
-    {
-        
-
-        
-
-        
+    public function login() {
+               // no content
     }
 }
