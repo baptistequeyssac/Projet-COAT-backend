@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +18,20 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+
 class UserController extends AbstractController
 {
+    
+    /**
+     * @var JWTTokenManagerInterface
+     */
+    private $jwtManager;
+
+    public function __construct(JWTTokenManagerInterface $jwtManager)
+    {
+        $this->jwtManager = $jwtManager;
+    }
+
     /**
      * @Route("/api/users", name="app_api_user", methods={"GET"})
      * 
@@ -96,8 +109,6 @@ class UserController extends AbstractController
             );
         }
 
-       //todo $passwor
-
         $listError = $validator->validate($userFromJson);
 
         if (count($listError) > 0){
@@ -108,6 +119,12 @@ class UserController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
+
+        // hash password
+        $password = $userFromJson->getPassword();
+        $hashedPassword = $userPasswordHasherInterface->hashPassword($userFromJson, $password);
+        // assign hashed password to user
+        $userFromJson->setPassword($hashedPassword);
 
         // persist + flush
         $userRepository->add($userFromJson, true);
@@ -128,20 +145,95 @@ class UserController extends AbstractController
                     
                 ]
             ]
-                );
-
-
-
-
+        );
     }
 
+    /**
+     * @Route("/api/user/login", name="app_api_user_login", methods={"POST"})
+     * 
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="email", type="string"),
+     *         @OA\Property(property="password", type="string")
+     *     )
+     * )
+     * 
+     * @OA\Response(
+     *     response=200,
+     *     description="authentication success",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="message", type="string", example="Authentication success"),
+     *         @OA\Property(property="token", type="string")
+     *     )
+     * )
+     * 
+     * @OA\Response(
+     *     response=401,
+     *     description="authentication failure",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="message", type="string", example="Invalid username or password")
+     *     )
+     * )
+     */
 
+    //* Log an user
+    public function login(
+        Request $request,
+        UserRepository $userRepository,
+        UserPasswordHasherInterface $userPasswordHasherInterface
+        ): JsonResponse
+    {
+        $contentJson = $request->getContent();
+        $userData = json_decode($contentJson, true);
 
+        
 
+        // ! add comment here
+        $email = $userData['email'] ?? null;
+        $password = $userData['password'] ?? null;
 
+        // test password or email
+        if (!$email || !$password){
+            return $this->json(
+                ['message' => "Oups, l'email ou le mot de passe semble incorrect"],
+                // code 401
+                Response::HTTP_UNAUTHORIZED
+            );
+        }
 
+        $user = $userRepository->findOneBy(['email' => $email]);
 
+        // test email
+        if (!$user){
+            return $this->json(
+                ['message' => "Oups, l'email ou le mot de passe semble incorrect"],
+                // code 401
+                Response::HTTP_UNAUTHORIZED
+            );
+        }
 
+        // test password
+        if (!$userPasswordHasherInterface->isPasswordValid($user, $password)){
+            return $this->json(
+                ['message' => "Oups, l'email ou le mot de passe semble incorrect"],
+                // code 401
+                Response::HTTP_UNAUTHORIZED
+            );
+        }
 
+        // generate token 
+        $token = $this->jwtManager->create($user);
 
+        return $this->json(
+            [
+                'message' => 'Vous êtes connecté',
+                'toker' => $token
+            ],
+            // code 200
+            Response::HTTP_OK
+        );
+    }
 }
