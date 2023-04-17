@@ -3,8 +3,8 @@ Content-Type: application/json
 
 
 {
-    "email": "testartist@api.com",
-    "password": "123456tete",
+    "email": "testhash",
+    "password": "hash",
     "roles": ["ROLE_ARTIST"]
     
     

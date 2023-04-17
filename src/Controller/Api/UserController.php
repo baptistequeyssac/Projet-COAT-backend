@@ -96,8 +96,6 @@ class UserController extends AbstractController
             );
         }
 
-       //todo $passwor
-
         $listError = $validator->validate($userFromJson);
 
         if (count($listError) > 0){
@@ -108,6 +106,12 @@ class UserController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
+
+        // hash password
+        $password = $userFromJson->getPassword();
+        $hashedPassword = $userPasswordHasherInterface->hashPassword($userFromJson, $password);
+        // assign hashed password to user
+        $userFromJson->setPassword($hashedPassword);
 
         // persist + flush
         $userRepository->add($userFromJson, true);
