@@ -195,14 +195,14 @@ class UserController extends AbstractController
         $email = $userData['email'] ?? null;
         $password = $userData['password'] ?? null;
 
-        // test password or email
-        if (!$email || !$password){
-            return $this->json(
-                ['message' => "Oups, l'email ou le mot de passe semble incorrect"],
-                // code 401
-                Response::HTTP_UNAUTHORIZED
-            );
-        }
+        // // test password or email
+        // if (!$email || !$password){
+        //     return $this->json(
+        //         ['message' => "Oups, l'email ou le mot de passe semble incorrect"],
+        //         // code 401
+        //         Response::HTTP_UNAUTHORIZED
+        //     );
+        // }
 
         $user = $userRepository->findOneBy(['email' => $email]);
 
