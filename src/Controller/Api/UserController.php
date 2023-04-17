@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
@@ -75,7 +76,8 @@ class UserController extends AbstractController
         Request $request,
         SerializerInterface $serializer,
         UserRepository $userRepository,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        UserPasswordHasherInterface $userPasswordHasherInterface
         )
     {
         $contentJson = $request->getContent();
@@ -93,6 +95,8 @@ class UserController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
+
+       //todo $passwor
 
         $listError = $validator->validate($userFromJson);
 
