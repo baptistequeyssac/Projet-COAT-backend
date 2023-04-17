@@ -22,16 +22,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserController extends AbstractController
 {
     
-    /**
-     * @var JWTTokenManagerInterface
-     */
-    private $jwtManager;
-
-    public function __construct(JWTTokenManagerInterface $jwtManager)
-    {
-        $this->jwtManager = $jwtManager;
-    }
-
+    
     /**
      * @Route("/api/users", name="app_api_user", methods={"GET"})
      * 
