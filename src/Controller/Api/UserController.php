@@ -148,128 +148,77 @@ class UserController extends AbstractController
         );
     }
 
-    // /**
-    //  * @Route("/api/user/login", name="app_api_user_login", methods={"POST"})
-    //  * 
-    //  * @OA\RequestBody(
-    //  *     @OA\JsonContent(
-    //  *         type="object",
-    //  *         @OA\Property(property="email", type="string"),
-    //  *         @OA\Property(property="password", type="string")
-    //  *     )
-    //  * )
-    //  * 
-    //  * @OA\Response(
-    //  *     response=200,
-    //  *     description="authentication success",
-    //  *     @OA\JsonContent(
-    //  *         type="object",
-    //  *         @OA\Property(property="message", type="string", example="Authentication success"),
-    //  *         @OA\Property(property="token", type="string")
-    //  *     )
-    //  * )
-    //  * 
-    //  * @OA\Response(
-    //  *     response=401,
-    //  *     description="authentication failure",
-    //  *     @OA\JsonContent(
-    //  *         type="object",
-    //  *         @OA\Property(property="message", type="string", example="Invalid username or password")
-    //  *     )
-    //  * )
-    //  */
+    /**
+     * @Route("/api/user/login", name="app_api_user_login", methods={"POST"})
+     * 
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="email", type="string"),
+     *         @OA\Property(property="password", type="string")
+     *     )
+     * )
+     * 
+     * @OA\Response(
+     *     response=200,
+     *     description="authentication success",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="message", type="string", example="Authentication success"),
+     *         @OA\Property(property="token", type="string")
+     *     )
+     * )
+     * 
+     * @OA\Response(
+     *     response=401,
+     *     description="authentication failure",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="message", type="string", example="Invalid username or password")
+     *     )
+     * )
+     */
 
-    // //* Log an user
-    // public function login(
-    //     Request $request,
-    //     UserRepository $userRepository,
-    //     UserPasswordHasherInterface $userPasswordHasherInterface
-    //     ): JsonResponse
-    // {
-    //     $contentJson = $request->getContent();
-    //     $userData = json_decode($contentJson, true);
+    //* Log an user
+    public function login(
+        Request $request,
+        UserRepository $userRepository,
+        UserPasswordHasherInterface $userPasswordHasherInterface
+        ): JsonResponse
+    {
+        $contentJson = $request->getContent();
+        $userData = json_decode($contentJson, true);
 
         
 
-    //     // ! add comment here
-    //     $email = $userData['email'] ?? null;
-    //     $password = $userData['password'] ?? null;
+        // ! delete or not ?
+        $email = $userData['email'] ?? null;
+        $password = $userData['password'] ?? null;
 
-        // // test password or email
-        // if (!$email || !$password){
-        //     return $this->json(
-        //         ['message' => "Oups, l'email ou le mot de passe semble incorrect"],
-        //         // code 401
-        //         Response::HTTP_UNAUTHORIZED
-        //     );
-        // }
+        
 
-         //! test off for me
+         //! add comment
 
-        // $user = $userRepository->findOneBy(array('email' => $email, 'password' => $password));
+        $user = $userRepository->findOneBy(array('email' => $email, 'password' => $password));
 
-        // if (isset($user)){
-        //     // generate token 
-        //  // generate token 
-        // $token = $this->jwtManager->create($user);
+        if (isset($user)){
+            // generate token 
+            $token = $this->jwtManager->create($user);
 
-        // return $this->json(
-        //     [
-        //         'message' => 'Vous êtes connecté',
-        //         'token' => $token
-        //     ],
-        //     // code 200
-        //     Response::HTTP_OK
-        // );
-        // } else {
-        //     return $this->json(
-        //         ['message' => "email incorrect"],
-        //         // code 401
-        //         Response::HTTP_UNAUTHORIZED
-        //         );
-        //     }
-
-
-
-
-
-
-
-
-
-
-
-
-        // $user = $userRepository->findOneBy(['email' => $email]);
-
-        // // test email
-        // if ($email == $user){
-        //     return $this->json(
-        //         ['message' => "email incorrect"],
-        //         // code 401
-        //         Response::HTTP_UNAUTHORIZED
-        //     );
-        // }
-
-        // // test password
-        // if (!$userPasswordHasherInterface->isPasswordValid($user, $password)){
-        //     return $this->json(
-        //         ['message' => "mot de passe incorrect"],
-        //         // code 401
-        //         Response::HTTP_UNAUTHORIZED
-        //     );
-        // }
-
-        // // generate token 
-        // $token = $this->jwtManager->create($user);
-
-        // return $this->json(
-        //     [
-        //         'message' => 'Vous êtes connecté',
-        //         'toker' => $token
-        //     ],
-        //     // code 200
-        //     Response::HTTP_OK
-        // );
-   // }
+            return $this->json(
+                [
+                    'message' => 'Vous êtes connecté',
+                    'token' => $token
+                ],
+                // code 200
+                Response::HTTP_OK
+            );
+        } else {
+            return $this->json(
+                ['message' => "Oups, email ou mot de passe incorrect"],
+                // code 401
+                Response::HTTP_UNAUTHORIZED
+                );
+            }
+    }
 }
