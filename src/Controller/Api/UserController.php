@@ -207,7 +207,7 @@ class UserController extends AbstractController
         $user = $userRepository->findOneBy(['email' => $email]);
 
         // test email
-        if (!$user){
+        if ($email == $user){
             return $this->json(
                 ['message' => "email incorrect"],
                 // code 401
