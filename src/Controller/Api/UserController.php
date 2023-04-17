@@ -204,27 +204,13 @@ class UserController extends AbstractController
         //     );
         // }
 
-        $user = $userRepository->findOneBy(['email' => $email]);
+         
 
-        // test email
-        if ($email == $user){
-            return $this->json(
-                ['message' => "email incorrect"],
-                // code 401
-                Response::HTTP_UNAUTHORIZED
-            );
-        }
+        $user = $userRepository->findOneBy(array('email' => $email, 'password' => $password));
 
-        // test password
-        if (!$userPasswordHasherInterface->isPasswordValid($user, $password)){
-            return $this->json(
-                ['message' => "mot de passe incorrect"],
-                // code 401
-                Response::HTTP_UNAUTHORIZED
-            );
-        }
-
-        // generate token 
+        if (isset($user)){
+            // generate token 
+         // generate token 
         $token = $this->jwtManager->create($user);
 
         return $this->json(
@@ -235,5 +221,55 @@ class UserController extends AbstractController
             // code 200
             Response::HTTP_OK
         );
+        } else {
+            return $this->json(
+                ['message' => "email incorrect"],
+                // code 401
+                Response::HTTP_UNAUTHORIZED
+                );
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+        // $user = $userRepository->findOneBy(['email' => $email]);
+
+        // // test email
+        // if ($email == $user){
+        //     return $this->json(
+        //         ['message' => "email incorrect"],
+        //         // code 401
+        //         Response::HTTP_UNAUTHORIZED
+        //     );
+        // }
+
+        // // test password
+        // if (!$userPasswordHasherInterface->isPasswordValid($user, $password)){
+        //     return $this->json(
+        //         ['message' => "mot de passe incorrect"],
+        //         // code 401
+        //         Response::HTTP_UNAUTHORIZED
+        //     );
+        // }
+
+        // // generate token 
+        // $token = $this->jwtManager->create($user);
+
+        // return $this->json(
+        //     [
+        //         'message' => 'Vous êtes connecté',
+        //         'toker' => $token
+        //     ],
+        //     // code 200
+        //     Response::HTTP_OK
+        // );
     }
 }
