@@ -204,30 +204,30 @@ class UserController extends AbstractController
         //     );
         // }
 
-         
+         //! test off for me
 
-        $user = $userRepository->findOneBy(array('email' => $email, 'password' => $password));
+        // $user = $userRepository->findOneBy(array('email' => $email, 'password' => $password));
 
-        if (isset($user)){
-            // generate token 
-         // generate token 
-        $token = $this->jwtManager->create($user);
+        // if (isset($user)){
+        //     // generate token 
+        //  // generate token 
+        // $token = $this->jwtManager->create($user);
 
-        return $this->json(
-            [
-                'message' => 'Vous êtes connecté',
-                'toker' => $token
-            ],
-            // code 200
-            Response::HTTP_OK
-        );
-        } else {
-            return $this->json(
-                ['message' => "email incorrect"],
-                // code 401
-                Response::HTTP_UNAUTHORIZED
-                );
-            }
+        // return $this->json(
+        //     [
+        //         'message' => 'Vous êtes connecté',
+        //         'token' => $token
+        //     ],
+        //     // code 200
+        //     Response::HTTP_OK
+        // );
+        // } else {
+        //     return $this->json(
+        //         ['message' => "email incorrect"],
+        //         // code 401
+        //         Response::HTTP_UNAUTHORIZED
+        //         );
+        //     }
 
 
 
