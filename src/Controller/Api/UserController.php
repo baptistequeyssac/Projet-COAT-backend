@@ -209,7 +209,7 @@ class UserController extends AbstractController
         // test email
         if (!$user){
             return $this->json(
-                ['message' => "Oups, l'email ou le mot de passe semble incorrect"],
+                ['message' => "email incorrect"],
                 // code 401
                 Response::HTTP_UNAUTHORIZED
             );
@@ -218,7 +218,7 @@ class UserController extends AbstractController
         // test password
         if (!$userPasswordHasherInterface->isPasswordValid($user, $password)){
             return $this->json(
-                ['message' => "Oups, l'email ou le mot de passe semble incorrect"],
+                ['message' => "mot de passe incorrect"],
                 // code 401
                 Response::HTTP_UNAUTHORIZED
             );
