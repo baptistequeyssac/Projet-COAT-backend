@@ -215,7 +215,7 @@ class UserController extends AbstractController
             );
         } else {
             return $this->json(
-                ['message' => "Oups, email ou mot de passe incorrect"],
+                ['error' => "Oups, email ou mot de passe incorrect"],
                 // code 401
                 Response::HTTP_UNAUTHORIZED
                 );
