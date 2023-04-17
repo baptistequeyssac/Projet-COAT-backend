@@ -271,5 +271,5 @@ class UserController extends AbstractController
         //     // code 200
         //     Response::HTTP_OK
         // );
-    }
+   // }
 }
