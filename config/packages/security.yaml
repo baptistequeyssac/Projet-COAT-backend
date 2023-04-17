@@ -18,7 +18,6 @@ security:
                 check_path: /api/user/login
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-                failure_message: "Oups, email ou mot de passe incorrect."
 
         api:
             pattern:   ^/api
