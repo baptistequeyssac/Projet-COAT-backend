@@ -148,52 +148,52 @@ class UserController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/api/user/login", name="app_api_user_login", methods={"POST"})
-     * 
-     * @OA\RequestBody(
-     *     @OA\JsonContent(
-     *         type="object",
-     *         @OA\Property(property="email", type="string"),
-     *         @OA\Property(property="password", type="string")
-     *     )
-     * )
-     * 
-     * @OA\Response(
-     *     response=200,
-     *     description="authentication success",
-     *     @OA\JsonContent(
-     *         type="object",
-     *         @OA\Property(property="message", type="string", example="Authentication success"),
-     *         @OA\Property(property="token", type="string")
-     *     )
-     * )
-     * 
-     * @OA\Response(
-     *     response=401,
-     *     description="authentication failure",
-     *     @OA\JsonContent(
-     *         type="object",
-     *         @OA\Property(property="message", type="string", example="Invalid username or password")
-     *     )
-     * )
-     */
+    // /**
+    //  * @Route("/api/user/login", name="app_api_user_login", methods={"POST"})
+    //  * 
+    //  * @OA\RequestBody(
+    //  *     @OA\JsonContent(
+    //  *         type="object",
+    //  *         @OA\Property(property="email", type="string"),
+    //  *         @OA\Property(property="password", type="string")
+    //  *     )
+    //  * )
+    //  * 
+    //  * @OA\Response(
+    //  *     response=200,
+    //  *     description="authentication success",
+    //  *     @OA\JsonContent(
+    //  *         type="object",
+    //  *         @OA\Property(property="message", type="string", example="Authentication success"),
+    //  *         @OA\Property(property="token", type="string")
+    //  *     )
+    //  * )
+    //  * 
+    //  * @OA\Response(
+    //  *     response=401,
+    //  *     description="authentication failure",
+    //  *     @OA\JsonContent(
+    //  *         type="object",
+    //  *         @OA\Property(property="message", type="string", example="Invalid username or password")
+    //  *     )
+    //  * )
+    //  */
 
-    //* Log an user
-    public function login(
-        Request $request,
-        UserRepository $userRepository,
-        UserPasswordHasherInterface $userPasswordHasherInterface
-        ): JsonResponse
-    {
-        $contentJson = $request->getContent();
-        $userData = json_decode($contentJson, true);
+    // //* Log an user
+    // public function login(
+    //     Request $request,
+    //     UserRepository $userRepository,
+    //     UserPasswordHasherInterface $userPasswordHasherInterface
+    //     ): JsonResponse
+    // {
+    //     $contentJson = $request->getContent();
+    //     $userData = json_decode($contentJson, true);
 
         
 
-        // ! add comment here
-        $email = $userData['email'] ?? null;
-        $password = $userData['password'] ?? null;
+    //     // ! add comment here
+    //     $email = $userData['email'] ?? null;
+    //     $password = $userData['password'] ?? null;
 
         // // test password or email
         // if (!$email || !$password){
