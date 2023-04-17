@@ -184,41 +184,12 @@ class UserController extends AbstractController
         Request $request,
         UserRepository $userRepository,
         UserPasswordHasherInterface $userPasswordHasherInterface
-        ): JsonResponse
+        )
     {
-        $contentJson = $request->getContent();
-        $userData = json_decode($contentJson, true);
+        
 
         
 
-        // ! delete or not ?
-        $email = $userData['email'] ?? null;
-        $password = $userData['password'] ?? null;
-
         
-
-         //! add comment
-
-        $user = $userRepository->findOneBy(array('email' => $email, 'password' => $password));
-
-        if (isset($user)){
-            // generate token 
-            $token = $this->jwtManager->create($user);
-
-            return $this->json(
-                [
-                    'message' => 'Vous êtes connecté',
-                    'token' => $token
-                ],
-                // code 200
-                Response::HTTP_OK
-            );
-        } else {
-            return $this->json(
-                ['message' => "Oups, email ou mot de passe incorrect"],
-                // code 401
-                Response::HTTP_UNAUTHORIZED
-                );
-            }
     }
 }
