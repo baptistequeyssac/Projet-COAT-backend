@@ -123,6 +123,7 @@ class OrganizerController extends AbstractController
             [
                 "groups" =>
                 [
+                    // ! supprimer tout les groups, laisser un groups organizer_add
                     "organizer_browse",
                     "organizer_read",
                     "organizer_add",
@@ -218,6 +219,7 @@ class OrganizerController extends AbstractController
             [
                 "groups" =>
                 [
+                    // ! supprimer tout les groups, laisser un groupe organizer_read
                     "organizer_read",
                     "event_read",
                     "category_read",
