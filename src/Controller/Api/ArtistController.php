@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 
-
-
 class ArtistController extends AbstractController
 {
     /**
