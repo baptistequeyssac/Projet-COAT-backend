@@ -115,7 +115,7 @@ class ArtistController extends AbstractController
         $artistFromData = new Artist();
         $artistFromData->setEmail($contentData['email']);
         $artistFromData->setPseudo($contentData['pseudo']);
-        $artistFromData->setFirstName($contentData['firstName']);
+        $artistFromData->setFirstName($contentData['first_name']);
         $artistFromData->setName($contentData['name']);
         $artistFromData->setBirthdate($contentData['birthdate']);
         $artistFromData->setRegion($contentData['regionId']);
