@@ -1,4 +1,5 @@
-POST http://localhost:8080/api/users
+// POST http://localhost:8080/api/users
+POST http://baptistequeyssac-server.eddi.cloud/projet-01-comedy-among-other-things-back/public/api/users
 Content-Type: application/json
 
 
