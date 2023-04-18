@@ -85,7 +85,7 @@ class ArtistController extends AbstractController
      {
         // ! ------------------- IMAGE ------------------ ! \\
          // upload image file from request
-        $imageFile = $request->files->get('image');
+        $imageFile = $request->files->get('file');
         // ! ------------------- IMAGE ------------------ ! \\
 
         $contentJson = $request->getContent();
@@ -106,7 +106,7 @@ class ArtistController extends AbstractController
         // ! ------------------- IMAGE ------------------ ! \\
         // stock image on server
         $imageFilename = uniqid().'.'.$imageFile->guessExtension();
-        $imageFile->move($this->getParameter('images_directory') . '/front_upload', $imageFilename);
+        $imageFile->move($this->getParameter('kernel.project_dir') . '/public/front_upload', $imageFilename);
 
         // set image path of artist
         $artistFromJson->setImagePath($imageFilename);
