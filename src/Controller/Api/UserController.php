@@ -149,7 +149,32 @@ class UserController extends AbstractController
     /**
      * @Route("/api/user/login", name="app_api_user_login", methods={"POST"})
      * 
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="email", type="string"),
+     *         @OA\Property(property="password", type="string")
+     *     )
+     * )
      * 
+     * @OA\Response(
+     *     response=200,
+     *     description="authentication success",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="message", type="string", example="Authentication success"),
+     *         @OA\Property(property="token", type="string")
+     *     )
+     * )
+     * 
+     * @OA\Response(
+     *     response=401,
+     *     description="authentication failure",
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="message", type="string", example="Invalid username or password")
+     *     )
+     * )
      */
 
     //* Log an user
@@ -160,14 +185,7 @@ class UserController extends AbstractController
     ): JsonResponse 
     {
         $contentJson = $request->getContent();
-        $userData = json_decode($contentJson, true);
-
-        
-
-        
-        
-
-        
+        $userData = json_decode($contentJson, true);      
 
         if (isset($user)){
             // generate token 
