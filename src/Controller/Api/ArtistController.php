@@ -83,6 +83,11 @@ class ArtistController extends AbstractController
         ValidatorInterface $validator
         )
      {
+        // ! ------------------- IMAGE ------------------ ! \\
+         // upload image file from request
+        $imageFile = $request->files->get('image');
+        // ! ------------------- IMAGE ------------------ ! \\
+
         $contentJson = $request->getContent();
 
         try {
@@ -98,7 +103,14 @@ class ArtistController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-        
+        // ! ------------------- IMAGE ------------------ ! \\
+        // stock image on server
+        $imageFilename = uniqid().'.'.$imageFile->guessExtension();
+        $imageFile->move($this->getParameter('images_directory') . '/front_upload', $imageFilename);
+
+        // set image path of artist
+        $artistFromJson->setImagePath($imageFilename);
+        // ! ------------------- IMAGE ------------------ ! \\
         $listError = $validator->validate($artistFromJson);
 
         if (count($listError) > 0){
