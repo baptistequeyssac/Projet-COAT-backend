@@ -151,6 +151,6 @@ class UserController extends AbstractController
      */
    
      public function login(){
-        // no content
+        // no content, use JWT function login
      }
 }
