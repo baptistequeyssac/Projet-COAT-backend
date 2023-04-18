@@ -84,13 +84,13 @@ class ArtistController extends AbstractController
      {
         // ! ------------------- IMAGE ------------------ ! \\
         // check if image file exists in request
-        if (!$request->files->has('file')) {
-            return $this->json(
-                'Image non trouvé',
-                // code 422
-                Response::HTTP_UNPROCESSABLE_ENTITY
-            );
-        }
+        // if (!$request->files->has('file')) {
+        //     return $this->json(
+        //         'Image non trouvé',
+        //         // code 422
+        //         Response::HTTP_UNPROCESSABLE_ENTITY
+        //     );
+        // }
          // upload image file from request
         $imageFile = $request->files->get('file');
 
