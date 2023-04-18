@@ -84,20 +84,20 @@ class ArtistController extends AbstractController
      {
         // ! ------------------- IMAGE ------------------ ! \\
         // check if image file exists in request
-        // if (!$request->files->has('file')) {
-        //     return $this->json(
-        //         'Image non trouvé',
-        //         // code 422
-        //         Response::HTTP_UNPROCESSABLE_ENTITY
-        //     );
-        // }
+        if (!$request->files->has('file')) {
+            return $this->json(
+                'Image non trouvé',
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
          // upload image file from request
         $imageFile = $request->files->get('file');
 
         // validate
         $errors = $validator->validate($imageFile, new Image([
-            'maxSize' => '2M',
-            'mimeTypesMessage' => 'Please upload a valid image file',
+            'maxSize' => '10M',
+            'mimeTypesMessage' => 'Image non conforme',
         ]));
 
         if (count($errors) > 0) {
@@ -131,7 +131,7 @@ class ArtistController extends AbstractController
         $imageFile->move($this->getParameter('kernel.project_dir') . '/public/front_upload', $imageFilename);
 
         // set image path of artist
-        $artistFromData->setImagePath($imageFilename);
+        $artistFromData->setImage($imageFilename);
         // ! ------------------- IMAGE ------------------ ! \\
         $listError = $validator->validate($artistFromData);
 
