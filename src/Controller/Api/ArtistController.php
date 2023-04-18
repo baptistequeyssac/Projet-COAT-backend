@@ -86,7 +86,7 @@ class ArtistController extends AbstractController
         // check if image file exists in request
         if (!$request->files->has('file')) {
             return $this->json(
-                'Image not found in the request.',
+                'Image non trouvé',
                 // code 422
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
@@ -110,30 +110,30 @@ class ArtistController extends AbstractController
         }
         // ! ------------------- IMAGE ------------------ ! \\
 
-        $contentJson = $request->getContent();
+        $contentData = $request->request->all();
 
-        try {
-            $artistFromJson = $serializer->deserialize(
-                $contentJson,
-                Artist::class,
-                'json'
-            );
-        } catch (\Throwable $e){
-            return $this->json(
-                $e->getMessage(),
-                // code 422
-                Response::HTTP_UNPROCESSABLE_ENTITY
-            );
-        }
+        $artistFromData = new Artist();
+        $artistFromData->setEmail($contentData['email']);
+        $artistFromData->setPseudo($contentData['pseudo']);
+        $artistFromData->setFirstName($contentData['firstName']);
+        $artistFromData->setName($contentData['name']);
+        $artistFromData->setBirthdate($contentData['birthdate']);
+        $artistFromData->setRegion($contentData['regionId']);
+        $artistFromData->setBio($contentData['bio']);
+        $artistFromData->setPhone($contentData['phone']);
+        
+
+
+        
         // ! ------------------- IMAGE ------------------ ! \\
         // stock image on server
         $imageFilename = uniqid().'.'.$imageFile->guessExtension();
         $imageFile->move($this->getParameter('kernel.project_dir') . '/public/front_upload', $imageFilename);
 
         // set image path of artist
-        $artistFromJson->setImagePath($imageFilename);
+        $artistFromData->setImagePath($imageFilename);
         // ! ------------------- IMAGE ------------------ ! \\
-        $listError = $validator->validate($artistFromJson);
+        $listError = $validator->validate($artistFromData);
 
         if (count($listError) > 0){
             // we have errors
@@ -145,11 +145,11 @@ class ArtistController extends AbstractController
         }
 
         // persist + flush
-        $artistRepository->add($artistFromJson, true);
+        $artistRepository->add($artistFromData, true);
 
         // inform user
         return $this->json(
-            $artistFromJson,
+            $artistFromData,
             // code 201
             Response::HTTP_CREATED,
             [],
