@@ -16,8 +16,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
-
-
+use Symfony\Component\Validator\Constraints\Image;
 
 class ArtistController extends AbstractController
 {
@@ -84,8 +83,31 @@ class ArtistController extends AbstractController
         )
      {
         // ! ------------------- IMAGE ------------------ ! \\
+        // check if image file exists in request
+        if (!$request->files->has('file')) {
+            return $this->json(
+                'Image not found in the request.',
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
          // upload image file from request
         $imageFile = $request->files->get('file');
+
+        // validate
+        $errors = $validator->validate($imageFile, new Image([
+            'maxSize' => '2M',
+            'mimeTypesMessage' => 'Please upload a valid image file',
+        ]));
+
+        if (count($errors) > 0) {
+            // We have errors
+            return $this->json(
+                $errors,
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
         // ! ------------------- IMAGE ------------------ ! \\
 
         $contentJson = $request->getContent();
