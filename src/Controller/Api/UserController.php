@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +16,12 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 
 class UserController extends AbstractController
 {
+    
     /**
      * @Route("/api/users", name="app_api_user", methods={"GET"})
      * 
@@ -75,7 +79,8 @@ class UserController extends AbstractController
         Request $request,
         SerializerInterface $serializer,
         UserRepository $userRepository,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        UserPasswordHasherInterface $userPasswordHasherInterface
         )
     {
         $contentJson = $request->getContent();
@@ -105,6 +110,12 @@ class UserController extends AbstractController
             );
         }
 
+        // hash password
+        $password = $userFromJson->getPassword();
+        $hashedPassword = $userPasswordHasherInterface->hashPassword($userFromJson, $password);
+        // assign hashed password to user
+        $userFromJson->setPassword($hashedPassword);
+
         // persist + flush
         $userRepository->add($userFromJson, true);
 
@@ -124,20 +135,17 @@ class UserController extends AbstractController
                     
                 ]
             ]
-                );
-
-
-
-
+        );
     }
 
+    /**
+     * @Route("/api/user/login", name="app_api_user_login", methods={"POST"})
+     * 
+     * 
+     */
 
-
-
-
-
-
-
-
-
+    //* Log an user
+    public function login() {
+               // no content
+    }
 }
