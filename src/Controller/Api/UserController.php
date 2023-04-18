@@ -21,7 +21,15 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
-    
+    /**
+     * @var JWTTokenManagerInterface
+     */
+    private $jwtManager;
+    public function __construct(JWTTokenManagerInterface $jwtManager)
+    {
+        $this->jwtManager = $jwtManager;
+    }
+
     /**
      * @Route("/api/users", name="app_api_user", methods={"GET"})
      * 
@@ -145,7 +153,48 @@ class UserController extends AbstractController
      */
 
     //* Log an user
-    public function login() {
-               // no content
+    public function login(
+        Request $request,
+        UserRepository $userRepository,
+        UserPasswordHasherInterface $userPasswordHasherInterface
+    ): JsonResponse 
+    {
+        $contentJson = $request->getContent();
+        $userData = json_decode($contentJson, true);
+
+        
+
+        
+        
+
+        
+
+        if (isset($user)){
+            // generate token 
+            $token = $this->jwtManager->create($user);
+            // get user info
+            $userId = $user->getId();
+            $username = $user->getUsername();
+            $role = $user->getRole();
+            
+            return $this->json(
+                [
+                    'token' => $token,
+                    'user' => [
+                        'id' => $userId,
+                        'username' => $username,
+                        'role' => $role
+                    ]
+                ],
+                // code 200
+                Response::HTTP_OK
+            );
+        } else {
+            return $this->json(
+                ['message' => "Oups, email ou mot de passe incorrect"],
+                // code 401
+                Response::HTTP_UNAUTHORIZED
+            );
+        }
     }
 }
