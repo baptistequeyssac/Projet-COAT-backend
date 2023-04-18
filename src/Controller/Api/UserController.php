@@ -150,4 +150,7 @@ class UserController extends AbstractController
      * @Route("/api/login_check", name="app_api_user", methods={"POST"})
      */
    
+     public function login(){
+        // no content
+     }
 }
