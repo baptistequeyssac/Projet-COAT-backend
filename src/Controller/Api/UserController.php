@@ -187,32 +187,51 @@ class UserController extends AbstractController
         $contentJson = $request->getContent();
         $userData = json_decode($contentJson, true);      
 
-        if (isset($user)){
-            // generate token 
-            $token = $this->jwtManager->create($user);
-            // get user info
-            $userId = $user->getId();
-            $username = $user->getUsername();
-            $role = $user->getRole();
-            
+        $email = $userData['email'] ?? null;
+        $password = $userData['password'] ?? null;
+
+        // test password or email
+        if (!$email || !$password){
             return $this->json(
-                [
-                    'token' => $token,
-                    'user' => [
-                        'id' => $userId,
-                        'username' => $username,
-                        'role' => $role
-                    ]
-                ],
-                // code 200
-                Response::HTTP_OK
-            );
-        } else {
-            return $this->json(
-                ['message' => "Oups, email ou mot de passe incorrect"],
+                ['message' => "Oups, l'email ou le mot de passe semble incorrect"],
                 // code 401
                 Response::HTTP_UNAUTHORIZED
             );
         }
+
+        // find user by email
+        $user = $userRepository->findOneBy(['email' => $email]);
+        
+
+        if (isset($user)){
+            // check password
+            if ($userPasswordHasherInterface->isPasswordValid($user, $password)){
+                // generate token 
+                $token = $this->jwtManager->create($user);
+                // get user info
+                $userId = $user['id'];
+                $username = $user['email'];
+                $role = $user['role'];
+
+                return $this->json(
+                    [
+                        'token' => $token,
+                        'user' => [
+                            'id' => $userId,
+                            'username' => $username,
+                            'role' => $role
+                        ]
+                    ],
+                    // code 200
+                    Response::HTTP_OK
+                );
+            }
+        }
+
+        return $this->json(
+            ['message' => "Oups, email ou mot de passe incorrect"],
+            // code 401
+            Response::HTTP_UNAUTHORIZED
+        );
     }
 }
