@@ -4,8 +4,8 @@ Content-Type: application/json
 
 
 {
-    "email": "testhash333",
-    "password": "hash",
+    "email": "testhash333333",
+    "password": "hashee",
     "roles": ["ROLE_ARTIST"]
         
 }

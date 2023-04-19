@@ -22,57 +22,57 @@ class StockageController extends AbstractController
         ]);
     }
 
-//     /**
-//      * @Route("/api/upload_image", name="app_api_upload_image", methods={"POST"})
-//      */
+    /**
+     * @Route("/api/upload_image", name="app_api_upload_image", methods={"POST"})
+     */
 
-//     //* Upload an image in stockage 
-//     public function uploadImage(Request $request, EntityManagerInterface $entityManager)
-//     {
-//         $image = new Stockage();
+    //* Upload an image in stockage 
+    public function uploadImage(Request $request, EntityManagerInterface $entityManager)
+    {
+        $image = new Stockage();
 
-//         $file = $request->files->get('image');
-//         $fileName = uniqid() . '.' . $file->guessExtension();
+        $file = $request->files->get('image');
+        $fileName = uniqid() . '.' . $file->guessExtension();
 
-//         try {
-//             $file->move(
-//                 'images',
-//                 $fileName
-//             );
-//         } catch (FileException $e) {
-//             return $this->json(
-//                 ['message' => 'Oups, il y a un soucis avec cette image']
-//                 // ajouter code http + response
-//             );
-//         }
+        try {
+            $file->move(
+                'images',
+                $fileName
+            );
+        } catch (FileException $e) {
+            return $this->json(
+                ['message' => 'Oups, il y a un soucis avec cette image']
+                // ajouter code http + response
+            );
+        }
 
-//         $image->setImage($fileName);
+        $image->setImage($fileName);
 
-//         // persit + flush
-//         $entityManager->persist($image);
-//         $entityManager->flush();
+        // persit + flush
+        $entityManager->persist($image);
+        $entityManager->flush();
 
-//         return $this->json(
-//             ['message' => 'Image importé avec succès']
-//             // ajouter code http + response
-//         );
-//     }
+        return $this->json(
+            ['message' => 'Image importé avec succès']
+            // ajouter code http + response
+        );
+    }
 
-//     /**
-//      *  @Route("/api/stockage/image/{id}", name="app_api_image_read", methods={"GET"})
-//      */
+    /**
+     *  @Route("/api/stockage/image/{id}", name="app_api_image_read", methods={"GET"})
+     */
 
-//      //* Get/read an image
-//      public function read(Stockage $stockage)
-//      {
-//         if (!$stockage) {
-//             return $this->json(
-//                 ['message' => 'Cette image n\'existe pas']
-//             );
-//         }
-//         return $this->json(
-//             ['image' => $stockage->getImage()]
-//         );
-//      }
+     //* Get/read an image
+     public function read(Stockage $stockage)
+     {
+        if (!$stockage) {
+            return $this->json(
+                ['message' => 'Cette image n\'existe pas']
+            );
+        }
+        return $this->json(
+            ['image' => $stockage->getImage()]
+        );
+     }
 
  }
