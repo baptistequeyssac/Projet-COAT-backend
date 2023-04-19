@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
-
+use Symfony\Component\Security\Core\Security;
 
 class ArtistController extends AbstractController
 {
@@ -82,7 +82,9 @@ class ArtistController extends AbstractController
         SerializerInterface $serializer,
         ArtistRepository $artistRepository,
         ValidatorInterface $validator,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        Security $security
+        
         )
      {
         $contentJson = $request->getContent();
@@ -112,23 +114,30 @@ class ArtistController extends AbstractController
             );
         }
         
-        // ! TEST ! \\
-        // get user from artist
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return $this->json(
-                'Utilisateur non trouvé',
-                //code 404
-                Response::HTTP_NOT_FOUND
-            );
-        }
+        // // ! TEST ! \\
+        // // get user from artist
+        // $user = $this->getUser();
+        // if (!$user instanceof User) {
+        //     return $this->json(
+        //         'Utilisateur non trouvé',
+        //         //code 404
+        //         Response::HTTP_NOT_FOUND
+        //     );
+        // }
 
-        // set user for this artist
-        $user->setArtist($artistFromJson);
-        // ! TEST ! \\
+        // // set user for this artist
+        // $user->setArtist($artistFromJson);
+        // // ! TEST ! \\
 
         // persist + flush
         $artistRepository->add($artistFromJson, true);
+
+        // Associate artist with logged user
+        $user = $security->getUser();
+        if ($user instanceof User){
+            $artistFromJson->setUser($user);
+            $artistRepository->save($artistFromJson);
+        }
 
         // inform user
         return $this->json(
