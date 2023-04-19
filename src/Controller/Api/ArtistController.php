@@ -100,7 +100,7 @@ class ArtistController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-        
+       
         $listError = $validator->validate($artistFromJson);
 
         if (count($listError) > 0){
@@ -111,20 +111,20 @@ class ArtistController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-
+        
         // ! TEST ! \\
         // get user from artist
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return $this->json(
-                'Utilisateur non trouvé',
-                //code 404
-                Response::HTTP_NOT_FOUND
-            );
-        }
+        // $user = $this->getUser();
+        // if (!$user instanceof User) {
+        //     return $this->json(
+        //         'Utilisateur non trouvé',
+        //         //code 404
+        //         Response::HTTP_NOT_FOUND
+        //     );
+        // }
 
-        // set user for this artist
-        $user->setArtist($artistFromJson);
+        // // set user for this artist
+        // $user->setArtist($artistFromJson);
         // ! TEST ! \\
 
         // persist + flush
