@@ -114,21 +114,6 @@ class ArtistController extends AbstractController
             );
         }
         
-        // // ! TEST ! \\
-        // // get user from artist
-        // $user = $this->getUser();
-        // if (!$user instanceof User) {
-        //     return $this->json(
-        //         'Utilisateur non trouvé',
-        //         //code 404
-        //         Response::HTTP_NOT_FOUND
-        //     );
-        // }
-
-        // // set user for this artist
-        // $user->setArtist($artistFromJson);
-        // // ! TEST ! \\
-
         // persist + flush
         $artistRepository->add($artistFromJson, true);
 
