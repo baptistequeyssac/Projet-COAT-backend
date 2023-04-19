@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
 
 class StockageController extends AbstractController
 {
@@ -43,8 +44,9 @@ class StockageController extends AbstractController
             );
         } catch (FileException $e) {
             return $this->json(
-                ['message' => 'Oups, il y a un soucis avec cette image']
-                // ajouter code http + response
+                'Oups, il y a un soucis avec cette image',
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
 
@@ -55,26 +57,28 @@ class StockageController extends AbstractController
         $entityManager->flush();
 
         return $this->json(
-            ['message' => 'Image importé avec succès']
-            // ajouter code http + response
+            'Image importé avec succès',
+            // code 200
+            Response::HTTP_OK
         );
     }
 
-    // /**
-    //  *  @Route("/api/stockage/image/{id}", name="app_api_image_read", methods={"GET"})
-    //  */
+    /**
+     *  @Route("/api/stockage/image/{id}", name="app_api_image_read", methods={"GET"})
+     */
 
-    //  //* Get/read an image
-    //  public function read(Stockage $stockage)
-    //  {
-    //     if (!$stockage) {
-    //         return $this->json(
-    //             ['message' => 'Cette image n\'existe pas']
-    //         );
-    //     }
-    //     return $this->json(
-    //         ['image' => $stockage->getImage()]
-    //     );
-    //  }
-
+     //* Get/read an image
+     public function read(Stockage $stockage)
+     {
+        if (!$stockage) {
+            return $this->json(
+                'Cette image n\'existe pas',
+                // code 404
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        return $this->json(
+            ['image' => $stockage->getImage()]
+        );
+     }
  }

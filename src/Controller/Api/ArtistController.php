@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
-use Symfony\Component\Validator\Constraints\Image;
+
 
 class ArtistController extends AbstractController
 {
@@ -142,7 +142,9 @@ class ArtistController extends AbstractController
      {
         if ($artist === null) {
             // paramConverter dont found the entity : code 404
-            return $this->json("Artiste non trouvé", Response::HTTP_NOT_FOUND);
+            return $this->json("Artiste non trouvé",
+            // code 404 
+            Response::HTTP_NOT_FOUND);
         }
 
         $jsonContent = $request->getContent();
@@ -235,9 +237,5 @@ class ArtistController extends AbstractController
             Response::HTTP_NO_CONTENT
         );
        }
-
-
-
-
 }
 
