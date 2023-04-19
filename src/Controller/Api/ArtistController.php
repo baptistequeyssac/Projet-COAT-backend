@@ -8,6 +8,8 @@ use App\Repository\ArtistRepository;
 use App\Repository\RegionRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,10 +86,25 @@ class ArtistController extends AbstractController
         ValidatorInterface $validator,
         UserRepository $userRepository,
         Security $security,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        JWTTokenManagerInterface $JWTManager
         
         )
      {
+        // Get JWT token from header
+        $authorizationHeader = $request->headers->get('Authorization');
+        $jwtToken = substr($authorizationHeader, 7); // 
+        $tokenPayload = $JWTManager->decode($jwtToken);
+
+        // Get user from token
+        $userId = $tokenPayload['sub'];
+        $user = $userRepository->find($userId);
+        if (!$user instanceof User) {
+            return $this->json(
+                'Utilisateur non trouvé',
+                Response::HTTP_NOT_FOUND
+            );
+        }
         $contentJson = $request->getContent();
 
         try {
@@ -128,16 +145,16 @@ class ArtistController extends AbstractController
         //     $artistRepository->save($artistFromJson);
         // }
 
-         // ! TEST ! \\
-        // get user from artist
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return $this->json(
-                'Utilisateur non trouvé',
-                //code 404
-                Response::HTTP_NOT_FOUND
-            );
-        }
+        //  // ! TEST ! \\
+        // // get user from artist
+        // $user = $this->getUser();
+        // if (!$user instanceof User) {
+        //     return $this->json(
+        //         'Utilisateur non trouvé',
+        //         //code 404
+        //         Response::HTTP_NOT_FOUND
+        //     );
+        // }
 
         // set user for artist
         $user->setArtist($artistFromJson);
