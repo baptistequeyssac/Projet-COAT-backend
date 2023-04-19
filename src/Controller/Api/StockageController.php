@@ -35,6 +35,13 @@ class StockageController extends AbstractController
         $file = $request->files->get('image');
         $fileName = uniqid() . '.' . $file->guessExtension();
 
+        //
+        if (!$file) {
+            return new JsonResponse(
+                ['error' => 'No file was uploaded.']
+            );
+        }
+
         try {
             $file->move(
                 'images',
