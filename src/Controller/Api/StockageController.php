@@ -58,21 +58,21 @@ class StockageController extends AbstractController
         );
     }
 
-    /**
-     *  @Route("/api/stockage/image/{id}", name="app_api_image_read", methods={"GET"})
-     */
+    // /**
+    //  *  @Route("/api/stockage/image/{id}", name="app_api_image_read", methods={"GET"})
+    //  */
 
-     //* Get/read an image
-     public function read(Stockage $stockage)
-     {
-        if (!$stockage) {
-            return $this->json(
-                ['message' => 'Cette image n\'existe pas']
-            );
-        }
-        return $this->json(
-            ['image' => $stockage->getImage()]
-        );
-     }
+    //  //* Get/read an image
+    //  public function read(Stockage $stockage)
+    //  {
+    //     if (!$stockage) {
+    //         return $this->json(
+    //             ['message' => 'Cette image n\'existe pas']
+    //         );
+    //     }
+    //     return $this->json(
+    //         ['image' => $stockage->getImage()]
+    //     );
+    //  }
 
  }
