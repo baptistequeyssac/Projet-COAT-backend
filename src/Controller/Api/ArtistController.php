@@ -3,13 +3,9 @@
 namespace App\Controller\Api;
 
 use App\Entity\Artist;
-use App\Entity\User;
 use App\Repository\ArtistRepository;
 use App\Repository\RegionRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +16,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ArtistController extends AbstractController
 {
@@ -83,28 +79,9 @@ class ArtistController extends AbstractController
         Request $request,
         SerializerInterface $serializer,
         ArtistRepository $artistRepository,
-        ValidatorInterface $validator,
-        UserRepository $userRepository,
-        Security $security,
-        EntityManagerInterface $entityManager,
-        JWTTokenManagerInterface $JWTManager
-        
+        ValidatorInterface $validator
         )
      {
-        // Get JWT token from header
-        $authorizationHeader = $request->headers->get('Authorization');
-        $jwtToken = substr($authorizationHeader, 7); // 
-        $tokenPayload = $JWTManager->decode($jwtToken);
-
-        // Get user from token
-        $userId = $tokenPayload['sub'];
-        $user = $userRepository->find($userId);
-        if (!$user instanceof User) {
-            return $this->json(
-                'Utilisateur non trouvé',
-                Response::HTTP_NOT_FOUND
-            );
-        }
         $contentJson = $request->getContent();
 
         try {
@@ -120,7 +97,7 @@ class ArtistController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-       
+        
         $listError = $validator->validate($artistFromJson);
 
         if (count($listError) > 0){
@@ -131,38 +108,9 @@ class ArtistController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-        
+
         // persist + flush
-        // $artistRepository->add($artistFromJson, true);
-
-
-        // // Associate artist with logged user
-        // $user = $security->getUser();
-        // if ($user instanceof User){
-        //     $userId = $user->getId();
-        //     $user = $userRepository->find($userId);
-        //     $artistFromJson->setUser($user);
-        //     $artistRepository->save($artistFromJson);
-        // }
-
-        //  // ! TEST ! \\
-        // // get user from artist
-        // $user = $this->getUser();
-        // if (!$user instanceof User) {
-        //     return $this->json(
-        //         'Utilisateur non trouvé',
-        //         //code 404
-        //         Response::HTTP_NOT_FOUND
-        //     );
-        // }
-
-        // set user for artist
-        $user->setArtist($artistFromJson);
-
-        $artistFromJson->setUser($user);
-        $entityManager->persist($artistFromJson);
-        $entityManager->flush();
-        // ! TEST ! \\
+        $artistRepository->add($artistFromJson, true);
 
         // inform user
         return $this->json(
@@ -194,9 +142,7 @@ class ArtistController extends AbstractController
      {
         if ($artist === null) {
             // paramConverter dont found the entity : code 404
-            return $this->json("Artiste non trouvé",
-            // code 404 
-            Response::HTTP_NOT_FOUND);
+            return $this->json("Artiste non trouvé", Response::HTTP_NOT_FOUND);
         }
 
         $jsonContent = $request->getContent();
@@ -289,5 +235,9 @@ class ArtistController extends AbstractController
             Response::HTTP_NO_CONTENT
         );
        }
+
+
+
+
 }
 
