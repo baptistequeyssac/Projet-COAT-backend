@@ -120,6 +120,8 @@ class ArtistController extends AbstractController
         // Associate artist with logged user
         $user = $security->getUser();
         if ($user instanceof User){
+            $userId = $user->getId();
+            $user = $userRepository->find($userId);
             $artistFromJson->setUser($user);
             $artistRepository->save($artistFromJson);
         }
