@@ -83,7 +83,8 @@ class ArtistController extends AbstractController
         ArtistRepository $artistRepository,
         ValidatorInterface $validator,
         UserRepository $userRepository,
-        Security $security
+        Security $security,
+        EntityManagerInterface $entityManager
         
         )
      {
@@ -115,16 +116,36 @@ class ArtistController extends AbstractController
         }
         
         // persist + flush
-        $artistRepository->add($artistFromJson, true);
+        // $artistRepository->add($artistFromJson, true);
 
-        // Associate artist with logged user
-        $user = $security->getUser();
-        if ($user instanceof User){
-            $userId = $user->getId();
-            $user = $userRepository->find($userId);
-            $artistFromJson->setUser($user);
-            $artistRepository->save($artistFromJson);
+
+        // // Associate artist with logged user
+        // $user = $security->getUser();
+        // if ($user instanceof User){
+        //     $userId = $user->getId();
+        //     $user = $userRepository->find($userId);
+        //     $artistFromJson->setUser($user);
+        //     $artistRepository->save($artistFromJson);
+        // }
+
+         // ! TEST ! \\
+        // get user from artist
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return $this->json(
+                'Utilisateur non trouvé',
+                //code 404
+                Response::HTTP_NOT_FOUND
+            );
         }
+
+        // set user for artist
+        $user->setArtist($artistFromJson);
+
+        $artistFromJson->setUser($user);
+        $entityManager->persist($artistFromJson);
+        $entityManager->flush();
+        // ! TEST ! \\
 
         // inform user
         return $this->json(
