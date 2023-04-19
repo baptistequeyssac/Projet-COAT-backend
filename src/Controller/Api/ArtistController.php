@@ -82,7 +82,7 @@ class ArtistController extends AbstractController
         SerializerInterface $serializer,
         ArtistRepository $artistRepository,
         ValidatorInterface $validator,
-        User $user
+        UserRepository $userRepository
         )
      {
         $contentJson = $request->getContent();

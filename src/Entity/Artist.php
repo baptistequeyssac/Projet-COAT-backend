@@ -131,7 +131,7 @@ class Artist
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="artist", cascade={"persist", "remove"})
-     * 
+     * @ORM\JoinColumn(nullable=true)
      * @Groups("artist_browse") //! voir pour ajouter un group user 
      */
     private $user;
