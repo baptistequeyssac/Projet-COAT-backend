@@ -85,7 +85,7 @@ class Artist
     private $bio;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
