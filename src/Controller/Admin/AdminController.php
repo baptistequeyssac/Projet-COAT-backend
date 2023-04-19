@@ -1,46 +1,23 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Backoffice;
 
-use App\Entity\Artist;
-use App\Form\ArtistType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin", name="app_admin")
+ * @Route("/backoffice/admin", name="app_backoffice_admin")
  * @package App\Controller\Admin
  */
+
 class AdminController extends AbstractController
 {
-    /**
-    * @Route("/", name="home")
-    */
 
-    public function index()
+    public function index(): Response
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('backoffice/admin/index.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
-        /**
-        * @Route("/artist/ajout", name="artist_ajout")
-        */
-        public function ajoutCategorie(Request $request)
-        {
-            $categorie = new artist;
-            $form = $this->createForm(artistType::class, $artist);
-            $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()){
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($artist);
-                $em->flush();
-
-                return $this->redirectToRoute('admin_home');
-            }
-            return $this->render('admin/artist/ajout.html.twig',[
-                'form' => $form->createView()
-            ]);
-        }
 }

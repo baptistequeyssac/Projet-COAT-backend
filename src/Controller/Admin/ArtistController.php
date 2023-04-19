@@ -2,17 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Categories;
-use App\Form\CategoriesType;
+use App\Entity\Artist;
+use App\Form\ArtistType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin", name="app_admin")
+ * @Route("/admin/artist", name="admin_artist")
  * @package App\Controller\Admin
  */
-class CategoriesController extends AbstractController
+class ArtistController extends AbstractController
 {
     /**
     * @Route("/", name="home")
@@ -20,26 +20,26 @@ class CategoriesController extends AbstractController
 
     public function index()
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+        return $this->render('admin/artist/index.html.twig', [
+            'controller_name' => 'ArtistController',
         ]);
     }
         /**
-        * @Route("/category/ajout", name="categories_ajout")
+        * @Route("/artist/ajout", name="artist_ajout")
         */
         public function ajoutCategorie(Request $request)
         {
-            $categorie = new Categories;
-            $form = $this->createForm(CategoriesType::class, $Categories);
+            $categorie = new artist;
+            $form = $this->createForm(ArtistType::class, $artist);
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($Categories);
+                $em->persist($artist);
                 $em->flush();
 
                 return $this->redirectToRoute('admin_home');
             }
-            return $this->render('admin/Categories/ajout.html.twig',[
+            return $this->render('admin/artist/ajout.html.twig',[
                 'form' => $form->createView()
             ]);
         }

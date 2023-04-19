@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organizer index{% endblock %}
+
+{% block body %}
+    <h1>Organizer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Logo</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for organizer in organizers %}
+            <tr>
+                <td>{{ organizer.id }}</td>
+                <td>{{ organizer.name }}</td>
+                <td>{{ organizer.address }}</td>
+                <td>{{ organizer.type ? 'Yes' : 'No' }}</td>
+                <td>{{ organizer.description }}</td>
+                <td>{{ organizer.logo }}</td>
+                <td>{{ organizer.email }}</td>
+                <td>{{ organizer.phone }}</td>
+                <td>{{ organizer.createdAt ? organizer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ organizer.updatedAt ? organizer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_backoffice_organizer_show', {'id': organizer.id}) }}">show</a>
+                    <a href="{{ path('app_backoffice_organizer_edit', {'id': organizer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backoffice_organizer_new') }}">Create new</a>
+{% endblock %}
