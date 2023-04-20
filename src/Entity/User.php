@@ -22,6 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      * @Groups("user_browse")
      * @Groups("user_read")
+     * @Groups("artist_add")
      */
     private $id;
 

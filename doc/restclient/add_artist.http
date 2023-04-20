@@ -1,10 +1,10 @@
-//POST http://localhost:8080/api/artists
-POST http://baptistequeyssac-server.eddi.cloud/projet-01-comedy-among-other-things-back/public/api/artists
+POST http://localhost:8080/api/artists
+//POST http://baptistequeyssac-server.eddi.cloud/projet-01-comedy-among-other-things-back/public/api/artists
 Content-Type: application/json
 
 
 {
-    "pseudo": "pseudotestRensans3",
+    "pseudo": "pseudotestRensans3COUCOU",
     "name": "nametestegion",
     "firstName" :"firstmetestRegion",
     "birthdate": "1999-01-01",
@@ -13,5 +13,6 @@ Content-Type: application/json
     "phone": 664646421,
     "address": "5 rue machin du truc",
     "category": [3,2],
-    "region": 6
+    "region": 6,
+    "user": 5
 }
