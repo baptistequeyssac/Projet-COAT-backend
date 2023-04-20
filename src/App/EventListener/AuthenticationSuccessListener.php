@@ -23,7 +23,11 @@ class AuthenticationSuccessListener extends AbstractController
         $data['data'] = array(
             'roles' => $user->getRoles(),
             'email' => $user->getEmail(),
-            'id' => $user->getId(),        
+            'id' => $user->getId(),
+            // Take foreign key artist or organizer. But if I use only ``` 'artistId => $user->getArtist() ```, I take an object and not a FK
+            'artistId' => $user->getArtist() ? $user->getArtist()->getId() : null,
+            'organizerId' => $user->getOrganizer() ? $user->getOrganizer()->getId() : null,
+                  
         );
 
         $event->setData($data);

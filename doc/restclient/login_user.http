@@ -3,6 +3,7 @@ POST http://localhost:8080/api/login_check
 Content-Type: application/json
 
 {
-"username": "jean@jean",
-"password": "jean"
+"username": "admin@admin.com",
+"password": "admin"
+
 }
