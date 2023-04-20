@@ -153,4 +153,36 @@ class UserController extends AbstractController
      public function login(){
         // no content, use JWT function login
      }
+
+     /**
+      * @Route("/api/user/{id}", name="app_api_user_read", methods={"GET"}, requirements={"id"="\d+"})
+      */
+
+      //* Read an artist
+      public function read(User $user = null)
+      {
+        // our user give a bad ID, We give a 404
+        if ($user === null){
+            return $this->json(
+                [
+                    "message" => "Oups, il semblerait que cet utilisateur n'existe pas"
+                ],
+                // code 404
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+         return $this->json(
+            $user,
+            // code 200
+            Response::HTTP_OK,
+            [],
+            [
+                "groups" =>
+                [
+                    "user_read",
+                ]
+            ]
+        );
+      }
 }

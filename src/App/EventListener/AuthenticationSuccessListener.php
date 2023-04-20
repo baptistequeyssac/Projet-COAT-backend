@@ -23,7 +23,7 @@ class AuthenticationSuccessListener extends AbstractController
         $data['data'] = array(
             'roles' => $user->getRoles(),
             'email' => $user->getEmail(),
-            'id' => $user->getId(),            
+            'id' => $user->getId(),        
         );
 
         $event->setData($data);

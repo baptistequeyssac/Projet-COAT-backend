@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="json")
      * 
      * @Groups("user_browse")
-     * @Groups("user_read")
+     * 
      */
     private $roles = [];
 
@@ -48,7 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      * 
      * @Groups("user_browse")
-     * @Groups("user_read")
+     * 
      */
     private $password;
 
@@ -78,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Stockage::class, mappedBy="user")
      * 
      * @Groups("user_browse")
-     * @Groups("user_read")
+     * 
      */
     private $stockages;
 
