@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\Artist;
+use App\Entity\User;
 use App\Repository\ArtistRepository;
 use App\Repository\RegionRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,7 +80,8 @@ class ArtistController extends AbstractController
         Request $request,
         SerializerInterface $serializer,
         ArtistRepository $artistRepository,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        EntityManagerInterface $entityManager
         )
      {
         $contentJson = $request->getContent();
@@ -108,6 +110,25 @@ class ArtistController extends AbstractController
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
+
+         // ! TEST ! \\
+        // get user from artist
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return $this->json(
+                'Utilisateur non trouvé',
+                //code 404
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        // set user for artist
+        $user->setArtist($artistFromJson);
+
+        $artistFromJson->setUser($user);
+        $entityManager->persist($artistFromJson);
+        $entityManager->flush();
+        // ! TEST ! \\
 
         // persist + flush
         $artistRepository->add($artistFromJson, true);
