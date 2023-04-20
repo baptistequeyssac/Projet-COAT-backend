@@ -13,7 +13,7 @@
         "lexik/jwt-authentication-bundle": "^2.18",
         "nelmio/api-doc-bundle": "^4.11",
         "nelmio/cors-bundle": "^2.3",
-        "sensio/framework-extra-bundle": "^6.2",
+        "sensio/framework-extra-bundle": "*",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
