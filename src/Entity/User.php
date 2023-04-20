@@ -23,6 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("user_browse")
      * @Groups("user_read")
      * @Groups("artist_add")
+     * @Groups("organizer_add")
      */
     private $id;
 
@@ -58,6 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("user_browse")
      * @Groups("user_read")
      * @Groups("organizer_read")
+     * 
      */
     private $organizer;
 
@@ -68,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("user_browse")
      * @Groups("user_read")
      * @Groups("artist_read")
-     * @Groups("artist_add")
+     * 
      */
     private $artist;
 
