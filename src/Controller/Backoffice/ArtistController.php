@@ -3,7 +3,7 @@
 namespace App\Controller\Backoffice;
 
 use App\Entity\Artist;
-use App\Form\Artist1Type;
+use App\Form\ArtistType;
 use App\Repository\ArtistRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ class ArtistController extends AbstractController
     public function new(Request $request, ArtistRepository $artistRepository): Response
     {
         $artist = new Artist();
-        $form = $this->createForm(Artist1Type::class, $artist);
+        $form = $this->createForm(ArtistType::class, $artist);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

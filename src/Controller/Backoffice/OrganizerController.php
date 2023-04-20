@@ -3,7 +3,7 @@
 namespace App\Controller\Backoffice;
 
 use App\Entity\Organizer;
-use App\Form\Organizer1Type;
+use App\Form\OrganizerType;
 use App\Repository\OrganizerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ class OrganizerController extends AbstractController
     public function new(Request $request, OrganizerRepository $organizerRepository): Response
     {
         $organizer = new Organizer();
-        $form = $this->createForm(Organizer1Type::class, $organizer);
+        $form = $this->createForm(OrganizerType::class, $organizer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

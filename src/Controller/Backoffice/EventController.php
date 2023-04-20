@@ -3,7 +3,7 @@
 namespace App\Controller\Backoffice;
 
 use App\Entity\Event;
-use App\Form\Event1Type;
+use App\Form\EventType;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ class EventController extends AbstractController
     public function new(Request $request, EventRepository $eventRepository): Response
     {
         $event = new Event();
-        $form = $this->createForm(Event1Type::class, $event);
+        $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

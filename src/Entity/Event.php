@@ -180,6 +180,12 @@ class Event
         $this->organizer = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+
     /**
      * @ORM\PrePersist
      */

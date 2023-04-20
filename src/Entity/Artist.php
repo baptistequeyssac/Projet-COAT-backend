@@ -183,6 +183,11 @@ class Artist
         $this->organizers = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * @ORM\PrePersist
      */
