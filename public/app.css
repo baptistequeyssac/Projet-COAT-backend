@@ -1,0 +1,17 @@
+@font-face {
+    font-family: Dosis;
+    src: url(/src/assets/Dosis-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: mandala;
+    src: url(/src/assets/MandalaVintage-d9VVl.ttf);
+}
+
+.title_navbar {
+    font-family: 'Dosis';
+}
+
+body {
+    background-image: url(../public/BGBackOffice.png);
+}

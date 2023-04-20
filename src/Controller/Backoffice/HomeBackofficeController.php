@@ -14,7 +14,7 @@ class HomeBackofficeController extends AbstractController
     public function index(): Response
     {
         return $this->render('backoffice/home_backoffice/index.html.twig', [
-            'controller_name' => 'HomeBackofficeController',
+            'home' => 'HomeBackofficeController',
         ]);
     }
 }
