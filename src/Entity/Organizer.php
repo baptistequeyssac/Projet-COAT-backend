@@ -109,6 +109,7 @@ class Organizer
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="organizer", cascade={"persist", "remove"})
      * 
      * @Groups("organizer_browse")
+     * @Groups("organizer_add")
      * 
      */
     private $user;

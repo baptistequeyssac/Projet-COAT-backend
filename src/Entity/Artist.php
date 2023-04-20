@@ -85,7 +85,7 @@ class Artist
     private $bio;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * 
      * @Groups("artist_browse")
      * @Groups("artist_read")
@@ -132,7 +132,8 @@ class Artist
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="artist", cascade={"persist", "remove"})
      * 
-     * @Groups("artist_browse") //! voir pour ajouter un group user 
+     * @Groups("artist_browse") 
+     * @Groups("artist_add") 
      */
     private $user;
 

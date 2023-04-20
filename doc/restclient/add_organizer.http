@@ -7,7 +7,9 @@ Content-Type: application/json
     "address": "5 rue machinchose",
     "phone": 678543624,
     "status": 5,
-    "region": 12
+    "type": true,
+    "region": 12,
+    "user": 13
     
     
 }
