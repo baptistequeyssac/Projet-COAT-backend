@@ -25,6 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("artist_add")
      * @Groups("artist_read")
      * @Groups("stockage_read")
+     * @Groups("stockage_browse")
      * 
      * 
      */
