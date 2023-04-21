@@ -61,7 +61,7 @@ class OrganizerController extends AbstractController
      */
     public function edit(Request $request, Organizer $organizer, OrganizerRepository $organizerRepository): Response
     {
-        $form = $this->createForm(Organizer1Type::class, $organizer);
+        $form = $this->createForm(OrganizerType::class, $organizer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

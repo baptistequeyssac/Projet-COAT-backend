@@ -61,7 +61,7 @@ class ArtistController extends AbstractController
      */
     public function edit(Request $request, Artist $artist, ArtistRepository $artistRepository): Response
     {
-        $form = $this->createForm(Artist1Type::class, $artist);
+        $form = $this->createForm(ArtistType::class, $artist);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
