@@ -34,6 +34,7 @@ class StockageController extends AbstractController
         $image = new Stockage();
 
         $file = $request->files->get('image');
+        $fileUserId = $request->files->get('id');
         //dd($file);
         $fileName = uniqid() . '.' . $file->guessExtension();
 
@@ -51,6 +52,7 @@ class StockageController extends AbstractController
         }
 
         $image->setImage($fileName);
+        $image->setUser($fileUserId);
 
         // persit + flush
         $entityManager->persist($image);
@@ -61,6 +63,9 @@ class StockageController extends AbstractController
             // code 200
             Response::HTTP_OK
         );
+
+
+
     }
 
     /**
