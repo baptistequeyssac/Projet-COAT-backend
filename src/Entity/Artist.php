@@ -133,7 +133,8 @@ class Artist
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="artist", cascade={"persist", "remove"})
      * 
      * @Groups("artist_browse") 
-     * @Groups("artist_add") 
+     * @Groups("artist_add")
+     * @Groups("artist_read") 
      */
     private $user;
 

@@ -109,6 +109,7 @@ class Organizer
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_add")
+     * @Groups("organizer_read")
      * 
      */
     private $user;

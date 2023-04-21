@@ -98,4 +98,6 @@ class StockageController extends AbstractController
             ['image' => $stockage->getImage()]
         );
      }
+
+     
  }
