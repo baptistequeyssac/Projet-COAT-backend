@@ -24,6 +24,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("user_read")
      * @Groups("artist_add")
      * @Groups("artist_read")
+     * @Groups("stockage_read")
+     * 
      * 
      */
     private $id;
@@ -80,10 +82,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Stockage::class, mappedBy="user")
      * 
-     * @Groups("user_browse")
      * 
      */
     private $stockages;
+
+    
 
     public function __construct()
     {
@@ -233,8 +236,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return (string) $this->id;
-    }
+    // public function __toString(): string
+    // {
+    //     return strval($this->id);
+    // }
 }

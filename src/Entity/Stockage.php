@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\StockageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -17,30 +19,38 @@ class Stockage
      * @ORM\Column(type="integer")
      * 
      * @Groups("user_read")
+     * @Groups("stockage_browse")
+     * @Groups("stockage_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("stockage_browse")
+     * @Groups("stockage_read")
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("stockage_browse")
      */
     private $video;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("stockage_browse")
      */
     private $document;
 
     /**
-     * @ORM\Column(nullable=true)
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stockages")
-     * @ORM\JoinColumn(nullable=false)
+     * @Groups("stockage_browse")
+     * @Groups("stockage_read")
      */
     private $user;
+
+    
 
     public function getId(): ?int
     {
@@ -94,4 +104,6 @@ class Stockage
 
         return $this;
     }
+
+    
 }

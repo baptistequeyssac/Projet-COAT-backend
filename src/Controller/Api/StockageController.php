@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\Stockage;
+use App\Repository\StockageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
 
 class StockageController extends AbstractController
 {
@@ -64,7 +67,7 @@ class StockageController extends AbstractController
             );
         }
         
-       // dd($user);
+        //dd($image);
         
         $image->setImage($fileName);
         $image->setUser($user);
@@ -72,7 +75,7 @@ class StockageController extends AbstractController
         // persit + flush
         $entityManager->persist($image);
         $entityManager->flush();
-
+        
         return $this->json(
             'Image importé avec succès',
             // code 200
@@ -94,10 +97,54 @@ class StockageController extends AbstractController
                 Response::HTTP_NOT_FOUND
             );
         }
+       // dd($stockage);
         return $this->json(
-            ['image' => $stockage->getImage()]
+            $stockage,
+            // 200
+            Response::HTTP_OK,
+            [],
+            [
+                "groups" =>
+                [
+                    "stockage_read"
+                ]
+            ]
+            
         );
+       // dd($stockage);
      }
 
-     
+     /**
+     * @Route("/api/stockage", name="app_api_stockage", methods={"GET"})
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns all stockage",
+     *      @OA\JsonContent(
+     *          type="array",
+     *          @OA\Items(ref=@Model(type=Artist::class, groups={"stockage_browse"}))
+     *      )    
+     * )
+     */
+
+    //* Return all stockage
+    public function browse(StockageRepository $stockageRepository): JsonResponse
+    {
+        $allStockage = $stockageRepository->findAll();
+
+        return $this->json(
+            $allStockage,
+            Response::HTTP_OK,
+            // Third's parameter is empty because we need to access fourth parameter
+            [],
+            [
+                "groups" =>
+                [
+                    "stockage_browse"
+                ]
+            ]
+        );
+
+    }
+
  }
