@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\Stockage;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -29,13 +30,14 @@ class StockageController extends AbstractController
      */
 
     //* Upload an image in stockage 
-    public function uploadImage(Request $request, EntityManagerInterface $entityManager)
+    public function uploadImage(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository)
     {
         $image = new Stockage();
 
         $file = $request->files->get('image');
-        $fileUserId = $request->files->get('id');
-        //dd($file);
+        $fileUserId = $request->request->get('id');
+        //dd($fileUserId);
+        
         $fileName = uniqid() . '.' . $file->guessExtension();
 
         try {
@@ -51,9 +53,22 @@ class StockageController extends AbstractController
             );
         }
 
+        // Take user ...
+        $user = $userRepository->find($fileUserId);
+        // dd($user);
+        if (!$user) {
+            return $this->json(
+                'Utilisateur non trouvé',
+                // code 404
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        
+       // dd($user);
+        
         $image->setImage($fileName);
-        $image->setUser($fileUserId);
-
+        $image->setUser($user);
+        // dd($image);
         // persit + flush
         $entityManager->persist($image);
         $entityManager->flush();
@@ -63,9 +78,6 @@ class StockageController extends AbstractController
             // code 200
             Response::HTTP_OK
         );
-
-
-
     }
 
     /**
