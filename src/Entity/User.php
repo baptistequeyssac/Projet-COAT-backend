@@ -26,7 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("artist_read")
      * @Groups("stockage_read")
      * @Groups("stockage_browse")
-     * 
+     * @Groups("organizer_add")
      * 
      */
     private $id;
