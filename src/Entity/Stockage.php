@@ -21,6 +21,7 @@ class Stockage
      * @Groups("user_read")
      * @Groups("stockage_browse")
      * @Groups("stockage_read")
+     * @Groups("organizer_read")
      */
     private $id;
 
@@ -28,6 +29,7 @@ class Stockage
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("stockage_browse")
      * @Groups("stockage_read")
+     * @Groups("organizer_read")
      */
     private $image;
 
