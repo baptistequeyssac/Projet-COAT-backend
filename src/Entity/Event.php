@@ -25,6 +25,9 @@ class Event
      * @Groups("event_read")
      * @Groups("event_add")
      * @Groups("artist_read")
+     * @Groups("artist_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_browse")
      * 
      */
     private $id;
@@ -138,9 +141,9 @@ class Event
     /**
      * @ORM\ManyToMany(targetEntity=Organizer::class, inversedBy="events")
      * 
-     * @Groups("event_browse")
+     * 
      * @Groups("event_read")
-     * @Groups("organizer_add")
+     * @Groups("event_browse")
      * @Groups("event_add")
      */
     private $organizer;

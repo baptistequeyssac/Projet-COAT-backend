@@ -200,7 +200,7 @@ class ArtistController extends AbstractController
             );
         }
 
-        dd($artist);
+        //dd($artist);
          return $this->json(
             $artist,
             // code 200

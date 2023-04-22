@@ -25,6 +25,8 @@ class Organizer
      * @Groups("organizer_read")
      * @Groups("user_read")
      * @Groups("organizer_add")
+     * @Groups("event_browse")
+     * 
      */
     private $id;
 
@@ -34,7 +36,7 @@ class Organizer
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
      * @Groups("organizer_add")
-     * @Groups("event_read")
+     * 
      */
     private $name;
 
@@ -73,7 +75,7 @@ class Organizer
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
      * @Groups("organizer_add")
-     * @Groups("event_read")
+     * 
      */
     private $logo;
 
@@ -94,12 +96,13 @@ class Organizer
      * @Groups("organizer_add")
      */
     private $phone;
-
+//! ICI boucle infini 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="organizer")
      * 
      * @Groups("organizer_browse")
      * @Groups("organizer_read")
+     * 
      * 
      */
     private $events;

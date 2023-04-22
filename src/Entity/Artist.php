@@ -26,6 +26,7 @@ class Artist
      * @Groups("artist_read")
      * @Groups("user_read")
      * @Groups("artist_add")
+     * @Groups("event_browse")
      */
     private $id;
 
