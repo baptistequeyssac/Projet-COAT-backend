@@ -1,17 +1,54 @@
-@font-face {
+@font-face 
+{
     font-family: Dosis;
     src: url(/src/assets/Dosis-VariableFont_wght.ttf);
 }
 
-@font-face {
+@font-face 
+{
     font-family: mandala;
     src: url(/src/assets/MandalaVintage-d9VVl.ttf);
 }
 
-.title_navbar {
-    font-family: 'Dosis';
+.title-navbar 
+{
+    font-family: 'mandala';
 }
 
-body {
+.btn-outline-warning 
+{
+    margin: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.title
+{
+    margin: 1em 0em 0.5em 1em;
+}
+
+.button-position
+{
+    float: right;
+    margin-right: 1.5em;
+}
+
+.add
+{ 
+    margin-left: 1.8em;
+}
+
+.list-group 
+{
+    display: inline-block;    
+}
+
+.container 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body 
+{
     background-image: url(../public/BGBackOffice.png);
 }

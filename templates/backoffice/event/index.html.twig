@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Event index{% endblock %}
+{% block title %}Liste des événement{% endblock %}
 
 {% block body %}
-    <h1>Event index</h1>
-
-    <table class="table">
+    <h1 class= "title fs-3 text">Liste des événement</h1>
+    <a class="add" href="{{ path('app_backoffice_event_new') }}"><button type="button" class="btn btn-outline-success">Ajouter</button></a>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -20,7 +20,7 @@
                 <th>Frequency</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -39,8 +39,8 @@
                 <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_backoffice_event_show', {'id': event.id}) }}">show</a>
-                    <a href="{{ path('app_backoffice_event_edit', {'id': event.id}) }}">edit</a>
+                    <a href="{{ path('app_backoffice_event_show', {'id': event.id}) }}"><button type="button" class="btn btn-outline-dark">Afficher</button></a>
+                    <a href="{{ path('app_backoffice_event_edit', {'id': event.id}) }}"><button type="button" class="btn btn-outline-warning">Éditer</button></a>
                 </td>
             </tr>
         {% else %}
@@ -51,5 +51,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_backoffice_event_new') }}">Create new</a>
+
 {% endblock %}

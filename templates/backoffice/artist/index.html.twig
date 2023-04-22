@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Artist index{% endblock %}
+{% block title %}Liste des artistes{% endblock %}
 
 {% block body %}
-    <h1>Artist index</h1>
-
-    <table class="table">
+    <h1 class="title fs-3 text">Liste des artistes</h1>
+    <a class="add" href="{{ path('app_backoffice_artist_new') }}"><button type="button" class="btn btn-outline-success">Ajouter</button></a>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -20,7 +20,7 @@
                 <th>Address</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -39,8 +39,8 @@
                 <td>{{ artist.createdAt ? artist.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ artist.updatedAt ? artist.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_backoffice_artist_show', {'id': artist.id}) }}">show</a>
-                    <a href="{{ path('app_backoffice_artist_edit', {'id': artist.id}) }}">edit</a>
+                    <a class="button-position" href="{{ path('app_backoffice_artist_show', {'id': artist.id}) }}"><button type="button" class="btn btn-outline-dark">Afficher</button></a>
+                    <a class="button-position" href="{{ path('app_backoffice_artist_edit', {'id': artist.id}) }}"><button type="button" class="btn btn-outline-warning">Éditer</button></a>
                 </td>
             </tr>
         {% else %}
@@ -51,5 +51,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_backoffice_artist_new') }}">Create new</a>
+    
 {% endblock %}

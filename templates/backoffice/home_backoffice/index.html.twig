@@ -6,6 +6,15 @@ Backoffice COAT
 
 
 {% block body %}
-    <h1>Bienvenu dans le Backoffice de COAT !</h1>
+    <h1 class="fs-3 text">Bienvenue dans le Backoffice de COAT !</h1>
+    <p>A partir de cette espace, vous pouvez administrer facilement la base de donnée.</p>
+    <p>Ci-dessous, vous pouvez accéder directement aux entités qui vous intéresses :</p>
+    <div class="list-group">
+        <button type="button" class="list-group-item list-group-item-action"><a class="text-dark" href="{{ path("app_backoffice_artist_index")}}">Artiste</a></button>
+        <button type="button" class="list-group-item list-group-item-action"><a class="text-dark" href="{{ path("app_backoffice_event_index")}}">Événement</a></button>
+        <button type="button" class="list-group-item list-group-item-action"><a class="text-dark" href="{{ path("app_backoffice_organizer_index")}}">Organisateur</a></button>
+        <button type="button" class="list-group-item list-group-item-action">Penser à ajouter d'autres entités...</button>
+    </div>
+    
 {% endblock %}
 
