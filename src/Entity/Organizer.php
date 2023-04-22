@@ -26,6 +26,7 @@ class Organizer
      * @Groups("user_read")
      * @Groups("organizer_add")
      * @Groups("event_browse")
+     * @Groups("event_read")
      * 
      */
     private $id;
