@@ -36,7 +36,6 @@ class Stockage
     private $document;
 
     /**
-     * @ORM\Column(nullable=true)
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stockages")
      * @ORM\JoinColumn(nullable=false)
      */

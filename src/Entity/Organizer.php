@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+
 use App\Repository\OrganizerRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\User;
+
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**

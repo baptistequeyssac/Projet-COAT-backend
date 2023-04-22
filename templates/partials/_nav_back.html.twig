@@ -9,15 +9,19 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
-            <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+            <a class="nav-link active text-light" aria-current="page" href="{{ path("app_backoffice_home_backoffice")}}">Home</a>
+            </li>
+            {# <li class="nav-item">
+            <a class="nav-link text-light" href="{{ path("app_backoffice_admin")}}">Administrateur</a>
+            </li> #}
+            <li class="nav-item">
+            <a class="nav-link text-light" href="{{ path("app_backoffice_artist_index")}}">Artiste</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link text-light" href="#">Item1</a>
+            <a class="nav-link text-light" href="{{ path("app_backoffice_event_index")}}">Événement</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link text-light" href="#">Item2</a>
-            </li>
-            <li class="nav-item dropdown">         
+            <a class="nav-link text-light" href="{{ path("app_backoffice_organizer_index")}}">Organisateur</a>
             </li>
         </ul>
         </div>
