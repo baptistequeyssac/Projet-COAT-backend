@@ -46,9 +46,11 @@ class Stockage
     private $document;
 
     /**
+
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stockages", fetch="EAGER")
      * @Groups("stockage_browse")
      * @Groups("stockage_read")
+
      */
     private $user;
 

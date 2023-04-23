@@ -191,6 +191,12 @@ class Event
         $this->stockages = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+
     /**
      * @ORM\PrePersist
      */
