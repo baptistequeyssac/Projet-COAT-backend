@@ -3,9 +3,9 @@
 {% block title %}New Organizer{% endblock %}
 
 {% block body %}
-    <h1>Create new Organizer</h1>
+    <h1 class="title fs-3 text">Ajouter un organisateur</h1>
 
     {{ include('backoffice/organizer/_form.html.twig') }}
 
-    <a href="{{ path('app_backoffice_organizer_index') }}">back to list</a>
+     <a  href="{{ path('app_backoffice_organizer_index') }}"><button type="button" class="btn btn-outline-dark">Retour à liste</button></a>
 {% endblock %}

@@ -3,9 +3,9 @@
 {% block title %}New Event{% endblock %}
 
 {% block body %}
-    <h1>Create new Event</h1>
+    <h1 class="title fs-3 text">Ajouter un nouvel événement</h1>
 
     {{ include('backoffice/event/_form.html.twig') }}
 
-    <a href="{{ path('app_backoffice_event_index') }}">back to list</a>
+     <a  href="{{ path('app_backoffice_event_index') }}"><button type="button" class="btn btn-outline-dark">Retour à liste</button></a>
 {% endblock %}

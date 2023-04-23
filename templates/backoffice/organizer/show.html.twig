@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Organizer{% endblock %}
+{% block title %}L'organisateur : {{ organizer.name }}{% endblock %}
 
 {% block body %}
-    <h1>Organizer</h1>
+    <h1 class="title fs-3 text">Information de l'organisateur : {{ organizer.name }}</h1>
 
     <table class="table">
         <tbody>
@@ -50,9 +50,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_backoffice_organizer_index') }}">back to list</a>
+    <a  href="{{ path('app_backoffice_organizer_index') }}"><button type="button" class="btn btn-outline-dark">Retour à liste</button></a>
 
-    <a href="{{ path('app_backoffice_organizer_edit', {'id': organizer.id}) }}">edit</a>
+    <a href="{{ path('app_backoffice_organizer_edit', {'id': organizer.id}) }}"><button type="button" class="btn btn-outline-warning">Éditer</button></a>
 
     {{ include('backoffice/organizer/_delete_form.html.twig') }}
 {% endblock %}
