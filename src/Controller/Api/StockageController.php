@@ -88,7 +88,7 @@ class StockageController extends AbstractController
      * @Route("/api/upload_image_event", name="app_api_upload_image_event", methods={"POST"})
      */
 
-    //* Upload an image in stockage 
+    //* Upload an event's image in stockage 
     public function uploadImageEvent(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository)
     {
         $image = new Stockage();

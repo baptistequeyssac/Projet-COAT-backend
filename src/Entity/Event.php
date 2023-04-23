@@ -28,6 +28,8 @@ class Event
      * @Groups("artist_browse")
      * @Groups("organizer_read")
      * @Groups("organizer_browse")
+     * @Groups("stockage_read")
+     * @Groups("stockage_browse")
      * 
      */
     private $id;
