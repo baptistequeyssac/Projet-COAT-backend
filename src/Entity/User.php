@@ -23,7 +23,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("user_browse")
      * @Groups("user_read")
      * @Groups("artist_add")
+     * @Groups("artist_read")
+     * @Groups("artist_browse")
+     * @Groups("stockage_read")
+     * @Groups("stockage_browse")
      * @Groups("organizer_add")
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * 
+     * 
      */
     private $id;
 
@@ -58,7 +66,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      * @Groups("user_browse")
      * @Groups("user_read")
-     * @Groups("organizer_read")
+     * 
+     * @Groups("login_id")
      * 
      */
     private $organizer;
@@ -69,7 +78,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      * @Groups("user_browse")
      * @Groups("user_read")
-     * @Groups("artist_read")
+     * 
+     * @Groups("login_id")
      * 
      */
     private $artist;
@@ -77,10 +87,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Stockage::class, mappedBy="user")
      * 
-     * @Groups("user_browse")
      * 
      */
     private $stockages;
+
+    
 
     public function __construct()
     {
@@ -229,4 +240,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    // public function __toString(): string
+    // {
+    //     return strval($this->id);
+    // }
 }

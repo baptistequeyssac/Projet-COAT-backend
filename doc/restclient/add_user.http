@@ -4,8 +4,8 @@ Content-Type: application/json
 
 
 {
-    "email": "jean@jean",
-    "password": "jean",
+    "email": "jean@jeannn",
+    "password": "jeannn",
     "roles": ["ROLE_ORGANIZER"]
         
 }

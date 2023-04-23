@@ -25,6 +25,11 @@ class Event
      * @Groups("event_read")
      * @Groups("event_add")
      * @Groups("artist_read")
+     * @Groups("artist_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_browse")
+     * @Groups("stockage_read")
+     * @Groups("stockage_browse")
      * 
      */
     private $id;
@@ -138,9 +143,9 @@ class Event
     /**
      * @ORM\ManyToMany(targetEntity=Organizer::class, inversedBy="events")
      * 
-     * @Groups("event_browse")
+     * 
      * @Groups("event_read")
-     * @Groups("organizer_add")
+     * @Groups("event_browse")
      * @Groups("event_add")
      */
     private $organizer;
@@ -174,10 +179,16 @@ class Event
      */
     private $region;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Stockage::class, mappedBy="event")
+     */
+    private $stockages;
+
     public function __construct()
     {
         $this->artist = new ArrayCollection();
         $this->organizer = new ArrayCollection();
+        $this->stockages = new ArrayCollection();
     }
 
     public function __toString()
@@ -409,6 +420,36 @@ class Event
     public function setRegion(?Region $region): self
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stockage>
+     */
+    public function getStockages(): Collection
+    {
+        return $this->stockages;
+    }
+
+    public function addStockage(Stockage $stockage): self
+    {
+        if (!$this->stockages->contains($stockage)) {
+            $this->stockages[] = $stockage;
+            $stockage->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStockage(Stockage $stockage): self
+    {
+        if ($this->stockages->removeElement($stockage)) {
+            // set the owning side to null (unless already changed)
+            if ($stockage->getEvent() === $this) {
+                $stockage->setEvent(null);
+            }
+        }
 
         return $this;
     }

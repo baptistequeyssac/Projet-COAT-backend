@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\StockageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -17,29 +19,49 @@ class Stockage
      * @ORM\Column(type="integer")
      * 
      * @Groups("user_read")
+     * @Groups("stockage_browse")
+     * @Groups("stockage_read")
+     * @Groups("organizer_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("stockage_browse")
+     * @Groups("stockage_read")
+     * @Groups("organizer_read")
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("stockage_browse")
      */
     private $video;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("stockage_browse")
      */
     private $document;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stockages")
-     * @ORM\JoinColumn(nullable=false)
+
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stockages", fetch="EAGER")
+     * @Groups("stockage_browse")
+     * @Groups("stockage_read")
+
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="stockages")
+     * @Groups("stockage_browse")
+     * @Groups("stockage_read")
+     */
+    private $event;
+
+    
 
     public function getId(): ?int
     {
@@ -93,4 +115,18 @@ class Stockage
 
         return $this;
     }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    
 }

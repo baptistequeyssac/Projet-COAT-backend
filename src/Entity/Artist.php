@@ -26,6 +26,7 @@ class Artist
      * @Groups("artist_read")
      * @Groups("user_read")
      * @Groups("artist_add")
+     * @Groups("event_browse")
      */
     private $id;
 
@@ -133,7 +134,8 @@ class Artist
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="artist", cascade={"persist", "remove"})
      * 
      * @Groups("artist_browse") 
-     * @Groups("artist_add") 
+     * @Groups("artist_add")
+     * @Groups("artist_read") 
      */
     private $user;
 
