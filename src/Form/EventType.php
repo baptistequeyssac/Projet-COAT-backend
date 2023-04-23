@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Event;
+use App\Entity\Region;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,18 +17,18 @@ class EventType extends AbstractType
             ->add('title')
             ->add('duration')
             ->add('address')
-            // ->add('price')
+            ->add('price')
             ->add('summary')
-            ->add('poster')
             ->add('date')
             ->add('info')
             ->add('frequency')
-            ->add('createdAt')
-            ->add('updatedAt')
             ->add('artist')
             ->add('type')
             ->add('organizer')
-            // ->add('region')
+            ->add('region', EntityType::class, [
+                'class' => Region::class,
+                'choice_label' => 'name',
+            ])
         ;
     }
 
