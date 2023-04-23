@@ -6,6 +6,7 @@ use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TypeRepository::class)
@@ -16,22 +17,39 @@ class Type
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"event_browse"})
+     * @Groups({"event_read"})
+     * @Groups("type_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
+     *
+     * @Groups({"event_browse"})
+     * @Groups({"event_read"})       
+     * @Groups("type_browse")
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="type")
+     * 
+     * @Groups("type_browse")
+     * 
+     * 
      */
     private $events;
 
     public function __construct()
     {
         $this->events = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int

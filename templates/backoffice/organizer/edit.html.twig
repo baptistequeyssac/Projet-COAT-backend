@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}L'organisateur : {{ organizer.name }}{% endblock %}
+{% block body %}
+    <h1 class="title fs-3 text">Éditer l'organisateur : {{ organizer.name }}</h1>
+
+    {{ include('backoffice/organizer/_form.html.twig', {'button_label': 'Update'}) }}
+
+     <a  href="{{ path('app_backoffice_organizer_index') }}"><button type="button" class="btn btn-outline-dark">Retour à liste</button></a>
+
+    {{ include('backoffice/organizer/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Artist{% endblock %}
+
+{% block body %}
+    <h1 class="title fs-3 text">Ajouter un nouvel artiste</h1>
+
+    {{ include('backoffice/artist/_form.html.twig') }}
+
+    <a  href="{{ path('app_backoffice_artist_index') }}"><button type="button" class="btn btn-outline-dark">Retour à liste</button></a>
+{% endblock %}

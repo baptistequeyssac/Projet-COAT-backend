@@ -1,0 +1,19 @@
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+    "title": "Club À test1213212",
+    "duration": 10,
+    "address" :"4 rue du biniou",
+    "price": "5",
+    "summary": "Venez nombreux blablabla",
+    "poster": "zzzzzzzzz",
+    "date": "10-04-2023",
+    "info": "blabla",
+    "frequency": "régulière",
+    // use array for artist and organizer because we use a ManyToMany relation
+    "artist": [9],
+    "organizer": [4],
+    "region": 3,
+    "type": 2    
+}

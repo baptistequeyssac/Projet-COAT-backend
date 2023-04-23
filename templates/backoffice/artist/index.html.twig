@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des artistes{% endblock %}
+
+{% block body %}
+    <h1 class="title fs-3 text">Liste des artistes</h1>
+    <a class="add" href="{{ path('app_backoffice_artist_new') }}"><button type="button" class="btn btn-outline-success">Ajouter</button></a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pseudo</th>
+                <th>Name</th>
+                <th>FirstName</th>
+                <th>Birthdate</th>
+                <th>Image</th>
+                <th>Bio</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for artist in artists %}
+            <tr>
+                <td>{{ artist.id }}</td>
+                <td>{{ artist.pseudo }}</td>
+                <td>{{ artist.name }}</td>
+                <td>{{ artist.firstName }}</td>
+                <td>{{ artist.birthdate ? artist.birthdate|date('Y-m-d') : '' }}</td>
+                <td>{{ artist.image }}</td>
+                <td>{{ artist.bio }}</td>
+                <td>{{ artist.email }}</td>
+                <td>{{ artist.phone }}</td>
+                <td>{{ artist.address }}</td>
+                <td>{{ artist.createdAt ? artist.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ artist.updatedAt ? artist.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a class="button-position" href="{{ path('app_backoffice_artist_show', {'id': artist.id}) }}"><button type="button" class="btn btn-outline-dark">Afficher</button></a>
+                    <a class="button-position" href="{{ path('app_backoffice_artist_edit', {'id': artist.id}) }}"><button type="button" class="btn btn-outline-warning">Éditer</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

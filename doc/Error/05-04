@@ -1,0 +1,100 @@
+student@teleporter:/var/www/html/Apotheose/projet-01-comedy-among-other-things-back$ php bin/console cache:clear
+
+ // Clearing the cache for the dev environment with debug true                                                          
+
+
+
+In FileLoader.php line 174:
+                                                                                                                                                                                                              
+  [Syntax Error] Expected Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES, got 'artist_read' at position 381 in method App\Controller\Api\OrganizerController::add() in /var/www/html/Apotheose/p  
+  rojet-01-comedy-among-other-things-back/config/routes/../../src/Controller/ (which is being imported from "/var/www/html/Apotheose/projet-01-comedy-among-other-things-back/config/routes/annotations.yaml  
+  "). Make sure to use PHP 8+ or that annotations are installed and enabled.                                                                                                                                  
+                                                                                                                                                                                                              
+
+In AnnotationException.php line 26:
+                                                                                                                                                                                  
+  [Syntax Error] Expected Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES, got 'artist_read' at position 381 in method App\Controller\Api\OrganizerController::add().  
+                                                                                                                                                                                  
+
+cache:clear [--no-warmup] [--no-optional-warmers]
+
+2023-04-05T15:27:24+02:00 [info] User Deprecated: The "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" class implements "Symfony\Component\Security\Guard\AuthenticatorInterface" that is deprecated since Symfony 5.3, use the new authenticator system instead.
+2023-04-05T15:27:24+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::supports()" might add "bool" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:27:24+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::getUser()" might add "?UserInterface" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:27:24+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::onAuthenticationFailure()" might add "?Response" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:27:24+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::onAuthenticationSuccess()" might add "?Response" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:27:24+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::checkCredentials()" might add "bool" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:27:24+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::createAuthenticatedToken()" might add "GuardTokenInterface" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:27:24+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::supportsRememberMe()" might add "bool" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+student@teleporter:/var/www/html/Apotheose/projet-01-comedy-among-other-things-back$ 
+student@teleporter:/var/www/html/Apotheose/projet-01-comedy-among-other-things-back$ php bin/console cache:clear [--no-warmup] [--no-optional-warmers]
+[critical] Error thrown while running command "cache:clear '[--no-warmup]' '[--no-optional-warmers]'". Message: "No arguments expected for "cache:clear" command, got "[--no-warmup]"."
+
+                                                                         
+  No arguments expected for "cache:clear" command, got "[--no-warmup]".  
+                                                                         
+
+cache:clear [--no-warmup] [--no-optional-warmers]
+
+student@teleporter:/var/www/html/Apotheose/projet-01-comedy-among-other-things-back$ php bin/console cache:clear [--no-warmup]
+[critical] Error thrown while running command "cache:clear '[--no-warmup]'". Message: "No arguments expected for "cache:clear" command, got "[--no-warmup]"."
+
+                                                                         
+  No arguments expected for "cache:clear" command, got "[--no-warmup]".  
+                                                                         
+
+cache:clear [--no-warmup] [--no-optional-warmers]
+
+student@teleporter:/var/www/html/Apotheose/projet-01-comedy-among-other-things-back$ php bin/console cache:clear --no-warmup
+
+ // Clearing the cache for the dev environment with debug true                                                          
+
+                                                                                                                        
+ [OK] Cache for the "dev" environment (debug=true) was successfully cleared.                                            
+                                                                                                                        
+
+student@teleporter:/var/www/html/Apotheose/projet-01-comedy-among-other-things-back$ php bin/console cache:clear
+
+ // Clearing the cache for the dev environment with debug true                                                          
+
+
+In FileLoader.php line 174:
+                                                                                                                                                                                                              
+  [Syntax Error] Expected Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES, got 'artist_read' at position 381 in method App\Controller\Api\OrganizerController::add() in /var/www/html/Apotheose/p  
+  rojet-01-comedy-among-other-things-back/config/routes/../../src/Controller/ (which is being imported from "/var/www/html/Apotheose/projet-01-comedy-among-other-things-back/config/routes/annotations.yaml  
+  "). Make sure to use PHP 8+ or that annotations are installed and enabled.                                                                                                                                  
+                                                                                                                                                                                                              
+
+In AnnotationException.php line 26:
+                                                                                                                                                                                  
+  [Syntax Error] Expected Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES, got 'artist_read' at position 381 in method App\Controller\Api\OrganizerController::add().  
+                                                                                                                                                                                  
+
+cache:clear [--no-warmup] [--no-optional-warmers]
+
+2023-04-05T15:29:06+02:00 [info] User Deprecated: The "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" class implements "Symfony\Component\Security\Guard\AuthenticatorInterface" that is deprecated since Symfony 5.3, use the new authenticator system instead.
+2023-04-05T15:29:06+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::supports()" might add "bool" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:29:06+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::getUser()" might add "?UserInterface" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:29:06+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::onAuthenticationFailure()" might add "?Response" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:29:06+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::onAuthenticationSuccess()" might add "?Response" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:29:06+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::checkCredentials()" might add "bool" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:29:06+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::createAuthenticatedToken()" might add "GuardTokenInterface" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+2023-04-05T15:29:06+02:00 [info] User Deprecated: Method "Symfony\Component\Security\Guard\AuthenticatorInterface::supportsRememberMe()" might add "bool" as a native return type declaration in the future. Do the same in implementation "Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator" now to avoid errors or add an explicit @return annotation to suppress this message.
+student@teleporter:/var/www/html/Apotheose/projet-01-comedy-among-other-things-back$ php bin/console cache:clear --no-optional-warmup
+[critical] Error thrown while running command "cache:clear --no-optional-warmup". Message: "The "--no-optional-warmup" option does not exist."
+
+                                                     
+  The "--no-optional-warmup" option does not exist.  
+                                                     
+
+cache:clear [--no-warmup] [--no-optional-warmers]
+
+student@teleporter:/var/www/html/Apotheose/projet-01-comedy-among-other-things-back$ php bin/console cache:clear --no-optional-warmers
+
+ // Clearing the cache for the dev environment with debug true                                                          
+
+                                                                                                                        
+ [OK] Cache for the "dev" environment (debug=true) was successfully cleared.     
+ 
+ //* php bin/console cache:clear --no-optional-warmers
+ // la commande "php bin/console cache:clear --no-optional-warmers" efface le cache de l'application Symfony tout en désactivant l'exécution des "warmers" optionnels pour accélérer le processus de nettoyage du cache.

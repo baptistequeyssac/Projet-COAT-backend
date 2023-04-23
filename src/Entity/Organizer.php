@@ -2,13 +2,19 @@
 
 namespace App\Entity;
 
+
 use App\Repository\OrganizerRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ORM\Entity(repositoryClass=OrganizerRepository::class)
+ * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Organizer
 {
@@ -16,78 +22,147 @@ class Organizer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("user_read")
+     * @Groups("organizer_add")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_add")
+     * @Groups("event_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_add")
+     * 
+
      */
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true)
+     * @ORM\Column(type="boolean", length=1, nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $type;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_add")
+     * @Groups("event_read")
      */
     private $logo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $email;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $phone;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="organizer")
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * 
      */
     private $events;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="organizer", cascade={"persist", "remove"})
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_add")
+     * 
      */
     private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="organizers")
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("artist_read")
+     * @Groups("organizer_add")
      */
     private $artist;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("organizer_add")
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="organizers")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("status_read")
+     * @Groups("organizer_add")
+     * 
      */
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\ManyToOne(targetEntity=Region::class , cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("organizer_browse")
+     * @Groups("organizer_read")
+     * @Groups("region_read")
+     * @Groups("organizer_add")
      */
     private $region;
 
@@ -95,6 +170,29 @@ class Organizer
     {
         $this->events = new ArrayCollection();
         $this->artist = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtDefaultValue(): void
+    {
+        // automation of createdAt's date
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate(): void
+    {
+        // automation of updateAt's date
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -254,24 +352,24 @@ class Organizer
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(?\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 

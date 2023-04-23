@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\StatusRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=StatusRepository::class)
+ * 
+ * 
  */
 class Status
 {
@@ -16,16 +18,31 @@ class Status
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"organizer_browse"})
+     * @Groups({"organizer_read"})
+     * @Groups("status_browse")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
+     * 
+     * @Groups({"organizer_browse"})
+     * @Groups({"organizer_read"})
+     * @Groups("status_browse")
+     *  
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Organizer::class, mappedBy="status")
+     * 
+     * @Groups("status_browse")
+     * 
+     * 
+     * 
      */
     private $organizers;
 

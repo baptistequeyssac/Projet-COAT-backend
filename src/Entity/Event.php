@@ -6,9 +6,13 @@ use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
+ * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Event
 {
@@ -16,83 +20,157 @@ class Event
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
+     * @Groups("artist_read")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
+     * @Groups("artist_read")
+     * 
      */
     private $title;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $duration;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $address;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $price;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $summary;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("artist_read")
+     * @Groups("event_add")
      */
     private $poster;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $date;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $info;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $frequency;
-    
+    // TODO ajouter un group artist_add ou event_add pour éviter circular ref
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
+     * 
+     * 
      */
     private $artist;
 
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("type_read")
+     * @Groups("event_add")
      */
     private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity=Organizer::class, inversedBy="events")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("organizer_add")
+     * @Groups("event_add")
      */
     private $organizer;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("event_add")
      */
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\ManyToOne(targetEntity=Region::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("event_browse")
+     * @Groups("event_read")
+     * @Groups("region_read")
+     * @Groups("event_add")
      */
     private $region;
 
@@ -100,6 +178,30 @@ class Event
     {
         $this->artist = new ArrayCollection();
         $this->organizer = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtDefaultValue(): void
+    {
+        // automation of createdAt's date
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate(): void
+    {
+        // automation of updateAt's date
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -275,24 +377,24 @@ class Event
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(?\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 

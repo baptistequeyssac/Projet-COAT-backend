@@ -3,12 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\ArtistRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=ArtistRepository::class)
+ * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Artist
 {
@@ -16,87 +21,159 @@ class Artist
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("user_read")
+     * @Groups("artist_add")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
+     * @Groups("event_read")
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="date")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $birthdate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $image;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $bio;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $email;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $phone;
    
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $address;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artists")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $category;
-
+// TODO ajouter un group artist_add ou event_add pour éviter circular ref
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="artist")
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * 
+     * 
      */
     private $events;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="artist", cascade={"persist", "remove"})
+     * 
+     * @Groups("artist_browse") 
+     * @Groups("artist_add") 
      */
     private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Organizer::class, mappedBy="artist")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("organizer_read")
+     * @Groups("artist_add")
      */
     private $organizers;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("artist_add")
      */
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\ManyToOne(targetEntity=Region::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("artist_browse")
+     * @Groups("artist_read")
+     * @Groups("region_read")
+     * @Groups("artist_add")
+     * 
      */
     private $region;
 
@@ -107,6 +184,30 @@ class Artist
         $this->organizers = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtDefaultValue(): void
+    {
+        // automation of createdAt's date
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate(): void
+    {
+        // automation of updateAt's date
+        $this->updatedAt = new \DateTime();
+    }
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -315,24 +416,24 @@ class Artist
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
