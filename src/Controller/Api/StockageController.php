@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\Stockage;
+use App\Repository\EventRepository;
 use App\Repository\StockageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,6 +72,61 @@ class StockageController extends AbstractController
         
         $image->setImage($fileName);
         $image->setUser($user);
+        // dd($image);
+        // persit + flush
+        $entityManager->persist($image);
+        $entityManager->flush();
+        
+        return $this->json(
+            'Image importé avec succès',
+            // code 200
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * @Route("/api/upload_image_event", name="app_api_upload_image_event", methods={"POST"})
+     */
+
+    //* Upload an image in stockage 
+    public function uploadImageEvent(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository)
+    {
+        $image = new Stockage();
+
+        $file = $request->files->get('image');
+        $fileEventId = $request->request->get('id');
+        //dd($fileEventId);
+        
+        $fileName = uniqid() . '.' . $file->guessExtension();
+
+        try {
+            $file->move(
+                'images',
+                $fileName
+            );
+        } catch (FileException $e) {
+            return $this->json(
+                'Oups, il y a un soucis avec cette image',
+                // code 422
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        // Take event ...
+        $event = $eventRepository->find($fileEventId);
+        // dd($event);
+        if (!$event) {
+            return $this->json(
+                'Utilisateur non trouvé',
+                // code 404
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        
+        //dd($image);
+        
+        $image->setImage($fileName);
+        $image->setEvent($event);
         // dd($image);
         // persit + flush
         $entityManager->persist($image);

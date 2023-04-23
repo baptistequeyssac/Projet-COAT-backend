@@ -177,10 +177,16 @@ class Event
      */
     private $region;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Stockage::class, mappedBy="event")
+     */
+    private $stockages;
+
     public function __construct()
     {
         $this->artist = new ArrayCollection();
         $this->organizer = new ArrayCollection();
+        $this->stockages = new ArrayCollection();
     }
 
     /**
@@ -406,6 +412,36 @@ class Event
     public function setRegion(?Region $region): self
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stockage>
+     */
+    public function getStockages(): Collection
+    {
+        return $this->stockages;
+    }
+
+    public function addStockage(Stockage $stockage): self
+    {
+        if (!$this->stockages->contains($stockage)) {
+            $this->stockages[] = $stockage;
+            $stockage->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStockage(Stockage $stockage): self
+    {
+        if ($this->stockages->removeElement($stockage)) {
+            // set the owning side to null (unless already changed)
+            if ($stockage->getEvent() === $this) {
+                $stockage->setEvent(null);
+            }
+        }
 
         return $this;
     }
