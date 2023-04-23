@@ -22,10 +22,10 @@ class OrganizerType extends AbstractType
             ->add('createdAt')
             ->add('updatedAt')
             ->add('events')
-            ->add('user')
+            // ->add('user')
             ->add('artist')
-            ->add('status')
-            ->add('region')
+            // ->add('status')
+            // ->add('region')
         ;
     }
 

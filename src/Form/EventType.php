@@ -15,7 +15,7 @@ class EventType extends AbstractType
             ->add('title')
             ->add('duration')
             ->add('address')
-            ->add('price')
+            // ->add('price')
             ->add('summary')
             ->add('poster')
             ->add('date')
@@ -26,7 +26,7 @@ class EventType extends AbstractType
             ->add('artist')
             ->add('type')
             ->add('organizer')
-            ->add('region')
+            // ->add('region')
         ;
     }
 

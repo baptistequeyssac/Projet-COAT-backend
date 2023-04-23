@@ -25,9 +25,9 @@ class ArtistType extends AbstractType
             ->add('updatedAt')
             ->add('category')
             ->add('events')
-            ->add('user')
+            // ->add('user')
             ->add('organizers')
-            ->add('region')
+            // ->add('region')
         ;
     }
 
