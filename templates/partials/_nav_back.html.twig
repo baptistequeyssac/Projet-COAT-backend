@@ -26,14 +26,15 @@
                             <a class="fs-4 text nav-link text-light" href="{{ path("app_backoffice_organizer_index")}}">Organisateur</a>
                         </li>
                         <li class="nav-item">
-                            <a class="fs-4 text nav-link text-light logout" href="#">Retour au site</a>
+                        {# "temporary use of app_logout route #}
+                            <a class="fs-4 text nav-link text-light logout" href="{{ path("app_logout")}}">Retour au site</a>
                         </li>
                     </ul>   
                 </div>
             
                 <div class="navbar-nav">
                     
-                        <a class="fs-4 text nav-link text-light logout" href="#">Déconnexion</a>
+                        <a class="fs-4 text nav-link text-light logout" href="{{ path("app_logout")}}">Déconnexion</a>
                     
                 </div>
             
