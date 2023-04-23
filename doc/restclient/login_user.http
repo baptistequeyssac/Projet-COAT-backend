@@ -1,0 +1,8 @@
+POST http://localhost:8080/api/login_check
+//POST http://baptistequeyssac-server.eddi.cloud/projet-01-comedy-among-other-things-back/public/api/login_check
+Content-Type: application/json
+
+{
+"username": "admin@admin.com",
+"password": "admin"
+}

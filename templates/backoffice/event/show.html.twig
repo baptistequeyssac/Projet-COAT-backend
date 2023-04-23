@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}L'événement : {{ event.title }}{% endblock %}
+
+{% block body %}
+    <h1 class="title fs-3 text">Information de l'événement : {{ event.title }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ event.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ event.title }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ event.duration }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ event.address }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ event.price }}</td>
+            </tr>
+            <tr>
+                <th>Summary</th>
+                <td>{{ event.summary }}</td>
+            </tr>
+            <tr>
+                <th>Poster</th>
+                <td>{{ event.poster }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ event.date ? event.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Info</th>
+                <td>{{ event.info }}</td>
+            </tr>
+            <tr>
+                <th>Frequency</th>
+                <td>{{ event.frequency }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a  href="{{ path('app_backoffice_event_index') }}"><button type="button" class="btn btn-outline-dark">Retour à liste</button></a>
+
+    <a href="{{ path('app_backoffice_event_edit', {'id': event.id}) }}"><button type="button" class="btn btn-outline-warning">Éditer</button></a>
+
+    {{ include('backoffice/event/_delete_form.html.twig') }}
+{% endblock %}

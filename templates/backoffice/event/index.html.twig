@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des événement{% endblock %}
+
+{% block body %}
+    <h1 class= "title fs-3 text">Liste des événement</h1>
+    <a class="add" href="{{ path('app_backoffice_event_new') }}"><button type="button" class="btn btn-outline-success">Ajouter</button></a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Duration</th>
+                <th>Address</th>
+                <th>Price</th>
+                <th>Summary</th>
+                <th>Poster</th>
+                <th>Date</th>
+                <th>Info</th>
+                <th>Frequency</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.duration }}</td>
+                <td>{{ event.address }}</td>
+                <td>{{ event.price }}</td>
+                <td>{{ event.summary }}</td>
+                <td>{{ event.poster }}</td>
+                <td>{{ event.date ? event.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.info }}</td>
+                <td>{{ event.frequency }}</td>
+                <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_backoffice_event_show', {'id': event.id}) }}"><button type="button" class="btn btn-outline-dark">Afficher</button></a>
+                    <a href="{{ path('app_backoffice_event_edit', {'id': event.id}) }}"><button type="button" class="btn btn-outline-warning">Éditer</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

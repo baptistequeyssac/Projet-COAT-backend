@@ -1,0 +1,88 @@
+@font-face 
+{
+    font-family: Dosis;
+    src: url(/src/assets/Dosis-VariableFont_wght.ttf);
+}
+
+@font-face 
+{
+    font-family: mandala;
+    src: url(/src/assets/MandalaVintage-d9VVl.ttf);
+}
+
+.title-navbar 
+{
+    font-family: 'mandala';
+}
+
+.btn-outline-warning 
+{
+    margin: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.title
+{
+    margin: 0em 0em 1.8em 1em;
+}
+
+.button-position
+{
+    float: right;
+    margin-right: 1.5em;
+}
+
+.navbar-ul
+{
+    display: flex;
+}
+
+.navbar-flex
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-fluid
+{
+    align-items: center;
+}
+
+.add
+{ 
+    margin-left: 1.8em;
+}
+
+.left-margin
+{
+    margin-left: 1.8em;
+}
+
+.list-group 
+{
+    display: inline-block;
+    margin-left: 1.8em;    
+}
+
+.padding-nav
+{
+    padding-top: 1em;
+}
+
+.navbar
+{
+    margin-bottom: 3em;
+}
+
+.container 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body 
+{
+    background-image: url(../public/BGBackOffice.png);
+    margin-bottom: 5em;
+}

@@ -1,0 +1,31 @@
+:
+:
+:
+has1, 1N Artist, 0N Category
+Category: CodeCategory, Name
+:
+:
+
+:
+:
+has2, 1N Event, 0N Artist
+Artist: CodeArtist, Pseudo, Name, Firstname, Birthdate, Adress, Image, Bio, Email, Phone, Region, created at
+is1, 11 Artist, 01 User
+:
+:
+
+Type: CodeType, Name
+has4, 11 Event, 0N Type
+Event: CodeEvent, Title, Duration, Address, Region, Price, Summary, Poster, Date, Info, Frequency, created at
+add_by, 0N Organizer, 0N Artist
+User: CodeUser, Email, Password, Role
+has3, 0N User, 11 Stockage
+Stockage: CodeStockage, Image, Video, Document
+
+:
+:
+create_by, 1N Event, 0N Organizer
+Organizer: CodeEventsPlaner, Name, Address, Type, Description, Region, Logo, Email, created at
+is2, 11 Organizer, 01 User
+:
+:
