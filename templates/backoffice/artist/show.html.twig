@@ -48,6 +48,10 @@
                 <td>{{ artist.address }}</td>
             </tr>
             <tr>
+                <th>Region</th>
+                <td>{{ artist.region.name }}</td>
+            </tr>
+            <tr>
                 <th>CreatedAt</th>
                 <td>{{ artist.createdAt ? artist.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>

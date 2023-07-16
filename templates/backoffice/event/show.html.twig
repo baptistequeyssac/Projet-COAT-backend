@@ -48,6 +48,10 @@
                 <td>{{ event.frequency }}</td>
             </tr>
             <tr>
+                <th>Region</th>
+                <td>{{ event.region.name }}</td>
+            </tr>
+            <tr>
                 <th>CreatedAt</th>
                 <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>

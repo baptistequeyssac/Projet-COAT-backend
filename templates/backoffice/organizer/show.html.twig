@@ -40,6 +40,10 @@
                 <td>{{ organizer.phone }}</td>
             </tr>
             <tr>
+                <th>Region</th>
+                <td>{{ organizer.region.name }}</td>
+            </tr>
+            <tr>
                 <th>CreatedAt</th>
                 <td>{{ organizer.createdAt ? organizer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>

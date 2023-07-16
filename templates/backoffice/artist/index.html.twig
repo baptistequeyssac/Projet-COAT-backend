@@ -18,6 +18,7 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Address</th>
+                <th>Region</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
                 <th>Actions</th>
@@ -36,6 +37,7 @@
                 <td>{{ artist.email }}</td>
                 <td>{{ artist.phone }}</td>
                 <td>{{ artist.address }}</td>
+                <td>{{ artist.region.name }}</td>
                 <td>{{ artist.createdAt ? artist.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ artist.updatedAt ? artist.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>

@@ -18,6 +18,7 @@
                 <th>Date</th>
                 <th>Info</th>
                 <th>Frequency</th>
+                <th>Region</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
                 <th>Actions</th>
@@ -36,6 +37,7 @@
                 <td>{{ event.date ? event.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ event.info }}</td>
                 <td>{{ event.frequency }}</td>
+                <td>{{ event.region.name }}</td>
                 <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>

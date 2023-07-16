@@ -16,6 +16,7 @@
                 <th>Logo</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Region</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
                 <th>Actions</th>
@@ -32,6 +33,7 @@
                 <td>{{ organizer.logo }}</td>
                 <td>{{ organizer.email }}</td>
                 <td>{{ organizer.phone }}</td>
+                <td>{{ organizer.region.name }}</td>
                 <td>{{ organizer.createdAt ? organizer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ organizer.updatedAt ? organizer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
