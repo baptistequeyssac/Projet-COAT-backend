@@ -85,7 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $artist;
 
     /**
-     * @ORM\OneToMany(targetEntity=Stockage::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Stockage::class, mappedBy="user", cascade={"remove"})
      * 
      * 
      */
